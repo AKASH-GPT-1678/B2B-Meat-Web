@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Outfit:wght@700&display=swap');
+@import "tailwindcss";
+
+
+@layer components {
+  .font-handwriting {
+    font-family: 'Edu NSW ACT Hand Pre', cursive;
+  }
+}
