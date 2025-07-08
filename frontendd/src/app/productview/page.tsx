@@ -8,8 +8,8 @@ import Chicken from "../../../assets/broiler.png"
 // import { ImCross } from "react-icons/im";
 
 const page = () => {
-    
-//   const isLogin = useSelector((state: { user: Initials }) => state.user.sigUpMode);
+
+    //   const isLogin = useSelector((state: { user: Initials }) => state.user.sigUpMode);
     return (
         <div>
 
@@ -50,8 +50,8 @@ const page = () => {
 
             <div>
                 <h1>Others from Selelrs</h1>
-                 <h1>Similar Products</h1>
-                 <h1>Review and Ratings</h1>
+                <h1>Similar Products</h1>
+                <h1>Review and Ratings</h1>
             </div>
         </div>
     )

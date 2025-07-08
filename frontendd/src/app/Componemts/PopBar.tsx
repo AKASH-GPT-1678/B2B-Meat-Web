@@ -4,9 +4,9 @@ export const PopBar = () => {
     const router = useRouter()
     return (
         <div>
-            <div className='flex flex-col'>
-                <ul className='flex flex-col gap-2 bg-white p-5'>
-                    <li style={{ cursor: "pointer", padding: "5px" }}>Login / Register</li>
+            <div className='flex flex-col '>
+                <ul className='flex flex-col gap-2 bg-white p-5 '>
+                    <li className='cursor-pointer p-1' onClick={() => router.push("/login")}>Login / Register</li>
                     <li style={{ cursor: "pointer", padding: "5px" }}>Settings</li>
                     <li style={{ cursor: "pointer", padding: "5px" }}>About Us</li>
                     <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/seller")}>Seller</li>
