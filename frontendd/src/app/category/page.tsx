@@ -1,13 +1,31 @@
 "use client";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { DisplayProd } from '../Componemts/DisplayProd';
-
+import { useQuery } from '@tanstack/react-query';
+import { Product } from '../Componemts/DisplayProd';
+import axios from 'axios';
+import { set } from 'zod/v4-mini';
 const Category = () => {
     const searchParams = useSearchParams();
     const category = searchParams.get('type');
+    const [products, setProducts] = React.useState<Product[]>([]);
 
+    async function getProducts() {
+        try {
+            const response = await axios.get('http://localhost:8080/product/getproducts');
+            console.log(response.data);
+            setProducts(response.data);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            throw new Error('Failed to fetch products');  // ✅ React Query will handle this error
+        }
+    }
 
+   useEffect(() => {
+        getProducts();
+    }, []);
 
 
     return (
@@ -16,10 +34,17 @@ const Category = () => {
             <h1>{category}</h1>
 
             <div className='p-4 flex flex-row gap-10 flex-wrap'>
-                <DisplayProd />
-                <DisplayProd />
-                <DisplayProd />
-                <DisplayProd />
+                {
+                    products.map((item, index) => (
+                        <div key={index}>
+                            <DisplayProd
+                                 {...item}
+                            />
+                        </div>
+                    ))
+                }
+
+
 
             </div>
 

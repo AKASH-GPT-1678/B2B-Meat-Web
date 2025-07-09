@@ -41,8 +41,7 @@ export default function Home() {
         <p className="text-blue-600 underline cursor-pointer">Get Premium</p>
       </div>
 
-      {/* SignUp Modal */}
-      {isLogin ? <SignUp /> : null}
+      <CheckoutButton />
 
 
     </div>

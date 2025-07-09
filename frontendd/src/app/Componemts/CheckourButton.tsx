@@ -7,7 +7,7 @@ import Script from "next/script";
 
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
-  const [price, setprice] = React.useState(100);
+  const [price, setprice] = React.useState(10);
 
   const handlePayment = async () => {
     try {

@@ -23,7 +23,7 @@ export const Categories = () => {
         {Foods.map((item, index) => (
           <div key={index} className='w-[200px] h-[200px] bg-amber-50 flex flex-col gap-2 justify-center items-center cursor-pointer shadow-2xl rounded-xl' onClick={() => setParams(item.name)}>
 
-            <Image src={item.image} alt={item.name} className='size-30 rounded-full' />
+            <Image src={item.image}  alt={item.name} className='size-30 rounded-full' />
 
             <strong>{item.name}</strong>
 
