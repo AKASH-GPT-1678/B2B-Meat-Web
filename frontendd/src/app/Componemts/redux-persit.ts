@@ -5,13 +5,16 @@ import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist
 // import  {getallProjects}  from "./projectredux";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
 import { userState } from "./redux";
-export type Initials = {
+import { set } from "zod/v4-mini";
+export type InitialsD = {
     token: string | null,
+    googleVerified: string | null
 
 }
 
-const initialState: Initials = {
-    token: null
+const initialState: InitialsD = {
+    token: null,
+    googleVerified: null
 }
 
 interface Storage {
@@ -46,17 +49,20 @@ const dataState = createSlice({
 
         setToken: (state, action: PayloadAction<string>) => {
             state.token = action.payload
+        },
+        setGoogleVerified: (state, action: PayloadAction<string>) => {
+            state.googleVerified = action.payload
         }
 
     }
 })
 
-export const { setToken } = dataState.actions;
+export const { setToken, setGoogleVerified } = dataState.actions;
 
 
 const rootReducer = combineReducers({
-  data: dataState.reducer,      // will be persisted
-  user: userState.reducer       // will NOT be persisted
+    data: dataState.reducer,      // will be persisted
+    user: userState.reducer       // will NOT be persisted
 });
 
 
@@ -71,14 +77,14 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store2 = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        // Ignore redux-persist actions
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                // Ignore redux-persist actions
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
 
 });
 

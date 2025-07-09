@@ -7,10 +7,14 @@ const GoogleVerification = () => {
 
     const { data: session, status } = useSession();
     const searchparam = useSearchParams();
-    const state = searchparam.get("state");
 
 
+    const state = searchparam.get("google")
     useEffect(() => {
+        const state = searchparam.get("google");
+        if (!state) {
+            window.location.href = "/";
+        }
 
     }, []);
 
@@ -19,6 +23,7 @@ const GoogleVerification = () => {
         <div>
             <h1>{JSON.stringify(session?.user)}</h1>
             <p>{session?.expires}</p>
+            <h1>{state}</h1>
             {status}
         </div>
     )
