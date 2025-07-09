@@ -19,18 +19,19 @@ export default function Home() {
     <div className="relative">
 
 
-      <Header />
+
+      <div>
+              <Header />
+
+      </div>
 
 
 
 
 
       <div >
-
-        <Middle />
-
-        {/* Categories Centered */}
-        <div className="flex justify-center">
+     
+        <div className="flex justify-center mt-10">
           <Categories />
         </div>
       </div>

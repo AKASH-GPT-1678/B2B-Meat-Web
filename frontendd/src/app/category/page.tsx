@@ -13,7 +13,7 @@ const Category = () => {
 
     async function getProducts() {
         try {
-            const response = await axios.get('http://localhost:8080/product/getproducts');
+            const response = await axios.get('http://localhost:8080/product/getproduct?type=' + category);
             console.log(response.data);
             setProducts(response.data);
             return response.data;

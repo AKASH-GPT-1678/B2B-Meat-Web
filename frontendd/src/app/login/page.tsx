@@ -1,10 +1,12 @@
+"use client";
 import React from 'react'
 import { Login } from '../Componemts/Login'
+import { SignUp } from '../Componemts/SignUp';
 
 const LoginPage = () => {
   return (
-    <div>
-        <Login/>
+    <div className='flex items-center justify-center'>
+       <SignUp/>
       
     </div>
   )

@@ -1,15 +1,18 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { set } from "zod/v4-mini";
 
 export type Initials = {
     sigUpMode : boolean,
-    loginMode : boolean
+    loginMode : boolean,
+    isLoggedIn : boolean
 }
 
 const initialState : Initials = {
     sigUpMode : false,
-    loginMode : false
+    loginMode : false,
+    isLoggedIn : false
 }
-const userState = createSlice({
+export const userState = createSlice({
     name : "User",
     initialState,
     reducers : {
@@ -18,6 +21,9 @@ const userState = createSlice({
         },
         loginMode : (state , action : PayloadAction<boolean>) => {
             state.loginMode = action.payload
+        },
+        setIsLoggedIn : (state , action : PayloadAction<boolean>) => {
+            state.isLoggedIn = action.payload
         }   
     }
 })
