@@ -10,15 +10,17 @@ import { InitialsD, setGoogleVerified } from './redux-persit';
 import { IoIosArrowBack } from "react-icons/io";
 import { signIn, useSession } from 'next-auth/react';
 import crypto from 'crypto';
-import { set } from 'zod/v4-mini';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { Login } from './Login';
 export const SignUp = () => {
 
 
     const [userEmail, setUserEmail] = React.useState("");
+    const [isOtp, setIsOtp] = React.useState(false);
     const dispatch = useDispatch();
-    const isLogin = useSelector((state: { user: Initials }) => state.user.loginMode);
-    const GoogleString = useSelector((state: { user: InitialsD }) => state.user.googleVerified);
+    const router = useRouter();
+
     const session = useSession({
         required: true,
         // onUnauthenticated() {
@@ -44,11 +46,14 @@ export const SignUp = () => {
 
             const response = await axios.get(`http://localhost:8080/auth/userVerify?email=${userEmail}`);
             console.log(response.data);
-            if (response.data.status == "OTP Verification") {
-                window.location.href = `/verify?email=${userEmail}&mode=otp`;
+            console.log(response.data.method);
+            console.log(response.data.method && typeof response.data.method);
+            if (response.data.method == 'Otp') {
+                router.push("/verify") 
 
-            } else if (response.data.status == "Password verification") {
-                window.location.href = `/verify?email=${userEmail}&mode=password`;
+            } else if (response.data.method == "password") {
+
+                router.push("/verify")
 
 
             }
@@ -80,7 +85,7 @@ export const SignUp = () => {
 
                 {/* LEFT SIDE */}
                 <div className='w-full lg:w-1/2 bg-white rounded-2xl p-6 flex flex-col justify-center'>
-                    {isLogin ? (
+                    {/* {isLogin ? (
                         <div className='w-full sm:w-[350px] h-auto flex flex-col gap-4'>
 
                             <div className='flex flex-row gap-3 items-center'>
@@ -106,9 +111,9 @@ export const SignUp = () => {
                             </div>
 
                         </div>
-                    ) : (
-                        <div className='flex flex-col gap-6'>
-                            <h1 className='font-extrabold text-3xl'>Log in or sign up in seconds</h1>
+                    ) : ( */}
+                    {/* <div className='flex flex-col gap-6'> */}
+                    {/* <h1 className='font-extrabold text-3xl'>Log in or sign up in seconds</h1>
                             <p className='font-semibold'>Use your email or another service to continue with Meatruck (it’s free)!</p>
 
                             <div
@@ -127,9 +132,14 @@ export const SignUp = () => {
 
                             <p className='text-sm'>By continuing, you agree to Canva’s Terms of Use. Read our Privacy Policy.</p>
                         </div>
-                    )}
+                    )} */}
 
-                    <h1>{GoogleString}</h1>
+
+
+
+                    <Login />
+
+
                 </div>
 
                 {/* RIGHT SIDE IMAGE */}

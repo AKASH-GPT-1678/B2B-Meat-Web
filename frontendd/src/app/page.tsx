@@ -2,18 +2,18 @@
 import { Middle } from "./Componemts/Middle";
 import { Header } from "./Componemts/Header";
 import { Categories } from "./Componemts/Categories";
-import { DisplayProducts } from "./Componemts/Mydisplay";
-import { useSelector } from "react-redux";
-import { Initials } from "./Componemts/redux";
-import { SignUp } from "./Componemts/SignUp";
-import { signIn } from "next-auth/react";
-import { DisplayProd } from "./Componemts/DisplayProd";
-import CheckoutButton from "./Componemts/CheckourButton";
+import { setGoogleVerified } from "./Componemts/redux-persit";
+import { useAppSelector , useAppDispatch} from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { setToken } from "./Componemts/redux-persit";
 export default function Home() {
   const data = useSession();
+  
 
-  const isLogin = useSelector((state: { user: Initials }) => state.user.sigUpMode);
+  const dispatch = useAppDispatch();
+  const isLogin1 = useAppSelector((state) => state.data.token);
+
 
   return (
     <div className="relative">
@@ -21,7 +21,7 @@ export default function Home() {
 
 
       <div>
-              <Header />
+        <Header />
 
       </div>
 
@@ -30,7 +30,7 @@ export default function Home() {
 
 
       <div >
-     
+
         <div className="flex justify-center mt-10">
           <Categories />
         </div>
@@ -40,9 +40,12 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center my-4 text-center space-y-1">
         <p className="font-semibold">Only Premium Buyers can contact and view Sellers</p>
         <p className="text-blue-600 underline cursor-pointer">Get Premium</p>
+        <button onClick={()=>dispatch(setToken("Bhosdi wala"))}>Login Maar</button>
+        <button onClick={() => dispatch(setGoogleVerified("Namaskar"))}></button>
+        <h1>{isLogin1}</h1>
       </div>
 
-      <CheckoutButton />
+
 
 
     </div>

@@ -1,10 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import { setToken } from "./redux-persit";
+import { useDispatch } from "react-redux";
 
 export default function PasswordVerify({ email }: { email: string }) {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const dispatch = useDispatch();
 
     const handleSubmit = async () => {
         try {
@@ -14,6 +17,7 @@ export default function PasswordVerify({ email }: { email: string }) {
             });
 
             setMessage(response.data.message || "Password verified successfully!");
+            dispatch(setToken(response.data.token));
             console.log(response.data)
         } catch (error: any) {
             setMessage(error?.response?.data?.message || "Verification failed.");

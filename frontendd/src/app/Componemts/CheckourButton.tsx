@@ -4,12 +4,18 @@ import { useState } from "react";
 import { createOrderId } from "./OrderId";
 import axios from "axios";
 import Script from "next/script";
-
+import { checkToken } from "@/utils/Checktoken";
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const [price, setprice] = React.useState(10);
 
+  
+
   const handlePayment = async () => {
+    const reponse = await checkToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1sZXNoLmd1cHRhQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUyMDgzNjk2LCJleHAiOjE3NTIwODU0OTZ9.aqf96I5AVJlPCgFirDaFFLrSW-B5ghovbSVtNEN8XIQ");
+    if(reponse?.data.status != true){
+      return;
+    }
     try {
       const orderId = await createOrderId(price, "INR");
 
@@ -26,6 +32,8 @@ export default function CheckoutButton() {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
             });
+
+            const upGradeStatus = await axios.post("/api/upgradeUser");
 
             alert("Payment Successful!");
             console.log(paymentResponse.data);

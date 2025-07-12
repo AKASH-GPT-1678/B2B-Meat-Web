@@ -6,9 +6,9 @@ import { IoSearch } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { signUpMode } from './redux';
 import { PopBar } from './PopBar';
-import { div } from 'framer-motion/client';
 import Image from 'next/image';
 import Lbiryani from "../../../assets/biryani3.png"
+import CheckoutButton from './CheckourButton';
 export const Header = () => {
     const dispatch = useDispatch();
 
@@ -45,6 +45,7 @@ export const Header = () => {
 
 
                     <FaRegUserCircle className='size-8  lg:size-10 cursor-pointer' onClick={() => dispatch(signUpMode())} />
+                        <CheckoutButton/>
 
 
 

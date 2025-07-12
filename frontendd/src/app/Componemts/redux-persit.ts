@@ -1,15 +1,12 @@
+// redux-persist.ts (Fixed Redux Store)
 import { combineReducers, configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import { persistReducer, persistStore } from "redux-persist";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-// import  {getallProjects}  from "./projectredux";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
-import { userState } from "./redux";
-import { set } from "zod/v4-mini";
-export type InitialsD = {
-    token: string | null,
-    googleVerified: string | null
 
+export type InitialsD = {
+    token: string | null;
+    googleVerified: string | null;
 }
 
 const initialState: InitialsD = {
@@ -26,53 +23,46 @@ interface Storage {
 const createNoopStorage = (): Storage => {
     return {
         getItem(_key: string): Promise<string | null> {
-            console.log(_key)
+            console.log(_key);
             return Promise.resolve(null);
         },
         setItem(_key: string, value: string): Promise<string> {
-            console.log(_key)
+            console.log(_key);
             return Promise.resolve(value);
         },
         removeItem(_key: string): Promise<void> {
-            console.log(_key)
+            console.log(_key);
             return Promise.resolve();
         }
     };
 };
+
 const storage = typeof window !== "undefined" ? createWebStorage("local") : createNoopStorage();
 
-
 const dataState = createSlice({
-    name: "Data",
+    name: "data",
     initialState,
     reducers: {
-
         setToken: (state, action: PayloadAction<string>) => {
-            state.token = action.payload
+            state.token = action.payload;
         },
         setGoogleVerified: (state, action: PayloadAction<string>) => {
-            state.googleVerified = action.payload
+            state.googleVerified = action.payload;
         }
-
     }
-})
+});
 
 export const { setToken, setGoogleVerified } = dataState.actions;
 
-
 const rootReducer = combineReducers({
-    data: dataState.reducer,      // will be persisted
-    user: userState.reducer       // will NOT be persisted
+    data: dataState.reducer,
 });
-
-
 
 const persistConfig = {
     key: "root",
     storage: storage,
     whitelist: ["data"]
 };
-
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -81,12 +71,15 @@ export const store2 = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                // Ignore redux-persist actions
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }),
-
 });
 
-
 export const persistor = persistStore(store2);
+
+// Add these type exports (MISSING FROM YOUR ORIGINAL CODE)
+export type RootState = ReturnType<typeof store2.getState>;
+export type AppDispatch = typeof store2.dispatch;
+
+// ---
