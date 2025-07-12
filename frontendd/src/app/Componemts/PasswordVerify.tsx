@@ -3,21 +3,30 @@ import React, { useState } from "react";
 import axios from "axios";
 import { setToken } from "./redux-persit";
 import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/utils/reduxhook";
 
 export default function PasswordVerify({ email }: { email: string }) {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
-    const dispatch = useDispatch();
+
+    
+      const dispatch = useAppDispatch();
+      const token = useAppSelector((state) => state.data.token);
+    
 
     const handleSubmit = async () => {
+        console.log(email);
+        console.log(password);
         try {
             const response = await axios.post("http://localhost:8080/auth/login", {
-                email: email,
-                password: password,
+                email: email.trim(),
+                password: password.trim(),
             });
 
+
             setMessage(response.data.message || "Password verified successfully!");
-            dispatch(setToken(response.data.token));
+            console.log(response.data.data.token);
+            dispatch(setToken(response.data.data.token));
             console.log(response.data)
         } catch (error: any) {
             setMessage(error?.response?.data?.message || "Verification failed.");

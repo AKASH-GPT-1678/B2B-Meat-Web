@@ -17,6 +17,7 @@ export default function Home() {
 
   return (
     <div className="relative">
+  
 
 
 
@@ -42,7 +43,8 @@ export default function Home() {
         <p className="text-blue-600 underline cursor-pointer">Get Premium</p>
         <button onClick={()=>dispatch(setToken("Bhosdi wala"))}>Login Maar</button>
         <button onClick={() => dispatch(setGoogleVerified("Namaskar"))}></button>
-        <h1>{isLogin1}</h1>
+        {/* <h1>{isLogin1}</h1>
+            <p>{isLogin1}</p> */}
       </div>
 
 

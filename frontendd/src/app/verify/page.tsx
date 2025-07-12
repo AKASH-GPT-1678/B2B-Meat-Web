@@ -90,12 +90,12 @@ const Page = () => {
                 {
                     passwordMode && (
                         <div className='w-full lg:w-1/2'>
-                            <ChoosePassword email='state'/>
+                            <ChoosePassword email={state as string}/>
                         </div>
                     )
                 }
                 {
-                    
+
                 }
                 
         

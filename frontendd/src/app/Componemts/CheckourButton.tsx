@@ -5,16 +5,43 @@ import { createOrderId } from "./OrderId";
 import axios from "axios";
 import Script from "next/script";
 import { checkToken } from "@/utils/Checktoken";
+import { useAppSelector } from "@/utils/reduxhook";
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const [price, setprice] = React.useState(10);
+  const token = useAppSelector((state) => state.data.token);
+async function updateStatus(amount: string, order_id: string) {
+  try {
+    const updateStatus = await axios.post(
+      "http://localhost:8080/auth/addSubscription",
+      {
+        amount: amount,
+        order_id: order_id
+      },
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    console.log(updateStatus.data);
+    return updateStatus;
+
+  } catch (error) {
+    console.error("Error verifying order:", error);
+  }
+}
 
   
 
   const handlePayment = async () => {
-    const reponse = await checkToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1sZXNoLmd1cHRhQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUyMDgzNjk2LCJleHAiOjE3NTIwODU0OTZ9.aqf96I5AVJlPCgFirDaFFLrSW-B5ghovbSVtNEN8XIQ");
+    const reponse = await checkToken(token?.toString() || "");
     if(reponse?.data.status != true){
       return;
+    }
+    else{
+      console.log(reponse.data);
     }
     try {
       const orderId = await createOrderId(price, "INR");
@@ -33,10 +60,12 @@ export default function CheckoutButton() {
               razorpay_signature: response.razorpay_signature,
             });
 
-            const upGradeStatus = await axios.post("/api/upgradeUser");
+            // const upGradeStatus = await axios.post("/api/upgradeUser");
 
             alert("Payment Successful!");
             console.log(paymentResponse.data);
+          
+            await updateStatus(price.toString(), response.razorpay_order_id);
           } catch (error) {
             alert("Payment verification failed. Please contact support.");
             console.error(error);
