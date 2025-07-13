@@ -7,3 +7,8 @@
     font-family: 'Edu NSW ACT Hand Pre', cursive;
   }
 }
+@theme {
+  --breakpoint-xs: 0;
+  --breakpoint-er:400px;
+
+}

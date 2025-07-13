@@ -2,6 +2,7 @@
 import React from 'react'
 import Broiler from "../../../assets/broiler.png"
 import Image from 'next/image'
+import { useAppSelector } from '@/utils/reduxhook';
 export interface Product {
     id: string;
     name: string;
@@ -13,9 +14,13 @@ export interface Product {
     exportable: boolean;
     createdOn: string;     // ISO 8601 date-time format
     updatedOn: string | null;
-}
+};
+
+
 
 export const DisplayProd : React.FC<Product> = ({productImgUrl , price , minimumOrderQuantity , name , description , exportable}) => {
+
+    const isPremium = useAppSelector((state) => state.data.isPremium);
     return (
 
         <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px]  shadow-2xl w-full  h-fit'>
@@ -31,7 +36,7 @@ export const DisplayProd : React.FC<Product> = ({productImgUrl , price , minimum
                 <p>&#8377; {price} per unit</p>
                 <p>Bulk Offer </p>
                 <p>Ordered 100 on last month</p>
-                <p className='blur' onCopy={() => alert("Copied to clipboard")}>XYZPGK</p>
+                <p className={`${isPremium ? 'inline' : 'blur'}`} onCopy={() => alert("Copied to clipboard")}>XYZPGK</p>
                 <p className='max-w-[300px] hidden sm:inline'>{description.substring(0, 100)} more..</p>
 
 

@@ -4,9 +4,11 @@ import Image from 'next/image'
 import Farms from "../../../assets/farms.jpg"
 import { motion } from "framer-motion";
 import { Sellerform } from '../Componemts/Sellerform';
+import { useRouter } from 'next/navigation';
 
 const Seller = () => {
     const [showSellerForm, setShowSellerForm] = React.useState(false);
+    const router = useRouter();
 
     const formRef = React.useRef<HTMLDivElement>(null);
     
@@ -74,22 +76,14 @@ const Seller = () => {
             <div className='flex flex-row justify-center items-center mt-5'>
                 <button className=' text-white p-5 px-12 rounded-sm bg-green-600 cursor-pointer'>
 
-                    <strong onClick={() => setShowSellerForm(true)}>      Become a Seller</strong>
+                    <strong onClick={() => router.push("/sellerform")}>      Become a Seller</strong>
                 </button>
 
 
 
 
             </div>
-            {
-                showSellerForm &&
-                <div className='absolute top-[40%] left-[36%]' ref={formRef}>
-
-
-                    <Sellerform />
-                </div>
-            }
-
+         
         </div>
     )
 }

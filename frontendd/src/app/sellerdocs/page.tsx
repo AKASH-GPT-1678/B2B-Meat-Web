@@ -117,4 +117,4 @@ const SellerDocs = () => {
     )
 }
 
-export default SellerDocs
+export default SellerDocs;

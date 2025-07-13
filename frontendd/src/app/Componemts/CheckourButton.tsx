@@ -60,7 +60,6 @@ async function updateStatus(amount: string, order_id: string) {
               razorpay_signature: response.razorpay_signature,
             });
 
-            // const upGradeStatus = await axios.post("/api/upgradeUser");
 
             alert("Payment Successful!");
             console.log(paymentResponse.data);
@@ -94,7 +93,7 @@ async function updateStatus(amount: string, order_id: string) {
    return (
     <>
       <button
-        className="bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg hover:scale-105"
+        className="bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
         onClick={handlePayment}
         disabled={loading}
       >

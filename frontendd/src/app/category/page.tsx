@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { DisplayProd } from '../Componemts/DisplayProd';
-import { useQuery } from '@tanstack/react-query';
+import { NotPremiumUser } from '../Componemts/PremiumPopup';
 import { Product } from '../Componemts/DisplayProd';
 import axios from 'axios';
 import { set } from 'zod/v4-mini';
@@ -23,13 +23,13 @@ const Category = () => {
         }
     }
 
-   useEffect(() => {
+    useEffect(() => {
         getProducts();
     }, []);
 
 
     return (
-        <div>
+        <div className='relative'>
             <h1>Namsata</h1>
             <h1>{category}</h1>
 
@@ -38,7 +38,7 @@ const Category = () => {
                     products.map((item, index) => (
                         <div key={index}>
                             <DisplayProd
-                                 {...item}
+                                {...item}
                             />
                         </div>
                     ))
@@ -47,6 +47,9 @@ const Category = () => {
 
 
             </div>
+            {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <NotPremiumUser />
+            </div> */}
 
 
 

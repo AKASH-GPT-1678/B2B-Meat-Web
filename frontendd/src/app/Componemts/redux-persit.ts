@@ -3,15 +3,18 @@ import { combineReducers, configureStore, createSlice, PayloadAction } from "@re
 import { persistReducer, persistStore } from "redux-persist";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
+import { set } from "zod/v4-mini";
 
 export type InitialsD = {
     token: string | null;
     googleVerified: string | null;
+    isPremium: boolean
 }
 
 const initialState: InitialsD = {
     token: null,
-    googleVerified: null
+    googleVerified: null,
+    isPremium: false
 }
 
 interface Storage {
@@ -48,11 +51,15 @@ const dataState = createSlice({
         },
         setGoogleVerified: (state, action: PayloadAction<string>) => {
             state.googleVerified = action.payload;
+        },
+        setPremium: (state, action: PayloadAction<boolean>) => {
+            state.isPremium = action.payload
         }
+        
     }
 });
 
-export const { setToken, setGoogleVerified } = dataState.actions;
+export const { setToken, setGoogleVerified, setPremium } = dataState.actions;
 
 const rootReducer = combineReducers({
     data: dataState.reducer,
