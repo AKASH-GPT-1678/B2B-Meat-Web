@@ -3,6 +3,7 @@ import React from 'react'
 import Broiler from "../../../assets/broiler.png"
 import Image from 'next/image'
 import { useAppSelector } from '@/utils/reduxhook';
+import { useRouter } from 'next/navigation';
 export interface Product {
     id: string;
     name: string;
@@ -18,13 +19,24 @@ export interface Product {
 
 
 
-export const DisplayProd : React.FC<Product> = ({productImgUrl , price , minimumOrderQuantity , name , description , exportable}) => {
+
+
+
+export const DisplayProd: React.FC<Product> = ({ productImgUrl, price, minimumOrderQuantity, name, description, exportable }) => {
+    const router = useRouter();
+
+
+    const handlePush = (name: string) => {
+    router.push('/livestock')
+
+}
+
 
     const isPremium = useAppSelector((state) => state.data.isPremium);
     return (
 
-        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px]  shadow-2xl w-full  h-fit'>
-            <div className='flex flex-col h-[160px] w-[160px] sm:h-[250px] sm:w-fit md:h-[300px] md:w-[300px]'>
+        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px]  shadow-2xl w-full  h-fit' onClick={()=> router.push(`/livestock?livestock=${name}`)} >
+            <div className='flex flex-col h-[160px] w-[160px] sm:h-[250px] sm:w-fit md:h-[300px] md:w-[300px]' >
                 <Image src={productImgUrl} width={200} height={200} alt='' className='object-cover h-full w-full sm:rounded-t-4xl' />
 
 

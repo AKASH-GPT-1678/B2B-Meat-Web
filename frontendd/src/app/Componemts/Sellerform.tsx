@@ -10,7 +10,7 @@ export const Sellerform = () => {
     defaultValues: {
       name: '',
       address: '',
-      pincode: 0,
+      pincode: '',
       estYear: '',
       email: '',
       businessType: '',
@@ -59,7 +59,7 @@ export const Sellerform = () => {
       <div className="flex flex-col">
         <label className="font-semibold text-gray-700 mb-1">Pincode</label>
         <input
-          type="number"
+          type="text"
           {...register("pincode")}
           className="p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />

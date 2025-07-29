@@ -11,17 +11,16 @@ export const businessFormSchema = z.object({
     .nonempty("Address is required"),
 
   pincode: z
-    .number({
-      required_error: "Pincode is required",
-      invalid_type_error: "Pincode must be a number"
-    })
-    .min(100000, "Pincode must be at least 6 digits")
-    .max(999999, "Pincode must be 6 digits"),
+    .string()
+    .nonempty("Pincode is required")
+    .max(6, "Length must be a maximum of 6 characters")
+
+  ,
 
   estYear: z
     .string({
       required_error: "Establishment year is required"
-    }) ,
+    }),
 
 
   email: z

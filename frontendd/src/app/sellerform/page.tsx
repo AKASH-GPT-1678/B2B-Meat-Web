@@ -5,8 +5,8 @@ import { Sellerform } from '../Componemts/Sellerform'
 const page = () => {
   return (
     <div>
-      
-      <Sellerform/>
+
+      <Sellerform />
     </div>
   )
 }

@@ -10,21 +10,15 @@ import { TiTick } from 'react-icons/ti';
 import { ImCross } from 'react-icons/im';
 import { useRouter } from 'next/navigation';
 const page = () => {
-  const router = useRouter()
 
-  function managePush() {
-    router.push('/chat')
-  }
 
   return (
-    <div className='border-2'>
-      <div className=' p-10 xl:p-40 grid md:grid-cols-2 bg-gray-100 border-2'>
+    <div className=''>
+      <div className=' p-10 xl:p-40 grid md:grid-cols-2 bg-gray-100 '>
 
         <div className='flex flex-col gap-8
 
                 
-
-
                 '>
 
           <div>
@@ -92,28 +86,28 @@ const page = () => {
 
 
           </div>
- <div className='grid grid-cols-2'>
+          <div className='grid grid-cols-2'>
 
 
-          <div className='flex flex-row items-center justify-center   bg-gray-200 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-            <button className='flex-1/4 font-bold text-3xl cursor-pointer'>
-              -
-            </button>
-            <button className='flex-2/4 font-bold cursor-pointer text-xl'>100</button>
-            <button className='flex-1/4 font-bold cursor-pointer'>
-              +
-            </button>
+            <div className='flex flex-row items-center justify-center   bg-gray-200 max-w-[200px]  py-3 rounded-2xl mt-10 '>
+              <button className='flex-1/4 font-bold text-3xl cursor-pointer'>
+                -
+              </button>
+              <button className='flex-2/4 font-bold cursor-pointer text-xl'>100</button>
+              <button className='flex-1/4 font-bold cursor-pointer'>
+                +
+              </button>
+
+            </div>
+
+            <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
+              <span className='font-bold text-lg' >Contact Seller</span>
+
+
+            </div>
+
 
           </div>
-          
-          <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-          <span className='font-bold text-lg' onClick={managePush}>Contact Seller</span>
-       
-
-          </div>
- 
-            
- </div>
 
         </div>
 
