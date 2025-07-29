@@ -9,14 +9,24 @@ import { MdOutlineForwardToInbox } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
+import { FaBlog } from "react-icons/fa";
 import SellerProducts from '../Components/Sellerproducts';
 import ProductForm from '../Components/Proudctform';
-import { useAppDispatch , useAppSelector } from '@/utils/reduxhook';
+import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
+import SellerBlogs from '../Components/SellerBlogs';
+import BlogForm, { BlogCard } from '../Components/BlogForm';
+const exampleBlog = {
+  title: "How to Build a Responsive Blog Card in React",
+  thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",
+  summary: "A step-by-step guide to building a mobile-first blog card layout using Tailwind CSS.",
+  author: "John Doe",
+  date: "2025-07-29"
+};
 const SellerDashboard = () => {
 
   const [active, setActive] = React.useState("dashboard");
-        const dispatch = useAppDispatch();
-        const token = useAppSelector((state) => state.data.token);
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.data.token);
 
 
   const tabs = [
@@ -26,9 +36,9 @@ const SellerDashboard = () => {
       icon: <IoIosHome size={30} fill={active === "dashboard" ? "#27BBF5" : "grey"} />,
     },
     {
-      label: "Earnings",
-      key: "earnings",
-      icon: <RiMoneyRupeeCircleLine size={30} color={active === "earnings" ? "#27BBF5" : "grey"} />,
+      label: "Blogs",
+      key: "blogs",
+      icon: <FaBlog size={30} color={active === "blogs" ? "#27BBF5" : "grey"} />,
     },
     {
       label: "My Products",
@@ -62,43 +72,48 @@ const SellerDashboard = () => {
     },
   ];
   return (
-
-    <div className='flex flex-row'>
-
-
-      <div className='p-4 w-full max-w-[400px]'>
-        <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+    <div className='relative'>
+      <div className='flex flex-row'>
 
 
-        <div className='mt-4 p-2'>
-          <h1>Menu</h1>
+        <div className='p-4 w-full max-w-[400px]'>
+          <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
 
-          <div className="flex flex-col gap-4">
-            {tabs.map((tab) => (
-              <div
-                key={tab.key}
-                onClick={() => setActive(tab.key)}
-                className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
+
+          <div className='mt-4 p-2'>
+            <h1>Menu</h1>
+
+            <div className="flex flex-col gap-4">
+              {tabs.map((tab) => (
+                <div
+                  key={tab.key}
+                  onClick={() => setActive(tab.key)}
+                  className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
                                 cursor-pointer
           ${active === tab.key ? 'bg-blue-100' : 'bg-white'}`}
-              >
-                {tab.icon}
-                <p className={`font-bold ${active === tab.key ? 'text-blue-500' : 'text-gray-500'}`}>
-                  {tab.label}
-                </p>
-              </div>
-            ))}
+                >
+                  {tab.icon}
+                  <p className={`font-bold ${active === tab.key ? 'text-blue-500' : 'text-gray-500'}`}>
+                    {tab.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
           </div>
 
         </div>
 
-      </div>
-      <div>
-        <SellerProducts/>
+        <div>
+          {/* <SellerProducts /> */}
+          <SellerBlogs />
+          {/* <BlogForm/> */}
+          <BlogCard blog={exampleBlog} />
 
-        <ProductForm/>
-      </div>
 
+        </div>
+
+      </div>
     </div>
   )
 }

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { DisplayProd, Product } from '../Componemts/DisplayProd';
+import { DisplayProd, Product } from '../Components/DisplayProd';
 import axios from 'axios';
 
 const page = () => {
