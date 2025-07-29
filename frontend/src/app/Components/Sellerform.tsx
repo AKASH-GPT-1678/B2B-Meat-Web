@@ -4,6 +4,7 @@ import { businessFormSchema } from './validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BusinessFormSchema } from './validation';
 import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 export const Sellerform = () => {
   const { register, handleSubmit , formState : {errors}} = useForm({
     resolver: zodResolver(businessFormSchema),
@@ -21,8 +22,16 @@ export const Sellerform = () => {
     }
   });
 
+    const dispatch = useAppDispatch();
+    const token = useAppSelector((state) => state.data.token);
+
   const onSubmit: SubmitHandler<BusinessFormSchema> = async (data) => {
-     const response = await axios.post('http://localhost:8080/seller/create', data);
+     const response = await axios.post('http://localhost:8080/seller/create', data , {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+     });
     console.log(response.data);
     
   };

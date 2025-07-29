@@ -1,12 +1,11 @@
 "use client";
-import { Middle } from "./Componemts/Middle";
-import { Header } from "./Componemts/Header";
-import { Categories } from "./Componemts/Categories";
-import { setGoogleVerified } from "./Componemts/redux-persit";
+import { Middle } from "./Components/Middle";
+import { Header } from "./Components/Header";
+import { Categories } from "./Components/Categories";
+import { setGoogleVerified, setToken, setPremium } from "./Components/redux-persit";
 import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken, setPremium } from "./Componemts/redux-persit";
 import { checkToken } from "@/utils/Checktoken";
 import React from "react";
 import { fa } from "zod/v4/locales";
@@ -36,12 +35,12 @@ export default function Home() {
 
   }
 
-  React.useEffect(() => {
-    const response = VerifyToken();
-    console.log(response);
+  // React.useEffect(() => {
+  //   const response = VerifyToken();
+  //   console.log(response);
 
 
-  }, []);
+  // }, []);
 
 
   return (

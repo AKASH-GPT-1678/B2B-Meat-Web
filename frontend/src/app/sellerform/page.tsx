@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { Sellerform } from '../Componemts/Sellerform'
+import { Sellerform } from '../Components/Sellerform'
 
 const page = () => {
   return (

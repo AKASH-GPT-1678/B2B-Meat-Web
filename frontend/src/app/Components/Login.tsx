@@ -8,25 +8,25 @@ export const Login = () => {
 
     const [email, setEmail] = React.useState('');
     const router = useRouter();
- 
-    
+
+
 
     const handleSubmit = async (event: React.FormEvent) => {
-       try {
-        
+        try {
 
-        const response = await axios.get(`http://localhost:8080/product/userverify?email=${email}`);
-        console.log(response.data);
 
-        if (response.data.method == 'Otp') {
-            router.push("/verify?email=" + email + "&mode=otp");
-        } else if (response.data.method == "password") {
-            router.push("/verify?email=" + email + "&mode=password");
-        } 
-       } catch (error) {
-        console.error(error);
-        
-       }
+            const response = await axios.get(`http://localhost:8080/product/userverify?email=${email}`);
+            console.log(response.data);
+
+            if (response.data.method == 'Otp') {
+                router.push("/verify?email=" + email + "&mode=otp");
+            } else if (response.data.method == "password") {
+                router.push("/verify?email=" + email + "&mode=password");
+            }
+        } catch (error) {
+            console.error(error);
+
+        }
 
     };
 

@@ -78,7 +78,7 @@ export const SignUp = () => {
 
         signIn("google", { callbackUrl: `/googleverify?google=${randomval}` });
 
-    }
+    };
     return (
         <div className='p-4 sm:p-10'>
             <div className='flex flex-col lg:flex-row w-full max-w-[800px] mx-auto h-auto lg:h-[700px] border shadow-2xl rounded-2xl mt-10'>
