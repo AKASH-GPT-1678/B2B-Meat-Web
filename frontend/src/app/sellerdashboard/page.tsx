@@ -24,16 +24,24 @@ const exampleBlog = {
 };
 const SellerDashboard = () => {
 
-  const [active, setActive] = React.useState("dashboard");
+  const [active, setActive] = React.useState("");
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.data.token);
+
+  const handleActivity = (key: string, route: string) => {
+    setActive(key);
+    if (route) {
+      window.location.href = route;
+    }
+
+  }
 
 
   const tabs = [
     {
       label: "Dashboard",
-      key: "dashboard",
-      icon: <IoIosHome size={30} fill={active === "dashboard" ? "#27BBF5" : "grey"} />,
+      key: "",
+      icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
     },
     {
       label: "Blogs",
@@ -87,7 +95,7 @@ const SellerDashboard = () => {
               {tabs.map((tab) => (
                 <div
                   key={tab.key}
-                  onClick={() => setActive(tab.key)}
+                  onClick={() => handleActivity(tab.key, `sellerdashboard/${tab.key}`)}
                   className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
                                 cursor-pointer
           ${active === tab.key ? 'bg-blue-100' : 'bg-white'}`}

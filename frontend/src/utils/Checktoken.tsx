@@ -8,7 +8,7 @@ export async function checkToken(token: string) {
             }
         });
 
-        return response;
+        return response.status;
         
     } catch (error) {
         console.error(error);

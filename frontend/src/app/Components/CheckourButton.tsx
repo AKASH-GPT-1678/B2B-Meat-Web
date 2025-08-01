@@ -10,39 +10,39 @@ export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const [price, setprice] = React.useState(10);
   const token = useAppSelector((state) => state.data.token);
-async function updateStatus(amount: string, order_id: string) {
-  try {
-    const updateStatus = await axios.post(
-      "http://localhost:8080/auth/addSubscription",
-      {
-        amount: amount,
-        order_id: order_id
-      },
-      {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+  const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+  async function updateStatus(amount: string, order_id: string) {
+    try {
+      const updateStatus = await axios.post(
+        "http://localhost:8080/auth/addSubscription",
+        {
+          amount: amount,
+          order_id: order_id
+        },
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
         }
-      }
-    );
-    console.log(updateStatus.data);
-    return updateStatus;
+      );
+      console.log(updateStatus.data);
+      return updateStatus;
 
-  } catch (error) {
-    console.error("Error verifying order:", error);
+    } catch (error) {
+      console.error("Error verifying order:", error);
+    }
   }
-}
 
-  
+
 
   const handlePayment = async () => {
-    const reponse = await checkToken(token?.toString() || "");
-    if(reponse?.data.status != true){
+    if (!isVerified) {
+      alert("You need to be logged in to make a payment.");
       return;
     }
-    else{
-      console.log(reponse.data);
-    }
+
+
     try {
       const orderId = await createOrderId(price, "INR");
 
@@ -63,7 +63,7 @@ async function updateStatus(amount: string, order_id: string) {
 
             alert("Payment Successful!");
             console.log(paymentResponse.data);
-          
+
             await updateStatus(price.toString(), response.razorpay_order_id);
           } catch (error) {
             alert("Payment verification failed. Please contact support.");
@@ -72,7 +72,7 @@ async function updateStatus(amount: string, order_id: string) {
         },
         prefill: {
           name: "YOUR_NAME",
-          email: "acashgupta960@gmail.com", 
+          email: "acashgupta960@gmail.com",
         },
         theme: {
           color: "#3399cc",
@@ -90,7 +90,7 @@ async function updateStatus(amount: string, order_id: string) {
     }
   };
 
-   return (
+  return (
     <>
       <button
         className="bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
@@ -105,7 +105,7 @@ async function updateStatus(amount: string, order_id: string) {
       />
     </>
   );
-  
+
 }
 
 

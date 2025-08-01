@@ -8,13 +8,15 @@ import { set } from "zod/v4-mini";
 export type InitialsD = {
     token: string | null;
     googleVerified: string | null;
-    isPremium: boolean
+    isPremium: boolean,
+    isLoggedIn: boolean
 }
 
 const initialState: InitialsD = {
     token: null,
     googleVerified: null,
-    isPremium: false
+    isPremium: false,
+    isLoggedIn: false
 }
 
 interface Storage {
@@ -54,12 +56,15 @@ const dataState = createSlice({
         },
         setPremium: (state, action: PayloadAction<boolean>) => {
             state.isPremium = action.payload
-        }
+        },
+        setisLoggedIn: (state, action: PayloadAction<boolean>) => {
+            state.isLoggedIn = action.payload
+        },
         
     }
 });
 
-export const { setToken, setGoogleVerified, setPremium } = dataState.actions;
+export const { setToken, setGoogleVerified, setPremium , setisLoggedIn } = dataState.actions;
 
 const rootReducer = combineReducers({
     data: dataState.reducer,

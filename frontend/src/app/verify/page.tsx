@@ -7,7 +7,7 @@ import PasswordVerify from '../Components/PasswordVerify';
 import OtpImage from "../../../assets/otp.png";
 import { tr } from 'framer-motion/client';
 import ChoosePassword from '../Components/ChoosePassword';
-import { stat } from 'fs';
+
 
 const Page = () => {
     const [isOtp, setIsOtp] = React.useState(false);

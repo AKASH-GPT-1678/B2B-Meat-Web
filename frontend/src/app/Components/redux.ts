@@ -4,13 +4,15 @@ import { set } from "zod/v4-mini";
 export type Initials = {
     sigUpMode : boolean,
     loginMode : boolean,
-    isLoggedIn : boolean
+    isLoggedIn : boolean,
+    isVerified : boolean
 }
 
 const initialState : Initials = {
     sigUpMode : false,
     loginMode : false,
-    isLoggedIn : false
+    isLoggedIn : false,
+    isVerified : false
 }
 export const userState = createSlice({
     name : "User",
@@ -24,11 +26,14 @@ export const userState = createSlice({
         },
         setIsLoggedIn : (state , action : PayloadAction<boolean>) => {
             state.isLoggedIn = action.payload
-        }   
+        } ,
+        setIsVerified : (state , action : PayloadAction<boolean>) => {
+            state.isVerified = action.payload
+        }  
     }
 })
 
-export const { signUpMode , loginMode } = userState.actions;
+export const { signUpMode , loginMode, setIsVerified } = userState.actions;
 
 
 const store = configureStore({

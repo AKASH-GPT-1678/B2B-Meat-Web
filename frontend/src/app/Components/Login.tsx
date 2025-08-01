@@ -34,7 +34,7 @@ export const Login = () => {
 
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center max-h-fit bg-gray-100">
             <div className="w-[250px] lg:w-[350px] h-auto bg-white shadow-md rounded-xl p-6 flex flex-col gap-6">
 
                 {/* Header with back icon and title */}
@@ -42,7 +42,7 @@ export const Login = () => {
                     <IoIosArrowBack
                         className="cursor-pointer text-gray-600 hover:text-black"
                         size={24}
-                        onClick={() => dispatch(loginMode(true))}
+                        onClick={() => router.back()}
                     />
                     <h2 className="font-bold text-2xl flex-1 text-center">Continue with Email</h2>
                 </div>
@@ -61,18 +61,13 @@ export const Login = () => {
                         className="border border-gray-300 p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                         onChange={(event) => setEmail(event.target.value)}
                     />
-                    <button className="bg-blue-600 text-white p-2 rounded-xl w-full hover:bg-blue-700 transition" onClick={handleSubmit}>
+                    <button className="bg-blue-600 text-white p-2 py-3 cursor-pointer rounded-xl w-full hover:bg-blue-700 transition" onClick={handleSubmit}>
                         Continue
                     </button>
                 </div>
 
                 {/* Optional: Debug button */}
-                <button
-                    onClick={() => alert('clicked')}
-                    className="text-sm text-blue-500 hover:underline self-end"
-                >
-                    Make Login
-                </button>
+    
             </div>
         </div>
 

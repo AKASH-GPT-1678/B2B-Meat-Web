@@ -1,8 +1,20 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
+import { useAppSelector, useAppDispatch } from '@/utils/reduxhook';
+import { setToken } from './redux-persit';
+import { setisLoggedIn } from './redux-persit';
 export const PopBar = () => {
-    const router = useRouter()
+    const router = useRouter();
+    const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+    const dispatch = useAppDispatch();
+
+
+    const handleLogout = () => {
+        dispatch(setToken(""));
+        dispatch(setisLoggedIn(false));
+        window.location.href = "/";
+    }
     return (
         <div>
             <div className='flex flex-col '>
@@ -10,8 +22,8 @@ export const PopBar = () => {
                     <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/login")}>Login / Register</li>
                     <li style={{ cursor: "pointer", padding: "5px" }}>Settings</li>
                     <li style={{ cursor: "pointer", padding: "5px" }}>About Us</li>
-                    <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/seller")}>Seller</li>
-                    <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => signOut()}>Logout</li>
+                    {isVerified && <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/seller")}>Seller</li>}
+                    <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => handleLogout()}>Logout</li>
 
 
                 </ul>

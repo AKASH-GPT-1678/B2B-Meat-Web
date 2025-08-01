@@ -5,6 +5,7 @@ import React, { use } from "react";
 export default function ChoosePassword({ email }: { email: string }) {
     const [passWord, setpassWord] = React.useState("");
     const [confoirmPassword, setconfirmPassWord] = React.useState("");
+    const [someError, setSomeError] = React.useState(false);
     const [error, seterror] = React.useState(false);
     const [userName, setUserName] = React.useState("");
     const [askUserName, setaskUserName] = React.useState(false);
@@ -28,6 +29,9 @@ export default function ChoosePassword({ email }: { email: string }) {
                 password: passWord,
             });
             console.log(response.data);
+            if (response.data == "User registered successfully!") {
+                window.location.href = "/login"
+            }
         } catch (error) {
             console.error(error);
         }
@@ -73,6 +77,13 @@ export default function ChoosePassword({ email }: { email: string }) {
                                     </p>
                                 )}
                             </div>
+                            {
+                                someError && (
+                                    <p className="text-red-600 mt-4">
+                                        Something went wrong
+                                    </p>
+                                )
+                            }
                             <button className="p-2 cursor-pointer" onClick={userNamesetUp}>
                                 Submit
                             </button>

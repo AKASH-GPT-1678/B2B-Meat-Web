@@ -4,15 +4,16 @@ import axios from "axios";
 import { setToken } from "./redux-persit";
 import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "@/utils/reduxhook";
-
+import { FaEye } from "react-icons/fa";
 export default function PasswordVerify({ email }: { email: string }) {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
-    
-      const dispatch = useAppDispatch();
-      const token = useAppSelector((state) => state.data.token);
-    
+
+    const dispatch = useAppDispatch();
+    const token = useAppSelector((state) => state.data.token);
+
 
     const handleSubmit = async () => {
         console.log(email);
@@ -27,6 +28,9 @@ export default function PasswordVerify({ email }: { email: string }) {
             setMessage(response.data.message || "Password verified successfully!");
             console.log(response.data.data.token);
             dispatch(setToken(response.data.data.token));
+            if (response.data.success == true) {
+                window.location.href = "/";
+            }
             console.log(response.data)
         } catch (error: any) {
             setMessage(error?.response?.data?.message || "Verification failed.");
@@ -38,14 +42,19 @@ export default function PasswordVerify({ email }: { email: string }) {
             <h2>Password Verification</h2>
             <p>We found your email: <strong>{email}</strong></p>
 
-            <div style={{ marginTop: "1rem" }}>
+            <div style={{ marginTop: "1rem" }} className="flex flex-row justify-between items-center">
                 <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    style={{ width: "100%", padding: "0.5rem", fontSize: "1rem" }}
+                    style={{ width: "90%", padding: "0.5rem", fontSize: "1rem" }}
+                    className="py-2"
                 />
+
+                <FaEye size={20} className="cursor-pointer" onClick={() => setShowPassword(!showPassword)}/>
+
+
             </div>
 
             <button

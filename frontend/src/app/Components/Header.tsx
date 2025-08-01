@@ -3,14 +3,31 @@ import { SlLocationPin } from "react-icons/sl";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { useDispatch } from 'react-redux';
 import { signUpMode } from './redux';
 import { PopBar } from './PopBar';
+import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 import Image from 'next/image';
 import Lbiryani from "../../../assets/biryani3.png"
 import CheckoutButton from './CheckourButton';
 export const Header = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+    const [showPopBar, setShowPopBar] = React.useState(false);
+
+    const popbarRef = React.useRef<HTMLDivElement>(null);
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (popbarRef.current && !popbarRef.current.contains(event.target as Node)) {
+                setShowPopBar(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+
+
 
     return (
 
@@ -44,8 +61,8 @@ export const Header = () => {
                     <FaShoppingCart className='size-8  lg:size-10 cursor-pointer' />
 
 
-                    <FaRegUserCircle className='size-8  lg:size-10 cursor-pointer' onClick={() => dispatch(signUpMode())} />
-                        <CheckoutButton/>
+                    <FaRegUserCircle className='size-8  lg:size-10 cursor-pointer' onClick={() => setShowPopBar(!showPopBar)} />
+                    <CheckoutButton />
 
 
 
@@ -68,9 +85,17 @@ export const Header = () => {
                         alt="Biryani"
                         className="w-full h-full object-cover "
                     />
-                    <div className='float-right ml-auto absolute top-0 right-12 z-40'>
-                        <PopBar />
-                    </div>
+
+                    {
+
+                        showPopBar && (
+                            <div className='float-right ml-auto absolute top-0 right-12 z-40 ' id='popbar' ref={popbarRef}>
+                                <PopBar />
+                            </div>
+
+                        )
+                    }
+
 
                 </div>
 
