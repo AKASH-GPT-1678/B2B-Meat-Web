@@ -9,14 +9,16 @@ export type InitialsD = {
     token: string | null;
     googleVerified: string | null;
     isPremium: boolean,
-    isLoggedIn: boolean
+    isLoggedIn: boolean,
+    isUserSeller: boolean
 }
 
 const initialState: InitialsD = {
     token: null,
     googleVerified: null,
     isPremium: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    isUserSeller: false
 }
 
 interface Storage {
@@ -60,11 +62,14 @@ const dataState = createSlice({
         setisLoggedIn: (state, action: PayloadAction<boolean>) => {
             state.isLoggedIn = action.payload
         },
+        setUserSeller: (state, action: PayloadAction<boolean>) => {
+            state.isUserSeller = action.payload
+        }
         
     }
 });
 
-export const { setToken, setGoogleVerified, setPremium , setisLoggedIn } = dataState.actions;
+export const { setToken, setGoogleVerified, setPremium , setisLoggedIn, setUserSeller } = dataState.actions;
 
 const rootReducer = combineReducers({
     data: dataState.reducer,

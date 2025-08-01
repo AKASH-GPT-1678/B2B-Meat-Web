@@ -4,6 +4,7 @@ import Broiler from "../../../assets/broiler.png"
 import Image from 'next/image'
 import { useAppSelector } from '@/utils/reduxhook';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 export interface Product {
     id: string;
     name: string;
@@ -22,20 +23,33 @@ export interface Product {
 
 
 
-export const DisplayProd: React.FC<Product> = ({ productImgUrl, price, minimumOrderQuantity, name, description, exportable }) => {
+export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimumOrderQuantity, name, description, exportable }) => {
     const router = useRouter();
 
 
     const handlePush = (name: string) => {
-    router.push('/livestock')
+        router.push('/livestock')
 
-}
+    };
+    const handleProduct = async(id : string) => {
+        if(!id) return;
+        try {
+
+            const response = await axios.put(`http://localhost:8080/product/viewcount?productId=${id}`);
+            console.log(response.data);
+            router.push(`/livestock?livestock=${id}`);
+            
+        } catch (error) {
+            
+        }
+
+    }
 
 
     const isPremium = useAppSelector((state) => state.data.isPremium);
     return (
 
-        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px]  shadow-2xl w-full  h-fit' onClick={()=> router.push(`/livestock?livestock=${name}`)} >
+        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px]  shadow-2xl w-full  h-fit' onClick={() => handleProduct(`${id}`)} >
             <div className='flex flex-col h-[160px] w-[160px] sm:h-[250px] sm:w-fit md:h-[300px] md:w-[300px]' >
                 <Image src={productImgUrl} width={200} height={200} alt='' className='object-cover h-full w-full sm:rounded-t-4xl' />
 

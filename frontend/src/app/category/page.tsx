@@ -16,7 +16,7 @@ const page = () => {
     const getProducts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/product/getproduct?type=${category}`
+          `http://localhost:8080/product/getProduct?type=${category?.toUpperCase()}`
         );
         console.log(response.data);
         setProducts(response.data);

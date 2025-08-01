@@ -3,7 +3,6 @@ import { SlLocationPin } from "react-icons/sl";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { signUpMode } from './redux';
 import { PopBar } from './PopBar';
 import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 import Image from 'next/image';

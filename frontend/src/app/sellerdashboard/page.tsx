@@ -1,8 +1,6 @@
 'use client';
 import React from 'react'
 import { IoIosHome } from "react-icons/io";
-import { ta } from 'zod/v4/locales';
-import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import { FaProductHunt } from "react-icons/fa";
 import { IoMdHelp } from "react-icons/io";
 import { MdOutlineForwardToInbox } from "react-icons/md";
@@ -10,11 +8,9 @@ import { MdLogout } from "react-icons/md";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa";
-import SellerProducts from '../Components/Sellerproducts';
-import ProductForm from '../Components/Proudctform';
 import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 import SellerBlogs from '../Components/SellerBlogs';
-import BlogForm, { BlogCard } from '../Components/BlogForm';
+import  { BlogCard } from '../Components/BlogForm';
 const exampleBlog = {
   title: "How to Build a Responsive Blog Card in React",
   thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",
@@ -27,6 +23,7 @@ const SellerDashboard = () => {
   const [active, setActive] = React.useState("");
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.data.token);
+  const isSeller = useAppSelector((state) => state.data.isUserSeller);
 
   const handleActivity = (key: string, route: string) => {
     setActive(key);
@@ -79,6 +76,15 @@ const SellerDashboard = () => {
       icon: <MdLogout size={30} color={active === "logout" ? "#27BBF5" : "grey"} />,
     },
   ];
+
+
+  React.useEffect(() => { 
+
+
+    if(!isSeller){
+      window.location.href = "/";
+    }
+  }, []);
   return (
     <div className='relative'>
       <div className='flex flex-row'>

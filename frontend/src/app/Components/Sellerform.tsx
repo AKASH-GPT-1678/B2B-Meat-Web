@@ -15,7 +15,7 @@ export const Sellerform = () => {
       address: '',
       pincode: '',
       estYear: '',
-      email: '',
+      businessEmail: '',
       businessType: '',
       contact: '',
       alternateContact: '',
@@ -104,10 +104,10 @@ export const Sellerform = () => {
           <label className="font-semibold text-gray-700 mb-1">Email</label>
           <input
             type="email"
-            {...register("email")}
+            {...register("businessEmail")}
             className="p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
-          {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+          {errors.businessEmail && <span className="text-red-500 text-sm">{errors.businessEmail.message}</span>}
         </div>
 
         {/* Business Type */}
@@ -178,7 +178,7 @@ export const Sellerform = () => {
 //       <input type="date" name="estYear" required />
 
 //       <label>Email*</label>
-//       <input type="email" name="email" required />
+//       <input type="=businessEmail" name="=businessEmail" required />
 
 //       <label>Business Type*</label>
 //       <input type="text" name="businessType" required />

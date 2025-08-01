@@ -6,6 +6,19 @@ import * as z from "zod";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/utils/reduxhook";
 
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  minimumOrderQuantity: string;
+  price: number;
+  productImgUrl: string;
+  exportable: boolean;
+  category: string;
+  createdOn: string;
+  updatedOn: string;
+}
+
 const productSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters").max(100),
   description: z.string().min(1, "Description is required").max(1000),
@@ -127,10 +140,15 @@ export default function ProductForm() {
 
       <div>
         <label className="font-semibold">Category</label>
-        <input
-          {...register("category")}
-          className="w-full p-2 border border-gray-300 rounded mt-1"
-        />
+        <select  id="category" {...register("category")}>
+          <option value="BUFFALO">Buffalo</option>
+          <option value="CHICKEN">Chicken</option>
+          <option value="GOAT">Goat</option>
+          <option value="EGGS">Eggs</option>
+          <option value="SHEEP">Sheep</option>
+          <option value="SEAFOOD">Seafood</option>
+        </select>
+
         {errors.category && (
           <p className="text-red-500">{errors.category.message}</p>
         )}

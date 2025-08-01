@@ -8,6 +8,7 @@ export const PopBar = () => {
     const router = useRouter();
     const isVerified = useAppSelector((state) => state.data.isLoggedIn);
     const dispatch = useAppDispatch();
+    const isSeller = useAppSelector((state) => state.data.isUserSeller);
 
 
     const handleLogout = () => {
@@ -22,7 +23,7 @@ export const PopBar = () => {
                     <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/login")}>Login / Register</li>
                     <li style={{ cursor: "pointer", padding: "5px" }}>Settings</li>
                     <li style={{ cursor: "pointer", padding: "5px" }}>About Us</li>
-                    {isVerified && <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/seller")}>Seller</li>}
+                    {isVerified && <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push(`${isSeller ? "/sellerdashboard" : "seller"}`)}>{isSeller ? "Seller Dashboard" : "Become a Seller"}</li>}
                     <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => handleLogout()}>Logout</li>
 
 

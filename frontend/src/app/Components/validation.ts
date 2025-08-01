@@ -23,7 +23,7 @@ export const businessFormSchema = z.object({
     }),
 
 
-  email: z
+  businessEmail: z
     .string()
     .nonempty("Email cannot be empty")
     .email("Invalid email format"),

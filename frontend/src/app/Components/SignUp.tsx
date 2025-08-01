@@ -2,12 +2,9 @@
 import React from 'react'
 import Image from 'next/image'
 import LiveStock from "../../../assets/livestock.png"
-import { FcGoogle } from "react-icons/fc";
-import { FaRegMessage } from "react-icons/fa6";
-import { useDispatch, useSelector } from 'react-redux';
-import { Initials, loginMode } from './redux';
-import { InitialsD, setGoogleVerified } from './redux-persit';
-import { IoIosArrowBack } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+
+import { setGoogleVerified } from './redux-persit';
 import { signIn, useSession } from 'next-auth/react';
 import crypto from 'crypto';
 import { useRouter } from 'next/navigation';
@@ -17,7 +14,6 @@ export const SignUp = () => {
 
 
     const [userEmail, setUserEmail] = React.useState("");
-    const [isOtp, setIsOtp] = React.useState(false);
     const dispatch = useDispatch();
     const router = useRouter();
 

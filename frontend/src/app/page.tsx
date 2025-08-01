@@ -6,11 +6,14 @@ import { Categories } from "./Components/Categories";
 import { setGoogleVerified, setToken, setPremium } from "./Components/redux-persit";
 import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
-import { setisLoggedIn } from "./Components/redux-persit";
+import { setisLoggedIn ,setUserSeller} from "./Components/redux-persit";
 import React from "react";
 import { fa } from "zod/v4/locales";
+import { DisplayProd, Product } from "./Components/DisplayProd";
 export default function Home() {
   const data = useSession();
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
 
 
   const dispatch = useAppDispatch();
@@ -23,6 +26,9 @@ export default function Home() {
 
   React.useEffect(() => {
     async function checkToken(token: string) {
+      if (!token) {
+        return;
+      }
       try {
         const response = await axios.get('http://localhost:8080/auth/checkToken', {
           headers: {
@@ -30,9 +36,12 @@ export default function Home() {
           }
         });
         console.log(response.status);
+        console.log(response.data);
         if (response.status == 200) {
           dispatch(setToken(token));
           dispatch(setisLoggedIn(true));
+        
+          dispatch(setUserSeller(response.data.isSeller));
         }
 
 
@@ -41,13 +50,27 @@ export default function Home() {
       } catch (error: any) {
         console.error(error);
         if (error.response.status == 403) {
-          setisLoggedIn(false);
+
+          dispatch(setisLoggedIn(false));
+
 
         }
 
       }
 
     };
+    async function fetchProducts() {
+      try {
+        const response = await axios.get('http://localhost:8080/product/getProducts', {});
+        setProducts(response.data);
+        console.log(response.data);
+      } catch (err: any) {
+        console.error(err);
+        setError('Failed to fetch products');
+      }
+    }
+
+    fetchProducts();
     checkToken(token?.toString() || "");
 
   }, []);
@@ -87,6 +110,16 @@ export default function Home() {
         <button onClick={() => dispatch(setGoogleVerified("Namaskar"))}></button>
         {/* <h1>{isLogin1}</h1>
             <p>{isLogin1}</p> */}
+      </div>
+      <div className="flex flex-row flex-wrap justify-center gap-4">
+        {
+          products.map((product, index) => (
+            <div key={index} >
+              <DisplayProd {...product} />
+            </div>
+
+          ))
+        }
       </div>
 
 
