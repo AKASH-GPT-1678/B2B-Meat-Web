@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { loginMode } from './redux';
 import { IoIosArrowBack } from "react-icons/io";
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
