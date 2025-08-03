@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
         }
 
 
-
+//         return NextResponse.json({ message: "Payment verified successfully", success: true })
 
     } catch (error) {
         return NextResponse.json({ error: "An error occurred", success: false }, { status: 500 })
