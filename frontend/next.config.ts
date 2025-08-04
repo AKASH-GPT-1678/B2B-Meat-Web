@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         protocol : "https",
         hostname : "meat-bucket-2025.s3.ap-south-1.amazonaws.com",
        
+      },
+            {
+        protocol : "https",
+        hostname : "res.cloudinary.com",
+       
       }
       
     ]
