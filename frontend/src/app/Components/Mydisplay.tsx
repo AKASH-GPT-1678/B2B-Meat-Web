@@ -4,11 +4,15 @@ import Broiler from "../../../assets/broiler.png"
 import { TiTick } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
 
-
+import { useSearchParams } from 'next/navigation';
 interface Product {
   category: string;
 }
 export const DisplayProducts: React.FC<Product> = ({ category}) => {
+  const searchParams = useSearchParams();
+
+  const liveStockId = searchParams.get('livestock');
+
   return (
     <div>
       <div className='p-6'>

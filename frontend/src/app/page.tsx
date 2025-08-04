@@ -29,6 +29,8 @@ export default function Home() {
       if (!token) {
         return;
       }
+
+      console.log(token);
       try {
         const response = await axios.get('http://localhost:8080/auth/checkToken', {
           headers: {
@@ -43,9 +45,13 @@ export default function Home() {
 
           dispatch(setUserSeller(response.data.isSeller));
         }
+        else if (response.status == 403) {
+          dispatch(setisLoggedIn(false));
+          throw new Error('Invalid token');
+        }
 
 
-        return response.status;
+
 
       } catch (error: any) {
         console.error(error);

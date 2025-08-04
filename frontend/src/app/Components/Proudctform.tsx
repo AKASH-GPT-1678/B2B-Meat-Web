@@ -24,7 +24,7 @@ const productSchema = z.object({
   description: z.string().min(1, "Description is required").max(1000),
   minimumOrderQuantity: z
     .string()
-    .min(2, "Minimum Order Quantity must gre greater than 10"),
+    .min(1, "Minimum Order Quantity must gre greater than 1"),
   price: z
     .number({ invalid_type_error: "Price is required" })
     .positive("Price must be a positive number")

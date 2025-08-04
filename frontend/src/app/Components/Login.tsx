@@ -65,7 +65,9 @@ export const Login = () => {
                     </button>
                 </div>
 
-                {/* Optional: Debug button */}
+                <p className='text-sm text-blue-600 cursor-pointer flex justify-end' onClick={() => router.push('/forgot')}>Forgot Password ?</p>
+
+      
     
             </div>
         </div>
