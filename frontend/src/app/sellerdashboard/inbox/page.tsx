@@ -10,6 +10,7 @@ import { MdLogout } from "react-icons/md";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { IoIosHome } from 'react-icons/io';
 import { IoSettingsSharp } from "react-icons/io5";
+import { useRouter } from 'next/navigation';
 import { FaBlog } from "react-icons/fa";
 const exampleBlog = {
     title: "How to Build a Responsive Blog Card in React",
@@ -21,6 +22,7 @@ const exampleBlog = {
 const InBoxPage = () => {
 
     const [active, setActive] = React.useState("inbox");
+    const router = useRouter();
     const handleActivity = (key: string, route: string) => {
         setActive(key);
         if (route) {
@@ -81,7 +83,7 @@ const InBoxPage = () => {
 
 
                 <div className='p-4 w-full max-w-[400px]'>
-                    <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+                    <h1 className="text-3xl font-handwriting font-extrabold " onClick={() => router.push('/')}>Meat Truck</h1>
 
 
                     <div className='mt-4 p-2'>

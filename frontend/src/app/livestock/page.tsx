@@ -26,9 +26,11 @@ const page = () => {
   const searchParams = useSearchParams();
   const [product, setProduct] = React.useState<ProductResponseDTO>();
   const [error, setError] = React.useState(false);
+  const [minimumOrderQuantity, setMinimumOrderQuantity] = React.useState<number>(0);
 
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const router = useRouter();
 
   const livestockId = searchParams.get('livestock');
   React.useEffect(() => {
@@ -43,9 +45,8 @@ const page = () => {
         setProduct(response.data);
         console.log(response.data);
         setError(false);
-        // if(response.data){
-        //   return response.data
-        // }
+        setMinimumOrderQuantity(Number(response.data.minimumOrderQuantity));
+
         return undefined;
 
       } catch (err) {
@@ -141,18 +142,18 @@ const page = () => {
 
 
               <div className='flex flex-row items-center justify-center   bg-gray-200 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <button className='flex-1/4 font-bold text-3xl cursor-pointer'>
+                <button className='flex-1/4 font-bold text-3xl cursor-pointer' onClick={()=> setMinimumOrderQuantity(minimumOrderQuantity - 1)}>
                   -
                 </button>
-                <button className='flex-2/4 font-bold cursor-pointer text-xl'>{product.minimumOrderQuantity}</button>
-                <button className='flex-1/4 font-bold cursor-pointer'>
+                <button className='flex-2/4 font-bold cursor-pointer text-xl'>{minimumOrderQuantity}</button>
+                <button className='flex-1/4 font-bold cursor-pointer' onClick={() => setMinimumOrderQuantity(minimumOrderQuantity + 1)}>
                   +
                 </button>
 
               </div>
 
               <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <span className='font-bold text-lg' >Contact Seller</span>
+                <span className='font-bold text-lg cursor-pointer' onClick={()=> router.push("/chat") } >Contact Seller</span>
 
 
               </div>
