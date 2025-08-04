@@ -3,7 +3,7 @@ import { Middle } from "./Components/Middle";
 import axios, { Axios } from "axios";
 import { Header } from "./Components/Header";
 import { Categories } from "./Components/Categories";
-import { setGoogleVerified, setToken, setPremium } from "./Components/redux-persit";
+import { setGoogleVerified, setToken, setPremium, setUserEmail } from "./Components/redux-persit";
 import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
 import { setisLoggedIn, setUserSeller } from "./Components/redux-persit";
@@ -44,6 +44,7 @@ export default function Home() {
           dispatch(setisLoggedIn(true));
 
           dispatch(setUserSeller(response.data.isSeller));
+          dispatch(setUserEmail(response.data.email));
         }
         else if (response.status == 403) {
           dispatch(setisLoggedIn(false));
