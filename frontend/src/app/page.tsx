@@ -109,13 +109,13 @@ export default function Home() {
 
       {/* Premium Access Notice */}
       <div className="flex flex-col justify-center items-center my-4 text-center space-y-1">
-        <p className="font-semibold">Only Premium Buyers can contact and view Sellers</p>
+        <p className="font-semibold">Meat Truck is a B2B Platform where we connect LiveStock Buyers with LiveStock Sellers </p>
 
 
         {isPremium ? <p className="font-semibold">You are a Premium Buyer</p> : <p className="text-blue-600 underline cursor-pointer">Get Premium</p>}
         <h1>{isPremium}</h1>
 
-        <button onClick={() => dispatch(setGoogleVerified("Namaskar"))}></button>
+
         {/* <h1>{isLogin1}</h1>
             <p>{isLogin1}</p> */}
       </div>

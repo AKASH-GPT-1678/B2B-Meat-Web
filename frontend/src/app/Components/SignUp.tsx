@@ -17,15 +17,7 @@ export const SignUp = () => {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const session = useSession({
-        required: true,
-        // onUnauthenticated() {
-        //     alert("You are not logged in");
 
-        // }
-        // ,
-
-    });
     function generateRandomStringNode() {
         // Calculate the number of bytes needed for the desired length
         // Each byte can represent two hexadecimal characters
@@ -45,7 +37,7 @@ export const SignUp = () => {
             console.log(response.data.method);
             console.log(response.data.method && typeof response.data.method);
             if (response.data.method == 'Otp') {
-                router.push("/verify") 
+                router.push("/verify")
 
             } else if (response.data.method == "password") {
 
@@ -81,55 +73,6 @@ export const SignUp = () => {
 
                 {/* LEFT SIDE */}
                 <div className='w-full lg:w-1/2 bg-white rounded-2xl p-6 flex flex-col justify-center'>
-                    {/* {isLogin ? (
-                        <div className='w-full sm:w-[350px] h-auto flex flex-col gap-4'>
-
-                            <div className='flex flex-row gap-3 items-center'>
-                                <IoIosArrowBack className='mt-1 cursor-pointer' size={24} onClick={() => dispatch(loginMode(false))} />
-                                <h2 className='font-bold text-2xl'>Continue with Email</h2>
-                            </div>
-
-                            <p>We’ll check if you have an account, and help create one if you don’t.</p>
-
-                            <div className='flex flex-col gap-2'>
-                                <strong>Email</strong>
-                                <input
-                                    type='email'
-                                    placeholder='Enter your email'
-                                    className='border border-black p-2 rounded-xl w-full'
-                                    onChange={(e) => setUserEmail(e.target.value)}
-                                />
-                                <button
-                                    className='bg-blue-600 text-white p-2 rounded-xl w-full mt-4'
-                                    onClick={() => VerifyEmail()}>
-                                    Continue
-                                </button>
-                            </div>
-
-                        </div>
-                    ) : ( */}
-                    {/* <div className='flex flex-col gap-6'> */}
-                    {/* <h1 className='font-extrabold text-3xl'>Log in or sign up in seconds</h1>
-                            <p className='font-semibold'>Use your email or another service to continue with Meatruck (it’s free)!</p>
-
-                            <div
-                                className='w-full border rounded-xl flex items-center gap-4 p-4 cursor-pointer'
-                                onClick={() => handleSignIn()}>
-                                <FcGoogle size={26} />
-                                <p className='font-bold'>Continue with Google</p>
-                            </div>
-
-                            <div
-                                className='w-full border rounded-xl flex items-center gap-4 p-4 cursor-pointer'
-                                onClick={() => dispatch(loginMode(true))}>
-                                <FaRegMessage size={24} />
-                                <p className='font-bold'>Continue with Email</p>
-                            </div>
-
-                            <p className='text-sm'>By continuing, you agree to Canva’s Terms of Use. Read our Privacy Policy.</p>
-                        </div>
-                    )} */}
-
 
 
 

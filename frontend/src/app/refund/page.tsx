@@ -4,8 +4,8 @@ import ShippingCancellationRefundsPage from '../Components/Refund-Policy'
 const page = () => {
   return (
     <div>
-        <ShippingCancellationRefundsPage/>
-      
+      <ShippingCancellationRefundsPage />
+
     </div>
   )
 }

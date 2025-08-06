@@ -12,13 +12,15 @@ const query = new QueryClient();
 // Fixed component name (was "Previders")
 const Providers = ({ children }: { children: React.ReactNode }) => {
     return (
+         <SessionProvider>
         <Provider store={store2}>
             <PersistGate loading={null} persistor={persistor}>
                 <QueryClientProvider client={query}>
-                    <SessionProvider>{children}</SessionProvider>
+                   {children}
                 </QueryClientProvider>
             </PersistGate>
         </Provider>
+        </SessionProvider>
     );
 };
 

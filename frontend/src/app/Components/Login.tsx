@@ -1,12 +1,15 @@
+'use client';
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { IoIosArrowBack } from "react-icons/io";
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 export const Login = () => {
 
     const [email, setEmail] = React.useState('');
     const router = useRouter();
+
 
 
 
@@ -63,12 +66,15 @@ export const Login = () => {
                     <button className="bg-blue-600 text-white p-2 py-3 cursor-pointer rounded-xl w-full hover:bg-blue-700 transition" onClick={handleSubmit}>
                         Continue
                     </button>
+                    <button className="bg-blue-600 text-white p-2 py-3 cursor-pointer rounded-xl w-full hover:bg-blue-700 transition" onClick={() => signIn("google")}>
+                       Sign With Google
+                    </button>
                 </div>
 
                 <p className='text-sm text-blue-600 cursor-pointer flex justify-end' onClick={() => router.push('/forgot')}>Forgot Password ?</p>
 
-      
-    
+
+
             </div>
         </div>
 

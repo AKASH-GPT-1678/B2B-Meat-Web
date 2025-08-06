@@ -8,10 +8,13 @@ import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 import Image from 'next/image';
 import Lbiryani from "../../../assets/biryani3.png"
 import CheckoutButton from './CheckourButton';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 export const Header = () => {
     const dispatch = useAppDispatch();
     const isVerified = useAppSelector((state) => state.data.isLoggedIn);
     const [showPopBar, setShowPopBar] = React.useState(false);
+    const router = useRouter();
 
     const popbarRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
@@ -60,7 +63,13 @@ export const Header = () => {
                     <FaShoppingCart className='size-8  lg:size-10 cursor-pointer' />
 
 
-                    <FaRegUserCircle className='size-8  lg:size-10 cursor-pointer' onClick={() => setShowPopBar(!showPopBar)} />
+                    {
+                        isVerified ? <FaRegUserCircle className='size-8  lg:size-10 cursor-pointer' onClick={() => setShowPopBar(!showPopBar)} /> :
+                            <Button className='px-8 py-6 cursor-pointer hover:scale-105' onClick={() => router.push("/login")}>Login</Button>
+                    }
+
+
+
                     <CheckoutButton />
 
 
