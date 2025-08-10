@@ -21,8 +21,8 @@ const exampleBlog = {
 const SellerDashboard = () => {
 
   const [active, setActive] = React.useState("");
-  const dispatch = useAppDispatch();
-  const token = useAppSelector((state) => state.data.token);
+  // const dispatch = useAppDispatch();
+  // const token = useAppSelector((state) => state.data.token);
   const isSeller = useAppSelector((state) => state.data.isUserSeller);
 
   const handleActivity = (key: string, route: string) => {
@@ -95,7 +95,7 @@ const SellerDashboard = () => {
 
 
           <div className='mt-4 p-2'>
-            <h1>Menu</h1>
+        
 
             <div className="flex flex-col gap-4">
               {tabs.map((tab) => (

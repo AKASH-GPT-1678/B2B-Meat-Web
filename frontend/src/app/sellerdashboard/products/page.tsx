@@ -23,7 +23,7 @@ const exampleBlog = {
 };
 const ProductsPage = () => {
 
-    const [active, setActive] = React.useState("product");
+    const [active, setActive] = React.useState("products");
     const [showForm, setShowForm] = React.useState(false);
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.data.token);
@@ -119,7 +119,7 @@ const ProductsPage = () => {
 
 
                     <div className='mt-4 p-2'>
-                        <h1>Menu</h1>
+                       
 
                         <div className="flex flex-col gap-4">
                             {tabs.map((tab) => (

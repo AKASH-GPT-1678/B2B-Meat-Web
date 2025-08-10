@@ -4,8 +4,8 @@ import ShippingPolicy from '../Components/Shipingl'
 const page = () => {
   return (
     <div>
-        <ShippingPolicy/>
-      
+      <ShippingPolicy />
+
     </div>
   )
 }

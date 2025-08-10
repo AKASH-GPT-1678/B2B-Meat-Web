@@ -87,7 +87,7 @@ const InBoxPage = () => {
 
 
                     <div className='mt-4 p-2'>
-                        <h1>Menu</h1>
+                 
 
                         <div className="flex flex-col gap-4">
                             {tabs.map((tab) => (
