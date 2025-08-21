@@ -116,8 +116,7 @@ export default function Home() {
         <h1>{isPremium}</h1>
 
 
-        {/* <h1>{isLogin1}</h1>
-            <p>{isLogin1}</p> */}
+  
       </div>
       <div className="flex flex-row flex-wrap justify-center gap-4">
         {

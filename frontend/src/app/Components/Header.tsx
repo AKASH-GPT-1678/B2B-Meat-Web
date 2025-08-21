@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { SlLocationPin } from "react-icons/sl";
 import { FaShoppingCart } from "react-icons/fa";
@@ -10,10 +11,12 @@ import Lbiryani from "../../../assets/biryani3.png"
 import CheckoutButton from './CheckourButton';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 export const Header = () => {
     const dispatch = useAppDispatch();
     const isVerified = useAppSelector((state) => state.data.isLoggedIn);
     const [showPopBar, setShowPopBar] = React.useState(false);
+    const [search , setSearch] = React.useState("");
     const router = useRouter();
 
     const popbarRef = React.useRef<HTMLDivElement>(null);
@@ -27,6 +30,15 @@ export const Header = () => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+    const handleSearch = async () => {
+        if(search !== ""){
+            const response = await axios.get(`${endpoint}/product/search?search=${search}`);
+
+       
+        }
+    }
 
 
 
@@ -55,8 +67,11 @@ export const Header = () => {
                 </div>
 
 
-                <div className='hidden lg:inline'>
-                    <input type='text' placeholder='Search for 1000+ products' className='bg-gray-100  h-fit p-3 px-16 justify-center items-center'></input>
+                <div className='hidden  lg:flex flex-row gap-5 items-center     '>
+                    <input type='text' placeholder='Search for 1000+ products' className='bg-gray-100  h-fit p-3 px-16 justify-center items-center' onChange={(e) => setSearch(e.target.value)}></input>
+                     <IoSearch className='size-8  lg:size-10  cursor-pointer ' />
+
+
                 </div>
                 <div className='flex flex-row gap-5 relative'>
                     <IoSearch className='size-8  lg:size-10 lg:hidden cursor-pointer' />
