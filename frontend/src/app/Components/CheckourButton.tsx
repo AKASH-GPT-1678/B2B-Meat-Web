@@ -97,7 +97,7 @@ export default function CheckoutButton() {
         onClick={handlePayment}
         disabled={loading}
       >
-        {loading ? "Processing..." : "Get Premium"}
+        {loading ? "Processing..." : "Premium"}
       </button>
       <Script
         id="razorpay-checkout-js"

@@ -1,5 +1,4 @@
 "use client";
-import { Middle } from "./Components/Middle";
 import axios, { Axios } from "axios";
 import { Header } from "./Components/Header";
 import { Categories } from "./Components/Categories";
@@ -8,7 +7,7 @@ import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
 import { setisLoggedIn, setUserSeller } from "./Components/redux-persit";
 import React from "react";
-import { fa } from "zod/v4/locales";
+
 import { DisplayProd, Product } from "./Components/DisplayProd";
 export default function Home() {
   const data = useSession();

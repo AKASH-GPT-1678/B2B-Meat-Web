@@ -63,7 +63,7 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
                 <p>Bulk Offer </p>
                 <p>Ordered 100 on last month</p>
                 <p className={`${isPremium ? 'inline' : 'blur'}`} onCopy={() => alert("Copied to clipboard")}>XYZPGK</p>
-                <p className='max-w-[300px] hidden sm:inline'>{description.substring(0, 100)} more..</p>
+                <p className='max-w-[300px] hidden sm:inline'>{description.substring(0, 80)} more..</p>
 
 
             </div>

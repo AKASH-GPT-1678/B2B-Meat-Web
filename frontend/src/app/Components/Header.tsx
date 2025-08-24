@@ -53,7 +53,7 @@ export const Header = () => {
 
 
 
-                <div className="flex flex-row gap-2 bg-gray-100 hover:bg-gray-200  rounded-xl h-fit p-2 cursor-pointer justify-center items-center">
+                <div className=" flex-row gap-2 bg-gray-100 hover:bg-gray-200  rounded-xl h-fit p-2 cursor-pointer justify-center items-center hidden md:flex">
 
                     <SlLocationPin className='mt-2' size={24} />
                     <p className='text-sm'>Deliver to:</p>
