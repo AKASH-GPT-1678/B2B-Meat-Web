@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     remotePatterns : [
       {
         protocol : "https",
-        hostname : "meat-bucket-2025.s3.ap-south-1.amazonaws.com",
+        hostname : "meatbuckett.s3.eu-north-1.amazonaws.com",
        
       },
             {
@@ -21,5 +21,7 @@ const nextConfig: NextConfig = {
   }
 
 };
+
+
 
 export default nextConfig;

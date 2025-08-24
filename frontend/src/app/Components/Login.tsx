@@ -9,6 +9,7 @@ export const Login = () => {
 
     const [email, setEmail] = React.useState('');
     const router = useRouter();
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
 
@@ -17,7 +18,7 @@ export const Login = () => {
         try {
 
 
-            const response = await axios.get(`http://localhost:8080/product/userverify?email=${email}`);
+            const response = await axios.get(`${endpoint}/product/userverify?email=${email}`);
             console.log(response.data);
 
             if (response.data.method == 'Otp') {

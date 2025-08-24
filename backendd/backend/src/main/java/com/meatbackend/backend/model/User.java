@@ -63,9 +63,7 @@ public class User {
     @JoinColumn(name = "seller_id", referencedColumnName = "id")
     private Seller seller;
 
-
-
-
+    
     @PrePersist
     protected void onCreate() {
         createdOn = new Timestamp(System.currentTimeMillis());
