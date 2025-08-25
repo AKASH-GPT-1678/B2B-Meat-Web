@@ -19,6 +19,7 @@ export const Login = () => {
 
 
             const response = await axios.get(`${endpoint}/product/userverify?email=${email}`);
+            console.log(endpoint);
             console.log(response.data);
 
             if (response.data.method == 'Otp') {

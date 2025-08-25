@@ -28,32 +28,6 @@ export const SignUp = () => {
 
     const searchparam = new URLSearchParams(window.location.search);
 
-    const VerifyEmail = async () => {
-
-        try {
-
-            const response = await axios.get(`http://localhost:8080/auth/userVerify?email=${userEmail}`);
-            console.log(response.data);
-            console.log(response.data.method);
-            console.log(response.data.method && typeof response.data.method);
-            if (response.data.method == 'Otp') {
-                router.push("/verify")
-
-            } else if (response.data.method == "password") {
-
-                router.push("/verify")
-
-
-            }
-            else {
-                alert(response.data.message);
-            }
-
-        } catch (error) {
-            console.error(error);
-
-        }
-    }
 
 
     const handleSignIn = () => {
