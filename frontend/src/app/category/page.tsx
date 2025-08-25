@@ -11,12 +11,13 @@ const page = () => {
   const category = searchParams.get('type');
 
   const [products, setProducts] = useState<Product[]>([]);
+  const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/product/getProduct?type=${category?.toUpperCase()}`
+          `${endpoint}/product/getProduct?type=${category?.toUpperCase()}`
         );
         console.log(response.data);
         setProducts(response.data);
@@ -28,7 +29,7 @@ const page = () => {
     if (category) {
       getProducts();
     }
-  }, [category]); // ✅ react to changes in search params
+  }, [category]); 
 
   return (
     <div className='relative'>
