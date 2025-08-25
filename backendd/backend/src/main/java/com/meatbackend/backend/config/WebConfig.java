@@ -9,8 +9,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")  // allow all routes
-                .allowedOrigins("http://localhost:3000","https://b2-b-meat-web-pdvm.vercel.app/","https://b2-b-meat-web-pdvm-8dyn8jl35-akash-gupta-s-projects-b3af644f.vercel.app")
+        registry.addMapping("/**")
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "https://b2-b-meat-web-pdvm.vercel.app",  // remove trailing slash
+                        "https://b2-b-meat-web-pdvm-8dyn8jl35-akash-gupta-s-projects-b3af644f.vercel.app"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true);
