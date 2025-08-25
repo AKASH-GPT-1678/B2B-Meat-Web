@@ -11,10 +11,11 @@ export default function CheckoutButton() {
   const [price, setprice] = React.useState(10);
   const token = useAppSelector((state) => state.data.token);
   const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+  const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
   async function updateStatus(amount: string, order_id: string) {
     try {
       const updateStatus = await axios.post(
-        "http://localhost:8080/auth/addSubscription",
+        `${endpoint}/auth/addSubscription`,
         {
           amount: amount,
           order_id: order_id

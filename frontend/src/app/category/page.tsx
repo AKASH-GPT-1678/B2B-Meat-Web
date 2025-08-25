@@ -32,8 +32,7 @@ const page = () => {
 
   return (
     <div className='relative'>
-      <h1>Namaste</h1>
-      <h1>{category}</h1>
+
 
       <div className='p-4 flex flex-row gap-10 flex-wrap'>
         {products.map((item, index) => (

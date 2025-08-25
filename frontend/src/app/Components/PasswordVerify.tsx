@@ -9,6 +9,7 @@ export default function PasswordVerify({ email }: { email: string }) {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
     const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ export default function PasswordVerify({ email }: { email: string }) {
         console.log(email);
         console.log(password);
         try {
-            const response = await axios.post("http://localhost:8080/auth/login", {
+            const response = await axios.post(`${endpoint}/auth/login`, {
                 email: email.trim(),
                 password: password.trim(),
             });
@@ -30,7 +31,7 @@ export default function PasswordVerify({ email }: { email: string }) {
             dispatch(setToken(response.data.data.token));
             if (response.data.success == true) {
                 window.location.href = "/";
-            }
+            };
             console.log(response.data)
         } catch (error: any) {
             setMessage(error?.response?.data?.message || "Verification failed.");

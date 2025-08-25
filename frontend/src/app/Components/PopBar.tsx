@@ -1,6 +1,5 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import { useAppSelector, useAppDispatch } from '@/utils/reduxhook';
 import { setToken } from './redux-persit';
 import { setisLoggedIn } from './redux-persit';

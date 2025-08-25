@@ -65,6 +65,7 @@ export default function BlogForm() {
 
     const headingsRef = React.useRef<HTMLInputElement>(null);
     const contentRef = React.useRef<HTMLTextAreaElement>(null);
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
     const token = useAppSelector((state) => state.data.token);
@@ -117,7 +118,7 @@ export default function BlogForm() {
                 "headings": headings,
                 "content": content
             }
-            const response = await axios.post('http://localhost:8080/blogs/create', data, {
+            const response = await axios.post(`${endpoint}/blogs/create`, data, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -148,7 +149,6 @@ export default function BlogForm() {
                     className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
-                {/* Headings Input + Micro Submit */}
                 <input
                     type="text"
                     placeholder="Add your headings"
@@ -203,7 +203,7 @@ export default function BlogForm() {
                 </Button>
             </form>
 
-            <div>{/* Extra content block if needed */}</div>
+            <div></div>
         </div>
 
 

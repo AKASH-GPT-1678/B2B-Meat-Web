@@ -25,6 +25,7 @@ export interface Product {
 
 export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimumOrderQuantity, name, description, exportable }) => {
     const router = useRouter();
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
     const handlePush = (name: string) => {
@@ -35,7 +36,7 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
         if(!id) return;
         try {
 
-            const response = await axios.put(`http://localhost:8080/product/viewcount?productId=${id}`);
+            const response = await axios.put(`${endpoint}/product/viewcount?productId=${id}`);
             console.log(response.data);
             router.push(`/livestock?livestock=${id}`);
             
