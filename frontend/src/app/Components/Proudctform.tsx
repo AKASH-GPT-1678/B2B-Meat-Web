@@ -46,6 +46,7 @@ export default function ProductForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.data.token);
+  const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const onSubmit: SubmitHandler<ProductFormData> = async (data: ProductFormData) => {
     const formData = new FormData();
@@ -65,7 +66,7 @@ export default function ProductForm() {
 
 
     try {
-      const response = await fetch("http://localhost:8080/product/create", {
+      const response = await fetch(`${endpoint}/product/create`, {
         method: "POST",
         body: formData,
         headers: {

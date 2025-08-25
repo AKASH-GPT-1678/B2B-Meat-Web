@@ -11,6 +11,7 @@ const UpdatePasswordSetup: React.FC<UpdatePasswordSetupProps> = ({ email }) => {
   const [error, setError] = useState('');
   const [samePasswordError, setsamePasswordError] = React.useState("");
   const [success, setSuccess] = useState('');
+  const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   interface LoginRequest {
     email: string;
@@ -66,7 +67,7 @@ const UpdatePasswordSetup: React.FC<UpdatePasswordSetupProps> = ({ email }) => {
       };
 
       const response = await axios.post<UpdatePasswordResponse>(
-        'http://localhost:8080/api/auth/updatePassword',
+        `${endpoint}/api/auth/updatePassword`,
         requestData
       );
 

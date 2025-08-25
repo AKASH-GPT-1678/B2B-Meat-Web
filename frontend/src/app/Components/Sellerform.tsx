@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 export const Sellerform = () => {
 
   const [someError, setSomeError] = React.useState(false);
+  const endpoint =  process.env.NEXT_PUBLIC_BACKEND_URL;
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(businessFormSchema),
     defaultValues: {
@@ -29,7 +30,7 @@ export const Sellerform = () => {
 
   const onSubmit: SubmitHandler<BusinessFormSchema> = async (data) => {
     try {
-      const response = await axios.post('http://localhost:8080/seller/create', data, {
+      const response = await axios.post(`${endpoint}/seller/create`, data, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

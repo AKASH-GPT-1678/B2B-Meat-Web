@@ -28,7 +28,7 @@ const Settings = () => {
     const [profile, setProfile] = React.useState<ProfileResponseDTO | null>(null);
     const router = useRouter();
     const inputDiv = React.useRef<HTMLInputElement>(null);
-    const Key_Url = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
     const token = useAppSelector((state) => state.data.token);
     const isLoggedIn = useAppSelector((state) => state.data.isLoggedIn);
 
@@ -46,7 +46,7 @@ const Settings = () => {
         }
 
         try {
-            const response = await axios.get(`${Key_Url}/activity/profile/remove`, {
+            const response = await axios.get(`${endpoint}/activity/profile/remove`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -71,7 +71,7 @@ const Settings = () => {
         formData.append("file", selectedFile);
 
         try {
-            const response = await axios.put(`${Key_Url}/activity/addProfileImage`, formData, {
+            const response = await axios.put(`${endpoint}/activity/addProfileImage`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
@@ -105,7 +105,7 @@ const Settings = () => {
         try {
             const endpoint = chatStatus ? "/chat/disable" : "/chat/enable";
 
-            const res = await axios.get(`${Key_Url}/activity${endpoint}`, {
+            const res = await axios.get(`${endpoint}/activity${endpoint}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -163,7 +163,7 @@ const Settings = () => {
             }
 
             try {
-                const response = await axios.get<ProfileResponseDTO>(`${Key_Url}/auth/profile`, {
+                const response = await axios.get<ProfileResponseDTO>(`${endpoint}/auth/profile`, {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${token}`
@@ -178,7 +178,7 @@ const Settings = () => {
         };
 
         fetchProfile();
-    }, [isLoggedIn, token, Key_Url, router]);
+    }, [isLoggedIn, token, endpoint, router]);
 
     if (!profile) return <div className="p-4">Loading...</div>;
 

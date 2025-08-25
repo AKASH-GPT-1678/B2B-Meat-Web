@@ -14,7 +14,8 @@ export const PopBar = () => {
         dispatch(setToken(""));
         dispatch(setisLoggedIn(false));
         window.location.href = "/";
-    }
+    };
+    
     return (
         <div>
             <div className='flex flex-col '>
