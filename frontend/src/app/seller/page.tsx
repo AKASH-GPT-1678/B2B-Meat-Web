@@ -88,4 +88,4 @@ const Seller = () => {
     )
 }
 
-export default Seller
+export default Seller;

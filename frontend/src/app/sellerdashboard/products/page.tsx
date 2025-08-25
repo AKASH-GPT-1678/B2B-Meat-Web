@@ -27,6 +27,7 @@ const ProductsPage = () => {
     const [showForm, setShowForm] = React.useState(false);
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.data.token);
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
     const handleActivity = (key: string, route: string) => {
         setActive(key);
@@ -41,7 +42,7 @@ const ProductsPage = () => {
 
 
         try {
-            const response = await axios.get('http://localhost:8080/product/myLivestock', {
+            const response = await axios.get(`${endpoint}/product/myLivestock`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

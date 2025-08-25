@@ -77,6 +77,7 @@ const InBoxPage = () => {
             icon: <MdLogout size={30} color={active === "logout" ? "#27BBF5" : "grey"} />,
         },
     ];
+    
     return (
         <div className='relative'>
             <div className='flex flex-row'>

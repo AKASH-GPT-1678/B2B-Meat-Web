@@ -8,7 +8,6 @@ import { setGoogleVerified } from './redux-persit';
 import { signIn, useSession } from 'next-auth/react';
 import crypto from 'crypto';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { Login } from './Login';
 export const SignUp = () => {
 
@@ -42,11 +41,11 @@ export const SignUp = () => {
 
     };
     return (
-        <div className='p-4 sm:p-10'>
+        <div className='p-4 md:p-6'>
             <div className='flex flex-col lg:flex-row w-full max-w-[800px] mx-auto h-auto lg:h-[700px] border shadow-2xl rounded-2xl mt-10'>
 
-                {/* LEFT SIDE */}
-                <div className='w-full lg:w-1/2 bg-white rounded-2xl p-6 flex flex-col justify-center'>
+              
+                <div className='w-full lg:w-1/2 bg-white rounded-2xl md:p-4 flex flex-col justify-center'>
 
 
 
@@ -55,7 +54,7 @@ export const SignUp = () => {
 
                 </div>
 
-                {/* RIGHT SIDE IMAGE */}
+
                 <div className='hidden lg:block lg:w-1/2 h-full'>
                     <Image
                         src={LiveStock}
