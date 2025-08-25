@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { fa } from 'zod/v4/locales';
+import { set } from 'zod/v4-mini';
 export interface ProductResponseDTO {
   id: string; // UUID
   name: string;
@@ -27,6 +28,7 @@ const page = () => {
   const [product, setProduct] = React.useState<ProductResponseDTO>();
   const [error, setError] = React.useState(false);
   const [minimumOrderQuantity, setMinimumOrderQuantity] = React.useState<number>(0);
+  const [quantity, setQuantity] = React.useState<number>(0);
 
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -46,6 +48,7 @@ const page = () => {
         console.log(response.data);
         setError(false);
         setMinimumOrderQuantity(Number(response.data.minimumOrderQuantity));
+        setQuantity(Number(response.data.minimumOrderQuantity));
 
         return undefined;
 
@@ -58,6 +61,11 @@ const page = () => {
 
     fetchProduct();
   }, [livestockId]);
+const handleMinimumOrderQuantity = () => {
+  if (quantity < minimumOrderQuantity) {
+     setMinimumOrderQuantity(minimumOrderQuantity - 1);
+  }
+}
 
 
   return (
@@ -142,7 +150,7 @@ const page = () => {
 
 
               <div className='flex flex-row items-center justify-center   bg-gray-200 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <button className='flex-1/4 font-bold text-3xl cursor-pointer' onClick={()=> setMinimumOrderQuantity(minimumOrderQuantity - 1)}>
+                <button className='flex-1/4 font-bold text-3xl cursor-pointer' onClick={() => handleMinimumOrderQuantity()}>
                   -
                 </button>
                 <button className='flex-2/4 font-bold cursor-pointer text-xl'>{minimumOrderQuantity}</button>
@@ -153,7 +161,7 @@ const page = () => {
               </div>
 
               <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <span className='font-bold text-lg cursor-pointer' onClick={()=> router.push("/chat") } >Contact Seller</span>
+                <span className='font-bold text-lg cursor-pointer' onClick={() => router.push("/chat")} >Contact Seller</span>
 
 
               </div>

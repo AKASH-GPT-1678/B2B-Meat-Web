@@ -10,10 +10,11 @@ import { IoIosHome } from 'react-icons/io';
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa";
 import { Button } from '@/components/ui/button';
-
+import ProductsGrid from '@/app/Components/ProductCard';
 import { useAppSelector , useAppDispatch } from '@/utils/reduxhook';
 import ProductForm from '@/app/Components/Proudctform';
 import axios from 'axios';
+import { Product } from '@/app/Components/DisplayProd';
 const exampleBlog = {
     title: "How to Build a Responsive Blog Card in React",
     thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",
@@ -25,6 +26,7 @@ const ProductsPage = () => {
 
     const [active, setActive] = React.useState("products");
     const [showForm, setShowForm] = React.useState(false);
+    const [allProducts, setAllProducts] = React.useState<Product[]>([]);
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.data.token);
     const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -49,9 +51,12 @@ const ProductsPage = () => {
             });
 
             console.log(response.data);
+            setAllProducts(response.data);
             return response.data;
+            
 
         } catch (error) {
+            console.error(error);
 
         }
     };
@@ -116,7 +121,7 @@ const ProductsPage = () => {
 
 
                 <div className='p-4 w-full max-w-[300px] border-2'>
-                    <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+                    <h1 className="text-3xl font-handwriting font-extrabold " onClick={() => handleActivity("", "/")}>Meat Truck</h1>
 
 
                     <div className='mt-4 p-2'>
@@ -156,14 +161,8 @@ const ProductsPage = () => {
 
 
                         <div>
-                            <h2 className="text-xl font-bold mb-4">All Products You Can Offer</h2>
-                            <div className="grid grid-cols-3 gap-4">
-
-                                <div className="border p-4 rounded-md">Product 1 - Option to Sell</div>
-                                <div className="border p-4 rounded-md">Product 2 - Option to Sell</div>
-                                <div className="border p-4 rounded-md">Product 3 - Option to Sell</div>
-
-                            </div>
+                        
+                             <ProductsGrid allProducts={allProducts} />
                         </div>
 
 

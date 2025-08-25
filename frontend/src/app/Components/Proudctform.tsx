@@ -77,6 +77,7 @@ export default function ProductForm() {
 
       if (response.ok) {
         alert("Product submitted successfully!");
+        window.location.reload();
       } else {
         alert("Failed to submit product");
       }

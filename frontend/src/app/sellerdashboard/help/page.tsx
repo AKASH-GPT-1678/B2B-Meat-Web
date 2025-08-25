@@ -81,7 +81,7 @@ const HelpandSupportPage = () => {
 
 
                 <div className='p-4 w-full max-w-[400px]'>
-                    <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+                    <h1 className="text-3xl font-handwriting font-extrabold " onClick={() => handleActivity("", "/")}>Meat Truck</h1>
 
 
                     <div className='mt-4 p-2'>
