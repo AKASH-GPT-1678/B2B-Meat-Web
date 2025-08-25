@@ -19,6 +19,7 @@ export default function Home() {
   const token = useAppSelector((state) => state.data.token);
   const isPremium = useAppSelector((state) => state.data.isPremium);
   const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+  const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
 
@@ -31,7 +32,7 @@ export default function Home() {
 
       console.log(token);
       try {
-        const response = await axios.get('http://localhost:8080/auth/checkToken', {
+        const response = await axios.get(`${endpoint}/auth/checkToken`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -67,7 +68,7 @@ export default function Home() {
     };
     async function fetchProducts() {
       try {
-        const response = await axios.get('http://localhost:8080/product/getProducts', {});
+        const response = await axios.get(`${endpoint}/product/getProducts`, {});
         setProducts(response.data);
         console.log(response.data);
       } catch (err: any) {
@@ -106,7 +107,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Premium Access Notice */}
+  
       <div className="flex flex-col justify-center items-center my-4 text-center space-y-1">
         <p className="font-semibold">Meat Truck is a B2B Platform where we connect LiveStock Buyers with LiveStock Sellers </p>
 
@@ -115,7 +116,7 @@ export default function Home() {
         <h1>{isPremium}</h1>
 
 
-  
+
       </div>
       <div className="flex flex-row flex-wrap justify-center gap-4">
         {
