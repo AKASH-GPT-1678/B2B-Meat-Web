@@ -9,6 +9,7 @@ import { setisLoggedIn, setUserSeller } from "./Components/redux-persit";
 import React from "react";
 
 import { DisplayProd, Product } from "./Components/DisplayProd";
+import Footer from "./Components/Footer";
 export default function Home() {
   const data = useSession();
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -127,6 +128,10 @@ export default function Home() {
 
           ))
         }
+      </div>
+      <div className="mt-10">
+
+        <Footer/>
       </div>
 
 
