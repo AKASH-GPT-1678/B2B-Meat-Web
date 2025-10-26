@@ -14,18 +14,15 @@ CONTRIBUTION.md
 
 
 ### 2. Features & Tools
-Spring Boot 
-Next.js 
-RazorPay
-AWS
-MAIL API
-Docker 
+
+
+##### Tech Stack
+Frontend: Next.js 14, TypeScript, Tailwind, Razorpay ,OAuth\n
+Backend: Spring Boot 3.x, Java 17
+Database: PostgreSQL 15
 
 
 
-
-
-### Mike testing
 
 ## 3. Set Up Guide 
 
