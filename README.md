@@ -30,11 +30,12 @@ NEXTAUTH_SECRET=
 
 ```
 
-`
+```bash
 npm install next
-npm run dev || start
+npm run dev 
+npm run start
 
-`
+```
 
 
 #### Backend SetUp
