@@ -27,7 +27,11 @@ To practice devops concept and applications, please check the [Devops Guide](./D
 - Admin and seller dashboards
 - Real-time notifications
 - CORS-enabled for frontend-backend communication
-
+- Live Chat with Socket.IO
+- OTP Verification
+- Redux 
+- Framer Motion
+- Spring Security
 ---
 
 ### 🧩 Tech Stack  

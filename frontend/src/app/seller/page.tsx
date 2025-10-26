@@ -3,7 +3,6 @@ import React from 'react'
 import Image from 'next/image'
 import Farms from "../../../assets/farms.jpg"
 import { motion } from "framer-motion";
-import { Sellerform } from '../Components/Sellerform';
 import { useRouter } from 'next/navigation';
 
 const Seller = () => {
