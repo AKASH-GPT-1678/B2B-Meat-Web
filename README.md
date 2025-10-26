@@ -12,6 +12,13 @@ To learn how to contribute, please check the [Contribution Guide](./CONTRIBUTION
 
 ---
 
+
+## 📘 Devops 
+
+To practice devops concept and applications, please check the [Devops Guide](./Devops.md).
+
+---
+
 ## 🚀 Features & Tools
 
 - Bulk meat and livestock trading platform
