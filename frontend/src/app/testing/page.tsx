@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { Sellerform } from '../Components/Sellerform'
+import { Sellerform } from '../forms/Sellerform'
 import Footer from '../Components/Footer';
 
 

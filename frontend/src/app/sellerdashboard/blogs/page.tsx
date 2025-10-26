@@ -5,7 +5,7 @@ import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import { FaProductHunt } from "react-icons/fa";
 import { IoMdHelp } from "react-icons/io";
 import { MdOutlineForwardToInbox } from "react-icons/md";
-import { BlogCard } from '@/app/Components/BlogForm';
+import { BlogCard } from '@/app/forms/BlogForm';
 import { MdLogout } from "react-icons/md";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { IoIosHome } from 'react-icons/io';

@@ -10,7 +10,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 import SellerBlogs from '../Components/SellerBlogs';
-import  { BlogCard } from '../Components/BlogForm';
+import  { BlogCard } from '../forms/BlogForm';
 const exampleBlog = {
   title: "How to Build a Responsive Blog Card in React",
   thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",

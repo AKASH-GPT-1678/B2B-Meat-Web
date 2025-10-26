@@ -8,7 +8,7 @@ import { setGoogleVerified } from './redux-persit';
 import { signIn, useSession } from 'next-auth/react';
 import crypto from 'crypto';
 import { useRouter } from 'next/navigation';
-import { Login } from './Login';
+import { Login } from '../forms/Login';
 export const SignUp = () => {
 
 

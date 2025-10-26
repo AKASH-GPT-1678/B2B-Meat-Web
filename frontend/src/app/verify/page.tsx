@@ -3,10 +3,10 @@ import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
 import LiveStock from "../../../assets/livestock.png";
-import PasswordVerify from '../Components/PasswordVerify';
+import PasswordVerify from '../forms/PasswordVerify';
 import OtpImage from "../../../assets/otp.png";
 import { tr } from 'framer-motion/client';
-import ChoosePassword from '../Components/ChoosePassword';
+import ChoosePassword from '../forms/ChoosePassword';
 
 
 const Page = () => {

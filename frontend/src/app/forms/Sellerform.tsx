@@ -1,8 +1,8 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { businessFormSchema } from './validation';
+import { businessFormSchema } from '../Components/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { BusinessFormSchema } from './validation';
+import { BusinessFormSchema } from '../Components/validation';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 export const Sellerform = () => {

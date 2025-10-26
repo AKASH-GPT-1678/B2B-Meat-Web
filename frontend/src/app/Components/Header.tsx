@@ -75,7 +75,7 @@ export const Header = () => {
                 </div>
                 <div className='flex flex-row gap-5 relative'>
                     <IoSearch className='size-8  lg:size-10 lg:hidden cursor-pointer' />
-                    <FaShoppingCart className='size-8  lg:size-10 cursor-pointer' />
+                    <FaShoppingCart className='size-8  lg:size-10 cursor-pointer' onClick={()=>router.push("/cart")} />
 
 
                     {

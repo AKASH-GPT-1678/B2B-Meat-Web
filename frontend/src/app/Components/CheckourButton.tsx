@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import { createOrderId } from "./OrderId";
+import { createOrderId } from "../../lib/orderId";
 import axios from "axios";
 import Script from "next/script";
-import { checkToken } from "@/utils/Checktoken";
+import toast from 'react-hot-toast'
 import { useAppSelector } from "@/utils/reduxhook";
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
@@ -39,7 +39,10 @@ export default function CheckoutButton() {
 
   const handlePayment = async () => {
     if (!isVerified) {
-      alert("You need to be logged in to make a payment.");
+
+
+        toast.error('Login for Premium Access');
+      
       return;
     }
 

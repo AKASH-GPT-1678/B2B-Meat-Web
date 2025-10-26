@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import Broiler from "../../../assets/broiler.png"
 import Image from 'next/image'
 import { useAppSelector } from '@/utils/reduxhook';
 import { useRouter } from 'next/navigation';

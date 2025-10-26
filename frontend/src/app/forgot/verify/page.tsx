@@ -7,7 +7,7 @@ import LiveStock from "../../../assets/livestock.png";
 
 import OtpImage from "../../../../assets/otp.png";
 import { tr } from 'framer-motion/client';
-import UpdatePasswordSetup from '@/app/Components/UpdatePasswordSetup';
+import UpdatePasswordSetup from '@/app/forms/UpdatePasswordSetup';
 import { set } from 'zod/v4-mini';
 
 export interface ApiResponse {

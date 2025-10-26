@@ -1,5 +1,5 @@
 'use client'
-import ConfirmLogoutModal from '@/app/Components/LogoutModel'
+import ConfirmLogoutModal from '@/app/forms/LogoutModel'
 import React from 'react'
 
 const page = () => {

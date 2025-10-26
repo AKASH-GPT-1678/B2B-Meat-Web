@@ -12,7 +12,7 @@ import { FaBlog } from "react-icons/fa";
 import { Button } from '@/components/ui/button';
 import ProductsGrid from '@/app/Components/ProductCard';
 import { useAppSelector , useAppDispatch } from '@/utils/reduxhook';
-import ProductForm from '@/app/Components/Proudctform';
+import ProductForm from '@/app/forms/Proudctform';
 import axios from 'axios';
 import { Product } from '@/app/Components/DisplayProd';
 const exampleBlog = {
