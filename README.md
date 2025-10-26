@@ -33,6 +33,8 @@ NEXTAUTH_SECRET=
 
 #### Backend SetUp
 
+In IntelliJ, go to Run → Edit Configurations → select your Spring Boot app → under "Environment variables" click `...` and add your .env values like `DB_HOST=localhost;DB_PORT=5432;`.
+
 ```
 SPRING_APPLICATION_NAME=backendd
 
