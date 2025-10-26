@@ -5,8 +5,6 @@ import Razorpay from "razorpay";
 
 const RazorpayKey = process.env.RAZORPAY_KEY_ID as string;
 const RazorpaySecret = process.env.RAZORPAY_SECRET_KEY as string;
-// RAZORPAY_KEY_ID=rzp_live_7F6IrWR4BiSEZn
-// RAZORPAY_SECRET_KEY=l4tjIw3QanuHgY4vFSoOa0Qk
 
 if (!RazorpaySecret || !RazorpayKey) {
     throw new Error("Razorpay keys are missing");
