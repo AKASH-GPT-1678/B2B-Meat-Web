@@ -16,12 +16,10 @@ CONTRIBUTION.md
 ### 2. Features & Tools
 
 
-##### Tech Stack
-Frontend: Next.js 14, TypeScript, Tailwind, Razorpay ,OAuth\n
-Backend: Spring Boot 3.x, Java 17
+### 🧩 Tech Stack  
+Frontend: Next.js 14, TypeScript, Tailwind, Razorpay, OAuth  
+Backend: Spring Boot 3.x, Java 17  
 Database: PostgreSQL 15
-
-
 
 
 ## 3. Set Up Guide 
