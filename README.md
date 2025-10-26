@@ -12,6 +12,19 @@ To learn how to contribute, please check the [Contribution Guide](./CONTRIBUTION
 CONTRIBUTION.md
 
 
+
+### 2. Features & Tools
+Spring Boot 
+Next.js 
+RazorPay
+AWS
+MAIL API
+Docker 
+
+
+
+
+
 ### Mike testing
 
 ## 3. Set Up Guide 
