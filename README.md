@@ -32,6 +32,7 @@ To practice devops concept and applications, please check the [Devops Guide](./D
 - Redux 
 - Framer Motion
 - Spring Security
+- Custom Exceptions
 ---
 
 ### 🧩 Tech Stack  
@@ -108,6 +109,7 @@ CORS_ORIGINS=http://localhost:3000
 ```
 
 ### 📸 Screenshots
+
 
 
 
