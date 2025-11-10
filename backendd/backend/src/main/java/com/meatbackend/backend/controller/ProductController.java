@@ -64,15 +64,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/userverify")
-    public ResponseEntity<VerifyEmailDto> verifyEmail(@RequestParam("email") String email){
 
-        VerifyEmailDto verifyEmail = authService.verifyUser(email);
-
-        return ResponseEntity.ok().body(verifyEmail);
-
-
-    };
 
      @PutMapping("/viewcount")
      public ResponseEntity<String> updateViewCount(@RequestParam("productId")UUID productId){

@@ -9,13 +9,7 @@ import { IoIosHome } from 'react-icons/io';
 import { IoSettingsSharp } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
 import { FaBlog } from "react-icons/fa";
-const exampleBlog = {
-    title: "How to Build a Responsive Blog Card in React",
-    thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",
-    summary: "A step-by-step guide to building a mobile-first blog card layout using Tailwind CSS.",
-    author: "John Doe",
-    date: "2025-07-29"
-};
+
 const InBoxPage = () => {
 
     const [active, setActive] = React.useState("inbox");
