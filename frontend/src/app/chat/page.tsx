@@ -50,13 +50,14 @@ const Page = () => {
     const [showNewChat, setShowNewChat] = React.useState(false);
 
     const socketRef = React.useRef<Socket | null>(null);
-    const chatEndpoint = process.env.NEXT_CHAT_URL;
+    const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
 
     React.useEffect(() => {
         if (isSeller) router.push('/sellerdashboard/inbox');
     }, []);
 
     React.useEffect(() => {
+        console.log(chatEndpoint);
         const socket = io(chatEndpoint?.toString(), {
             autoConnect: true,
             query: { userId: myUserId },

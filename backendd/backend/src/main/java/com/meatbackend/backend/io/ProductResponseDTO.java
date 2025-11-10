@@ -12,6 +12,7 @@ public class ProductResponseDTO {
     private UUID id;
     private String name;
     private String sellerName;
+    private UUID sellerId;
     private String description;
     private String minimumOrderQuantity;
     private Long price;

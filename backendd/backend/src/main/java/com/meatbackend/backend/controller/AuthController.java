@@ -138,7 +138,7 @@ public class AuthController {
 
         VerifyEmailDto verifyEmail = authService.verifyUser(email);
 
-        return ResponseEntity.ok().body(verifyEmail);
+        return ResponseEntity.ok(verifyEmail);
 
 
     };
