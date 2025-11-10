@@ -3,9 +3,9 @@ import { useAppSelector } from '@/utils/reduxhook';
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { ImCross } from 'react-icons/im';
 import { TiTickOutline } from 'react-icons/ti';
+import chatClient from '@/lib/chatclient';
 
 export interface MessageData {
     sender?: string;
@@ -50,13 +50,14 @@ const Page = () => {
     const [showNewChat, setShowNewChat] = React.useState(false);
 
     const socketRef = React.useRef<Socket | null>(null);
+    const chatEndpoint = process.env.NEXT_CHAT_URL;
 
     React.useEffect(() => {
         if (isSeller) router.push('/sellerdashboard/inbox');
     }, []);
 
     React.useEffect(() => {
-        const socket = io('http://localhost:3001', {
+        const socket = io(chatEndpoint?.toString(), {
             autoConnect: true,
             query: { userId: myUserId },
         });
@@ -77,7 +78,7 @@ const Page = () => {
     React.useEffect(() => {
         const fetchUserByEmail = async (email: string) => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/profile`, {
+                const response = await chatClient.get(`/api/profile`, {
                     params: { email },
                 });
                 return response.data;
@@ -89,7 +90,7 @@ const Page = () => {
 
         const checkForRequests = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:3001/api/checkrequest?userId=${myUserId}`);
+                const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
                 setRequests(data.data);
             } catch (error) {
                 console.log(error);
@@ -99,7 +100,7 @@ const Page = () => {
         const getContacts = async () => {
             if (!myUserId) return;
             try {
-                const response = await axios.get(`http://localhost:3001/api/mycontacts`, {
+                const response = await chatClient.get(`/api/mycontacts`, {
                     params: { userId: myUserId },
                 });
                 setContacts(response.data.contacts);
@@ -147,7 +148,7 @@ const Page = () => {
     const makeRequest = async (requestId: string, userId: string) => {
         if (!requestId) return;
         try {
-            const { data } = await axios.put('http://localhost:3001/api/acceptrequest', {
+            const { data } = await chatClient.put('/api/acceptrequest', {
                 userId,
                 requestId,
             });
@@ -160,7 +161,7 @@ const Page = () => {
     const addNewChat = async () => {
         if (!addChat || !myUserId) return;
         try {
-            const { data } = await axios.post(`http://localhost:3001/api/addcontact`, {
+            const { data } = await chatClient.post(`/api/addcontact`, {
                 contactId: addChat,
                 userId: myUserId,
             });
