@@ -1,15 +1,15 @@
 "use client";
 import axios, { Axios } from "axios";
-import { Header } from "./Components/Header";
-import { Categories } from "./Components/Categories";
-import { setGoogleVerified, setToken, setPremium, setUserEmail } from "./Components/redux-persit";
+import { Header } from "./appcomponents/Header";
+import { Categories } from "./appcomponents/Categories";
+import { setGoogleVerified, setToken, setPremium, setUserEmail } from "./appcomponents/redux-persit";
 import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
-import { setisLoggedIn, setUserSeller } from "./Components/redux-persit";
+import { setisLoggedIn, setUserSeller } from "./appcomponents/redux-persit";
 import React from "react";
 
-import { DisplayProd, Product } from "./Components/DisplayProd";
-import Footer from "./Components/Footer";
+import { DisplayProd, Product } from "./appcomponents/DisplayProd";
+import Footer from "./appcomponents/Footer";
 export default function Home() {
   const data = useSession();
   const [products, setProducts] = React.useState<Product[]>([]);

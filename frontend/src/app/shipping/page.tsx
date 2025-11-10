@@ -1,5 +1,5 @@
 import React from 'react'
-import ShippingPolicy from '../Components/Shipingl'
+import ShippingPolicy from '../appcomponents/Shipingl'
 
 const page = () => {
   return (

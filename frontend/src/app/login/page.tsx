@@ -1,10 +1,10 @@
 "use client";
 import React from 'react'
 import { Login } from '../forms/Login';
-import { SignUp } from '../Components/SignUp';
+import { SignUp } from '../appcomponents/SignUp';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
-import { setisLoggedIn, setToken } from '../Components/redux-persit';
+import { setisLoggedIn, setToken } from '../appcomponents/redux-persit';
 import { useAppSelector, useAppDispatch } from '@/utils/reduxhook';
 const LoginPage = () => {
   const session = useSession();

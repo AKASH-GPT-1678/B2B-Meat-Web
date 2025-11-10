@@ -10,11 +10,11 @@ import { IoIosHome } from 'react-icons/io';
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa";
 import { Button } from '@/components/ui/button';
-import ProductsGrid from '@/app/Components/ProductCard';
+import ProductsGrid from '@/app/appcomponents/ProductCard';
 import { useAppSelector , useAppDispatch } from '@/utils/reduxhook';
 import ProductForm from '@/app/forms/Proudctform';
 import axios from 'axios';
-import { Product } from '@/app/Components/DisplayProd';
+import { Product } from '@/app/appcomponents/DisplayProd';
 const exampleBlog = {
     title: "How to Build a Responsive Blog Card in React",
     thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",

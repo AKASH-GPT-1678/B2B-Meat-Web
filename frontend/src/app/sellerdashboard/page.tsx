@@ -9,7 +9,7 @@ import { MdOutlineReportProblem } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
-import SellerBlogs from '../Components/SellerBlogs';
+import SellerBlogs from '../appcomponents/SellerBlogs';
 import  { BlogCard } from '../forms/BlogForm';
 const exampleBlog = {
   title: "How to Build a Responsive Blog Card in React",

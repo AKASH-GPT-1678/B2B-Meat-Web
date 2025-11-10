@@ -1,5 +1,5 @@
 import React from 'react'
-import PrivacyPolicyPage from '../Components/Privacy-Policy'
+import PrivacyPolicyPage from '../appcomponents/Privacy-Policy'
 import Image from 'next/image'
 const page = () => {
   return (

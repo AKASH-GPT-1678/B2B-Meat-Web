@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useAppSelector } from '@/utils/reduxhook';
 import Image from 'next/image';
-import CheckoutButton from '../Components/CheckourButton';
+import CheckoutButton from '../appcomponents/CheckourButton';
 import { email } from 'zod/v4-mini';
 interface ProfileResponseDTO {
     id: string;

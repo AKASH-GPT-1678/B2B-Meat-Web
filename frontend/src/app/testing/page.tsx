@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import { Sellerform } from '../forms/Sellerform'
-import Footer from '../Components/Footer';
+import Footer from '../appcomponents/Footer';
 
 
 const page = () => {

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import { setToken } from "../Components/redux-persit";
+import { setToken } from "../appcomponents/redux-persit";
 import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "@/utils/reduxhook";
 import { FaEye } from "react-icons/fa";

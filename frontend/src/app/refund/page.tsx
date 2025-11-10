@@ -1,5 +1,5 @@
 import React from 'react'
-import ShippingCancellationRefundsPage from '../Components/Refund-Policy'
+import ShippingCancellationRefundsPage from '../appcomponents/Refund-Policy'
 
 const page = () => {
   return (
