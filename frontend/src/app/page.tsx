@@ -115,7 +115,7 @@ export default function Home() {
 
 
 
-      <div className="flex flex-row flex-wrap justify-center gap-4">
+      <div className="flex flex-row flex-wrap justify-center gap-4 mt-10">
         {
           products && products.map((product, index) => (
             <div key={index} >

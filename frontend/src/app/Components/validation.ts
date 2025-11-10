@@ -1,5 +1,6 @@
 
 import { z } from "zod";
+const latestDate = new Date();
 
 export const businessFormSchema = z.object({
   name: z
@@ -16,10 +17,10 @@ export const businessFormSchema = z.object({
     .max(6, "Length must be a maximum of 6 characters")
 
   ,
-
-  estYear: z
-    .string({
-      required_error: "Establishment year is required"
+  estYear: z.coerce
+    .date()
+    .refine((date) => date.getFullYear() <= latestDate.getFullYear(), {
+      message: "Establishment Date cannot be in the future",
     }),
 
 

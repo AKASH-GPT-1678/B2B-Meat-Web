@@ -44,7 +44,7 @@ export const SignUp = () => {
         <div className='p-4 md:p-6'>
             <div className='flex flex-col lg:flex-row w-full max-w-[800px] mx-auto h-auto lg:h-[700px] border shadow-2xl rounded-2xl mt-10'>
 
-              
+
                 <div className='w-full lg:w-1/2 bg-white rounded-2xl md:p-4 flex flex-col justify-center'>
 
 

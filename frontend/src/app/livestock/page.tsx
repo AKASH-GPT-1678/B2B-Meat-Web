@@ -61,11 +61,11 @@ const page = () => {
 
     fetchProduct();
   }, [livestockId]);
-const handleMinimumOrderQuantity = () => {
-  if (quantity < minimumOrderQuantity) {
-     setMinimumOrderQuantity(minimumOrderQuantity - 1);
+  const handleMinimumOrderQuantity = () => {
+    if (quantity < minimumOrderQuantity) {
+      setMinimumOrderQuantity(minimumOrderQuantity - 1);
+    }
   }
-}
 
 
   return (
@@ -138,11 +138,20 @@ const handleMinimumOrderQuantity = () => {
             <div className='flex flex-row gap-4 mt-10 items-center'>
               <p>Exportable</p>
 
-              <TiTick size={30
-              } fill='green' />
+         
 
-              <ImCross size={18
-              } fill='red' />
+              {
+                product?.exportable ? (
+                  <TiTick size={30
+                  } fill='green' />
+                ) : (
+                  <ImCross size={18
+                  } fill='red' />
+
+                )
+
+              }
+
 
 
             </div>

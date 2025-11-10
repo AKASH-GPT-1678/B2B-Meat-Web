@@ -34,12 +34,12 @@ export const Login = () => {
 
     };
 
-    const dispatch = useDispatch();
+    
 
 
     return (
-        <div className="flex justify-center items-center max-h-fit bg-gray-100">
-            <div className="w-[250px] lg:w-[350px] h-auto bg-white shadow-md rounded-xl p-6 flex flex-col gap-6">
+        <div className="flex justify-center items-center max-h-fit ">
+            <div className="w-full lg:w-[350px] h-auto bg-white shadow-md rounded-xl p-2 lg:p-6 flex flex-col gap-6">
 
                 {/* Header with back icon and title */}
                 <div className="flex items-center gap-3">
@@ -69,7 +69,7 @@ export const Login = () => {
                         Continue
                     </button>
                     <button className="bg-blue-600 text-white p-2 py-3 cursor-pointer rounded-xl w-full hover:bg-blue-700 transition" onClick={() => signIn("google")}>
-                       Sign With Google
+                        Sign With Google
                     </button>
                 </div>
 

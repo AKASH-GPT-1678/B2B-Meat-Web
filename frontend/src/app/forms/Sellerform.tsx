@@ -8,14 +8,14 @@ import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 export const Sellerform = () => {
 
   const [someError, setSomeError] = React.useState(false);
-  const endpoint =  process.env.NEXT_PUBLIC_BACKEND_URL;
+  const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(businessFormSchema),
     defaultValues: {
       name: '',
       address: '',
       pincode: '',
-      estYear: '',
+      estYear: new Date(),
       businessEmail: '',
       businessType: '',
       contact: '',
@@ -28,7 +28,30 @@ export const Sellerform = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.data.token);
 
+  async function verifyPincode(pincode: number): Promise<boolean> {
+    try {
+
+
+      const response = await axios.get(`https://api.postalpincode.in/pincode/${pincode}`);
+      const data = response.data;
+      console.log(data[0].Status);
+      if (data[0].Status == "Success") {
+        return true
+      }
+      else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+
+    }
+
+  }
+
   const onSubmit: SubmitHandler<BusinessFormSchema> = async (data) => {
+
+    const verify = verifyPincode(Number(data.pincode));
+    if (!verify) return;
     try {
       const response = await axios.post(`${endpoint}/seller/create`, data, {
         headers: {
@@ -159,76 +182,3 @@ export const Sellerform = () => {
     </div>
   );
 }
-
-
-// export default function BusinessForm() {
-//   return (
-//     <form action="/api/submit" method="POST" encType="multipart/form-data">
-//       <h2>Business Registration Form</h2>
-
-//       <label>Name*</label>
-//       <input type="text" name="name" required />
-
-//       <label>Address*</label>
-//       <input type="text" name="address" required />
-
-//       <label>Pincode*</label>
-//       <input type="number" name="pincode" required min="100000" max="999999" />
-
-//       <label>Establishment Year*</label>
-//       <input type="date" name="estYear" required />
-
-//       <label>Email*</label>
-//       <input type="=businessEmail" name="=businessEmail" required />
-
-//       <label>Business Type*</label>
-//       <input type="text" name="businessType" required />
-
-//       <label>Primary Contact*</label>
-//       <input type="tel" name="contact" pattern="\d{10}" maxLength={10} required />
-
-//       <label>Alternate Contact*</label>
-//       <input type="tel" name="alternateContact" pattern="\d{10}" maxLength={10} required />
-
-//       <label>FSSAI Licence (PDF)*</label>
-//       <input type="file" name="fssaiLicence" accept="application/pdf" required />
-
-//       <label>Udyam Licence (PDF)*</label>
-//       <input type="file" name="udyamLicense" accept="application/pdf" required />
-
-//       <label>Trading Licence (PDF)*</label>
-//       <input type="file" name="tradingLicense" accept="application/pdf" required />
-
-//       <label>Aadhar Card (PDF)*</label>
-//       <input type="file" name="aadharcardUrl" accept="application/pdf" required />
-
-//       <br /><br />
-//       <button type="submit">Submit</button>
-
-//       <style jsx>{`
-//         form {
-//           max-width: 500px;
-//           margin: 20px auto;
-//           display: flex;
-//           flex-direction: column;
-//         }
-
-//         label {
-//           margin-top: 10px;
-//           font-weight: bold;
-//         }
-
-//         input {
-//           padding: 8px;
-//           margin-top: 4px;
-//         }
-
-//         button {
-//           margin-top: 20px;
-//           padding: 10px;
-//           font-weight: bold;
-//         }
-//       `}</style>
-//     </form>
-//   );
-// }

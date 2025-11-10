@@ -6,85 +6,69 @@ import { motion } from "framer-motion";
 import { useRouter } from 'next/navigation';
 
 const Seller = () => {
-    const [showSellerForm, setShowSellerForm] = React.useState(false);
-    const router = useRouter();
+  const router = useRouter();
 
-    const formRef = React.useRef<HTMLDivElement>(null);
-    
+  return (
+    <div className="relative">
+      {/* Background Image */}
+      <div className="w-full h-[500px] relative overflow-hidden">
+        <Image
+          src={Farms}
+          alt="Farm Background"
+          className="w-full h-full object-cover absolute top-0 left-0 z-0"
+        />
 
-    React.useEffect(() => {
-        if (showSellerForm) {
-            const handleClickOutside = (e : any) => {
-                if (formRef.current && !formRef.current.contains(e.target)) {
-                    setShowSellerForm(false);
-                }
-            };
+        {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
 
-            document.addEventListener('click', handleClickOutside);
+        {/* Animated Text Container */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white z-20 space-y-3">
+          
+          {/* Title 1 */}
+          <motion.h1
+            className="text-5xl font-semibold"
+            initial={{ x: -300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            Wanted to Get Started
+          </motion.h1>
 
-            return () => {
-                document.removeEventListener('click', handleClickOutside);
-            };
-        }
-    }, [showSellerForm]);
+          {/* Title 2 */}
+          <motion.h1
+            className="text-4xl"
+            initial={{ x: -300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            as Seller
+          </motion.h1>
 
-    // const url = "https://media.istockphoto.com/id/1363571533/photo/open-soybean-field-at-sunset.jpg?s=612x612&w=0&k=20&c=TEw_oBj-8R8Ycd-bpHnUNMtQwvxt1vK5CYcpP1hMiTU=";
-    return (
-
-        <div className='relative'>
-
-            <div className="w-full h-[500px] bg-cover bg-center relative">
-                <Image
-                    src={Farms}
-                    alt="Biryani"
-                    className="w-full h-full object-cover absolute top-0 left-0 z-0 "
-                />
-                {/* Title sliding in from left */}
-                <motion.div
-                    className="absolute top-[40%] left-[50%]"
-                    initial={{ left: "-50%" }}
-                    animate={{ left: "35%" }}
-                    transition={{ duration: 3 }}
-                >
-                    <h1 className="text-white text-5xl">Wanted to Get Started</h1>
-                </motion.div>
-
-                {/* Second text sliding in from left (use `left`, not mix `right`) */}
-                <motion.div
-                    className="absolute top-[50%] right-[50%] text-3xl"
-                    initial={{ right: "-50%" }}
-                    animate={{ right: "50%" }}
-                    transition={{ duration: 3 }}
-                >
-                    <h1 className="text-white text-4xl">as Seller</h1>
-                </motion.div>
-
-                {/* Third text sliding in from left */}
-                <motion.div
-                    className="absolute top-[60%] left-[50%] text-4xl"
-                    initial={{ left: "-50%", color: "red" }}
-                    animate={{ left: "40%", color: "pink" }}
-                    transition={{ duration: 3 }}
-                >
-                    <h1 className="text-white text-4xl">on Platform</h1>
-                </motion.div>
-
-
-            </div>
-
-            <div className='flex flex-row justify-center items-center mt-5'>
-                <button className=' text-white p-5 px-12 rounded-sm bg-green-600 cursor-pointer'>
-
-                    <strong onClick={() => router.push("/sellerform")}>      Become a Seller</strong>
-                </button>
-
-
-
-
-            </div>
-         
+          {/* Title 3 */}
+          <motion.h1
+            className="text-4xl"
+            initial={{ x: -300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+          >
+            on Platform
+          </motion.h1>
         </div>
-    )
-}
+      </div>
+
+      {/* Button Section */}
+      <div className="flex justify-center mt-8">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-green-600 text-white font-semibold px-10 py-4 rounded-md shadow-md cursor-pointer"
+          onClick={() => router.push("/sellerform")}
+        >
+          Become a Seller
+        </motion.button>
+      </div>
+    </div>
+  );
+};
 
 export default Seller;
