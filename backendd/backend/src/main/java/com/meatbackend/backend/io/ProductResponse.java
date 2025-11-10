@@ -16,7 +16,7 @@ public class ProductResponse {
     private boolean status;
     private String message;
     private String productName;
-    private String productImage;
+
 
 
 }

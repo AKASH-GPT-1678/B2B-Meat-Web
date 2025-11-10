@@ -10,12 +10,13 @@ const LoginPage = () => {
   const session = useSession();
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.data.token);
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   React.useEffect(() => {
 
     async function loginWithGoogle(email: string, username: string, password: string) {
       try {
-        const response = await axios.post('http://localhost:8080/auth/google', {
+        const response = await axios.post(`${BASE_URL}/auth/google`, {
           email: email,
           username: username,
           password: password, // can be dummy like "google-auth"o

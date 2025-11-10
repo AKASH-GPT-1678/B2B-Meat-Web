@@ -1,13 +1,16 @@
 import axios from "axios";
 import React from "react";
-
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 export default function ChoosePassword({ email }: { email: string }) {
-    const [passWord, setpassWord] = React.useState("");
-    const [confoirmPassword, setconfirmPassWord] = React.useState("");
+    const [passWord, setPassword] = React.useState("");
+    const [confoirmPassword, setConfirmPassword] = React.useState("");
     const [someError, setSomeError] = React.useState(false);
     const [error, seterror] = React.useState(false);
     const [userName, setUserName] = React.useState("");
     const [askUserName, setaskUserName] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
     const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
     const handlePasswordStep = () => {
@@ -52,7 +55,7 @@ export default function ChoosePassword({ email }: { email: string }) {
                         id="username"
                         placeholder="Choose Username"
                         className="p-2 border"
-                        value={userName}   
+                        value={userName}
                         autoComplete="off"
                         onChange={(e) => setUserName(e.target.value)}
                     />
@@ -65,22 +68,44 @@ export default function ChoosePassword({ email }: { email: string }) {
                 </div>
             ) : (
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        autoComplete="new-password"
-                        className="p-3 px-10 border-2"
-                        onChange={(e) => setpassWord(e.target.value)}
-                    />
-                    <label htmlFor="confirm-password">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="confirm-password"
-                        autoComplete="new-password"
-                        className="p-3 px-10 border-2"
-                        onChange={(e) => setconfirmPassWord(e.target.value)}
-                    />
+                    <div className="relative">
+                        <label htmlFor="password" className="block mb-1 font-medium">
+                            Password
+                        </label>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            autoComplete="new-password"
+                            className="p-2 px-4 border-2 rounded w-full"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <span
+                            className="absolute right-3 top-9 cursor-pointer text-gray-600"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
+
+                    {/* Confirm Password Field */}
+                    <div className="relative">
+                        <label htmlFor="confirm-password" className="block mb-1 font-medium">
+                            Confirm Password
+                        </label>
+                        <input
+                            type={showConfirmPassword ? "text" : "password"}
+                            id="confirm-password"
+                            autoComplete="new-password"
+                            className="p-2 px-4 border-2 rounded w-full"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        <span
+                            className="absolute right-3 top-9 cursor-pointer text-gray-600"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
                     {error && (
                         <p className="text-red-600 mt-2">
                             Password and confirm Password not matching

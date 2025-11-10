@@ -18,14 +18,14 @@ export const PopBar = () => {
     
     return (
         <div>
-            <div className='flex flex-col '>
-                <ul className='flex flex-col gap-2 bg-white p-5 '>
+            <div className='flex flex-col  '>
+                <ul className='flex flex-col gap-2 bg-white p-5 border-2 border-gray-200 rounded-2xl '>
 
-                    <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/settings")}>Settings   / Upgrade     </li>
-                    <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push("/chat")}>Chats</li>
-                    <li style={{ cursor: "pointer", padding: "5px" }}>About Us</li>
-                    {isVerified && <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => router.push(`${isSeller ? "/sellerdashboard" : "seller"}`)}>{isSeller ? "Seller Dashboard" : "Become a Seller"}</li>}
-                    <li style={{ cursor: "pointer", padding: "5px" }} onClick={() => handleLogout()}>Logout</li>
+                    <li style={{ cursor: "pointer", paddingInline: "5px", fontWeight: "bold" }} onClick={() => router.push("/settings")}>Settings   / Upgrade     </li>
+                    <li style={{ cursor: "pointer", padding: "5px", fontWeight: "bold" }} onClick={() => router.push("/chat")}>Chats</li>
+                    <li style={{ cursor: "pointer", padding: "5px", fontWeight: "bold" }}>About Us</li>
+                    {isVerified && <li style={{ cursor: "pointer", padding: "5px", fontWeight: "bold" }} onClick={() => router.push(`${isSeller ? "/sellerdashboard" : "seller"}`)}>{isSeller ? "Seller Dashboard" : "Become a Seller"}</li>}
+                    <li style={{ cursor: "pointer", padding: "5px", fontWeight: "bold" }} onClick={() => handleLogout()}>Logout</li>
 
 
                 </ul>

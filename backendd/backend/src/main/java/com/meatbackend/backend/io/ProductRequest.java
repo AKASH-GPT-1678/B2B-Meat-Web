@@ -30,7 +30,5 @@ public class ProductRequest {
     private ProductCategory category;
 
 
-
-
     private boolean isExportable;
 }
