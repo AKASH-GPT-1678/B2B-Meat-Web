@@ -67,10 +67,17 @@ export default function Home() {
       }
 
     };
+
+    checkToken(token?.toString() || "");
+
+  }, []);
+
+  React.useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await axios.get(`${endpoint}/product/getProducts`, {});
+        const response = await axios.get(`${endpoint}/product/getProducts`);
         setProducts(response.data);
+        console.log("Hey there");
         console.log(response.data);
       } catch (err: any) {
         console.error(err);
@@ -79,8 +86,6 @@ export default function Home() {
     }
 
     fetchProducts();
-    checkToken(token?.toString() || "");
-
   }, []);
 
 
@@ -108,20 +113,11 @@ export default function Home() {
         </div>
       </div>
 
-  
-      <div className="flex flex-col justify-center items-center my-4 text-center space-y-1">
-        <p className="font-semibold">Meat Truck is a B2B Platform where we connect LiveStock Buyers with LiveStock Sellers </p>
 
 
-        {isPremium ? <p className="font-semibold">You are a Premium Buyer</p> : <p className="text-blue-600 underline cursor-pointer">Get Premium</p>}
-        <h1>{isPremium}</h1>
-
-
-
-      </div>
       <div className="flex flex-row flex-wrap justify-center gap-4">
         {
-          products.map((product, index) => (
+          products && products.map((product, index) => (
             <div key={index} >
               <DisplayProd {...product} />
             </div>
@@ -131,7 +127,7 @@ export default function Home() {
       </div>
       <div className="mt-10">
 
-        <Footer/>
+        <Footer />
       </div>
 
 
