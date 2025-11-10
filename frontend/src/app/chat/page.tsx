@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ImCross } from 'react-icons/im';
 import { TiTickOutline } from 'react-icons/ti';
 import chatClient from '@/lib/chatclient';
-
+import { useSearchParams } from 'next/navigation';
 export interface MessageData {
     sender?: string;
     text: string;
@@ -39,7 +39,6 @@ const Page = () => {
     const router = useRouter();
     const isSeller = useAppSelector((state) => state.data.isUserSeller);
     const userEmail = useAppSelector((state) => state.data.userEmail);
-
     const [messages, setMessages] = React.useState<MessageData[]>([]);
     const [inputMessage, setInputMessage] = React.useState('');
     const [requests, setRequests] = React.useState<RequestData[]>([]);
@@ -51,6 +50,8 @@ const Page = () => {
 
     const socketRef = React.useRef<Socket | null>(null);
     const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
+    const searchParams = useSearchParams();
+    const chatId = searchParams.get('chatId');
 
     React.useEffect(() => {
         if (isSeller) router.push('/sellerdashboard/inbox');
@@ -173,14 +174,14 @@ const Page = () => {
         }
     };
 
-    React.useEffect(() => {
+    // React.useEffect(() => {
 
-        socketRef.current?.on(myUserId.trim().toString(), (data) => {
+    //     socketRef.current?.on(myUserId.trim().toString(), (data) => {
 
-            console.log(data)
-        })
+    //         console.log(data)
+    //     })
 
-    })
+    // })
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">

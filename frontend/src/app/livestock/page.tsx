@@ -14,6 +14,7 @@ export interface ProductResponseDTO {
   id: string; // UUID
   name: string;
   description: string;
+  sellerId : string;
   minimumOrderQuantity: string;
   price: number;
   productImgUrl: string;
@@ -170,7 +171,7 @@ const page = () => {
               </div>
 
               <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <span className='font-bold text-lg cursor-pointer' onClick={() => router.push("/chat")} >Contact Seller</span>
+                <span className='font-bold text-lg cursor-pointer' onClick={() => router.push(`/chat?chatId=${product.sellerId}`)} >Contact Seller</span>
 
 
               </div>
