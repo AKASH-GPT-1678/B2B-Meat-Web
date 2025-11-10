@@ -46,7 +46,7 @@ Email Notifications: Gmail SMTP
 
 ## 🌐 Live Demo
 
-> (Optional) Add your live link here:  
+
 [Visit Website](https://b2-b-meat-web-pdvm.vercel.app/)
 
 ---
