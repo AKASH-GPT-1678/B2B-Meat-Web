@@ -196,6 +196,7 @@ public class AuthController {
              response.setSubscription(subscriptionStatus);
              response.setSeller(isSeller);
              response.setEmail(user.get().getEmail());
+             response.setId(user.get().getId());
 
              return response;
         }
