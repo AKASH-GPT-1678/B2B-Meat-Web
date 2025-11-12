@@ -7,6 +7,7 @@ import { ImCross } from 'react-icons/im';
 import { TiTickOutline } from 'react-icons/ti';
 import chatClient from '@/lib/chatclient';
 import { useSearchParams } from 'next/navigation';
+import { REDUX_VALS } from '@/utils/reduxvals';
 export interface MessageData {
     sender?: string;
     text: string;
@@ -43,15 +44,14 @@ const ChatBox = () => {
     const [inputMessage, setInputMessage] = React.useState('');
     const [requests, setRequests] = React.useState<RequestData[]>([]);
     const [contacts, setContacts] = React.useState<Contact[]>([]);
-    const [myUserId, setMyUserId] = React.useState('');
     const [addChat, setAddChat] = React.useState('');
     const [activeChatId, setActiveChatId] = React.useState<string | null>(null);
     const [showNewChat, setShowNewChat] = React.useState(false);
-
     const socketRef = React.useRef<Socket | null>(null);
     const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
     const searchParams = useSearchParams();
     const chatId = searchParams.get('chatId');
+    const myUserId = REDUX_VALS().userId;
 
     React.useEffect(() => {
         if (isSeller) router.push('/sellerdashboard/inbox');
@@ -59,7 +59,7 @@ const ChatBox = () => {
 
     const makeRequest = async () => {
         try {
-            const { data } = await chatClient.post('/api/makerequest', { recieverId: addChat });
+            const { data } = await chatClient.post('/api/makerequest', { userId: REDUX_VALS().userId, contactId: chatId });
             setRequests(data.data);
         } catch (error) {
             console.error('Error fetching user:', error);
@@ -86,47 +86,45 @@ const ChatBox = () => {
         };
     }, [myUserId]);
 
-    // React.useEffect(() => {
-    //     const fetchUserByEmail = async (email: string) => {
-    //         try {
-    //             const response = await chatClient.get(`/api/profile`, {
-    //                 params: { email },
-    //             });
-    //             return response.data;
-    //         } catch (error) {
-    //             console.error('Error fetching user:', error);
-    //             return null;
-    //         }
-    //     };
+    React.useEffect(() => {
+        const fetchUserByEmail = async (email: string) => {
+            try {
+                const response = await chatClient.get(`/api/profile`, {
+                    params: { email },
+                });
+                return response.data;
+            } catch (error) {
+                console.error('Error fetching user:', error);
+                return null;
+            }
+        };
 
-    //     const checkForRequests = async () => {
-    //         try {
-    //             const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
-    //             setRequests(data.data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
+        const checkForRequests = async () => {
+            try {
+                const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
+                setRequests(data.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
 
-    //     const getContacts = async () => {
-    //         if (!myUserId) return;
-    //         try {
-    //             const response = await chatClient.get(`/api/mycontacts`, {
-    //                 params: { userId: myUserId },
-    //             });
-    //             setContacts(response.data.contacts);
-    //         } catch (error) {
-    //             console.error('Error fetching contacts:', error);
-    //         }
-    //     };
+        const getContacts = async () => {
+            if (!myUserId) return;
+            try {
+                const response = await chatClient.get(`/api/mycontacts`, {
+                    params: { userId: myUserId },
+                });
+                setContacts(response.data.contacts);
+            } catch (error) {
+                console.error('Error fetching contacts:', error);
+            }
+        };
 
-    //     fetchUserByEmail(userEmail).then((user) => {
-    //         if (user) setMyUserId(user.response._id);
-    //     });
+ 
 
-    //     checkForRequests();
-    //     getContacts();
-    // }, [userEmail, myUserId]);
+        checkForRequests();
+        getContacts();
+    }, [userEmail, myUserId]);
 
 
 
@@ -191,7 +189,7 @@ const ChatBox = () => {
                                             size={26}
                                             fill="green"
                                             className="cursor-pointer"
-                                            // onClick={() => makeRequest(request._id, myUserId)}
+                                        // onClick={() => makeRequest(request._id, myUserId)}
                                         />
                                     </div>
                                 </div>
@@ -243,12 +241,12 @@ const ChatBox = () => {
                                 type="text"
                                 value={inputMessage}
                                 onChange={(e) => setInputMessage(e.target.value)}
-                  
+
                                 placeholder="Type your message..."
                                 className="flex-1 border rounded px-4 py-2 focus:outline-none"
                             />
                             <button
-                       
+
                                 disabled={!inputMessage.trim()}
                                 className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
                             >

@@ -214,53 +214,6 @@ async function loginUser(req, res) {
 
 };
 
-async function addToContact(req, res) {
-
-
-
-
-    try {
-
-
-        const { contactId, userId } = req.body;
-        console.log(contactId, userId);
-
-        const contact = await User.findOne({ username: contactId });
-        console.log(contact);
-        if (!contact) {
-            return { verified: false, status: 404, message: `No User Found wih username ${contactId}` };
-        };
-
-        const createContact = await MyContact.create({
-            userId: userId,
-            contactUserId: contact._id,
-            username: contact.username,
-            profileUrl: contact.profileUrl
-        });
-
-
-        const user = await User.findOne({
-            _id: userId
-        });
-
-        await MessageRequest.create({
-            senderId: userId,
-            recieverId: contact._id,
-            senderName: user.username,
-
-
-
-        })
-
-        return res.status(201).json({ message: "Contact Added", contact: createContact });
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ error: "Something went wrong", error: error });
-
-    }
-
-};
 
 
 async function acceptRequest(req, res) {
@@ -418,4 +371,4 @@ async function loadProfileDetails(req, res) {
 
 
 
-export { registerUser, loginUser, checkForRequest, acceptRequest, checktoken, getMyContacts, addToContact, addNickName, deletUser, loadProfileDetails };
+export { registerUser, loginUser, checkForRequest, acceptRequest, checktoken, getMyContacts,  addNickName, deletUser, loadProfileDetails };

@@ -1,6 +1,3 @@
-import User from "../models/user.model.js";
-import MyContact from "../models/user.contactModel.js";
-import MessageRequest from "../models/message.request.js";
 import { PrismaClient } from "@prisma/client";
 import redisClient from "../configs/rediClient.js";
 const prisma = new PrismaClient();
@@ -164,11 +161,7 @@ async function checkForRequestChatter(req, res) {
 async function getMyContactsChatter(req, res) {
 
 
-    if (!req.user) {
-        return { verified: false, status: 401, message: "Unauthorized request" };
-    };
-
-    const userId = req.user.id
+    const { userId } = req.params;
     try {
         const contacts = await prisma.contacts.findMany({
             where: {
