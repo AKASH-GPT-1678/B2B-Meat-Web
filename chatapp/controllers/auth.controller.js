@@ -45,7 +45,7 @@ async function registerUser(req, res) {
                 email: email,
                 username: username,
                 fullName: fullName,
-                phone: phone,
+        
                 password: hashpassword,
                 app: app
 

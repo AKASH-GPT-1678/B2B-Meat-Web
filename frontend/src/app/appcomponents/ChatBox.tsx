@@ -2,7 +2,7 @@
 import { useAppSelector } from '@/utils/reduxhook';
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
-import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 import { ImCross } from 'react-icons/im';
 import { TiTickOutline } from 'react-icons/ti';
 import chatClient from '@/lib/chatclient';
@@ -37,8 +37,7 @@ interface Contact {
 }
 
 const ChatBox = () => {
-    const router = useRouter();
-    const isSeller = useAppSelector((state) => state.data.isUserSeller);
+
     const userEmail = useAppSelector((state) => state.data.userEmail);
     const [messages, setMessages] = React.useState<MessageData[]>([]);
     const [inputMessage, setInputMessage] = React.useState('');
@@ -53,9 +52,6 @@ const ChatBox = () => {
     const chatId = searchParams.get('chatId');
     const myUserId = REDUX_VALS().userId;
 
-    React.useEffect(() => {
-        if (isSeller) router.push('/sellerdashboard/inbox');
-    }, []);
 
     const makeRequest = async () => {
         try {
@@ -130,6 +126,7 @@ const ChatBox = () => {
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">
+            <Button onClick={makeRequest}>New Request</Button>
             <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-4">
 
                 <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm p-4 space-y-4">

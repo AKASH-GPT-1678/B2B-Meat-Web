@@ -5,11 +5,13 @@ interface RegisterData {
 
     email: string;
     username: string;
+    id : string;
     password: string;
 }
 export interface RegisterResponse {
     success: boolean;
     message: string;
+    id: string;
     user: any;
 }
 
@@ -17,8 +19,7 @@ export interface RegisterResponse {
 export async function registerUser(data: RegisterData): Promise<RegisterResponse> {
   const data2 = {
     ...data,
-    email : "kunalsingh123@gmail.com",
-    app: "B2BMEATWEB"   // ✅ adding or overriding `app` field before sending
+    app: "B2BMEATWEB"   
   };
 
   try {

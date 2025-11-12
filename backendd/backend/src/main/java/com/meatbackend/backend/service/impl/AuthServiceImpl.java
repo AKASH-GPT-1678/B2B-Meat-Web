@@ -6,6 +6,7 @@ import com.meatbackend.backend.dto.RegistrationRequest;
 import com.meatbackend.backend.exception.EmailNotFoundException;
 import com.meatbackend.backend.io.*;
 import com.meatbackend.backend.model.EmailEntity;
+import com.meatbackend.backend.model.OtpModel;
 import com.meatbackend.backend.model.User;
 import com.meatbackend.backend.repository.OtpRepository;
 import com.meatbackend.backend.repository.UserRepository;
@@ -78,13 +79,21 @@ public class AuthServiceImpl implements AuthService {
         try {
             Optional<User> existingUser = userRepository.findByEmail(email);
             if (existingUser.isEmpty()) {
-                String Otp = generateOtp();
+                // Generate OTP once here
+                String otp = generateOtp();
 
+                // Save OTP to DB here
+                OtpModel newOtp = new OtpModel();
+                newOtp.setOtp(otp);
+                newOtp.setUserEmail(email);
+                newOtp.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+                otpRepository.save(newOtp);
+
+                // Send email
                 EmailEntity emailEntity = new EmailEntity();
                 emailEntity.setRecipient(email);
-                emailEntity.setSubject("Email verification");
-                emailEntity.setAttachment("My Dear Bhanje"); // You can update or remove this if not needed
-                emailEntity.setMsgBody(Otp);
+                emailEntity.setSubject("Email Verification");
+                emailEntity.setMsgBody("Your OTP is: " + otp);
 
                 emailService.sendSimpleMail(emailEntity);
 
@@ -93,18 +102,18 @@ public class AuthServiceImpl implements AuthService {
                 verifyEmailDto.setMethod("Otp");
             } else {
                 verifyEmailDto.setMessage("User Found");
-                verifyEmailDto.setStatus("Password verification");
+                verifyEmailDto.setStatus("Password Verification");
                 verifyEmailDto.setMethod("password");
             }
         } catch (Exception e) {
             verifyEmailDto.setMessage("Error occurred: " + e.getMessage());
             verifyEmailDto.setStatus("Failed");
-            // Optionally log the exception or rethrow it
-            e.printStackTrace(); // or use a logger
+            e.printStackTrace();
         }
 
         return verifyEmailDto;
     }
+
 
     @Override
     public String forgotPassword(String email) {
@@ -190,7 +199,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
 
-        String registrationResult = userRegistrationService.registerUser(
+        RegisterResponse registrationResult = userRegistrationService.registerUser(
                 registerRequestDTO.getEmail(),
                 registerRequestDTO.getUsername(),
                 registerRequestDTO.getPassword()

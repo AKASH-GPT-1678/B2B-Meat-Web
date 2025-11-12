@@ -34,39 +34,21 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public String sendSimpleMail(EmailEntity emailEntity) {
-        try{
-
+        try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-            String Otp = this.generateOtp();
-
-
-
-
             mailMessage.setFrom(sender);
             mailMessage.setTo(emailEntity.getRecipient());
-            mailMessage.setText(Otp);
             mailMessage.setSubject(emailEntity.getSubject());
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
-
-            OtpModel newOtp = new OtpModel();
-            newOtp.setOtp(Otp);
-            newOtp.setUserEmail(emailEntity.getRecipient());
-            newOtp.setCreatedOn(timestamp);
-
+            mailMessage.setText(emailEntity.getMsgBody());
 
             javaMailSender.send(mailMessage);
-            otpRepository.save(newOtp);
             return "Mail Sent Successfully...";
-
-        }
-        catch (Exception e){
-            return "Error while sending mail!!!";
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error while sending mail: " + e.getMessage();
         }
     }
+
 
     @Override
     public Boolean verifyOtp(OtpRequestDto otpRequestDto) {

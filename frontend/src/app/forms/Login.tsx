@@ -19,7 +19,7 @@ export const Login = () => {
         try {
 
 
-            const response = await apiClient.post(`/auth/userverify?email=${email}`);
+            const response = await apiClient.post(`/auth/user-verify?email=${email}`);
             console.log(endpoint);
             console.log(response.data);
 

@@ -133,7 +133,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/userverify")
+    @PostMapping("/user-verify")
     public ResponseEntity<VerifyEmailDto> verifyEmail(@RequestParam("email") String email){
 
         VerifyEmailDto verifyEmail = authService.verifyUser(email);

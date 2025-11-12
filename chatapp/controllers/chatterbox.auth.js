@@ -67,10 +67,7 @@ async function addToContactChatter(req, res) {
 
 async function acceptRequestChatter(req, res) {
 
-    if (!req.user) {
-        return { verified: false, status: 401, message: "Unauthorized request" };
-    };
-
+ 
 
 
 

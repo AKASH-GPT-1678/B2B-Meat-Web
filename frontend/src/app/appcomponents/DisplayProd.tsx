@@ -31,25 +31,25 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
         router.push('/livestock')
 
     };
-    const handleProduct = async(id : string) => {
-        if(!id) return;
-        try {
+    // const handleProduct = async(id : string) => {
+    //     if(!id) return;
+    //     try {
 
-            const response = await axios.put(`${endpoint}/product/viewcount?productId=${id}`);
-            console.log(response.data);
-            router.push(`/livestock?livestock=${id}`);
+    //         const response = await axios.put(`${endpoint}/product/viewcount?productId=${id}`);
+    //         console.log(response.data);
+   
             
-        } catch (error) {
+    //     } catch (error) {
             
-        }
+    //     }
 
-    }
+    // }
 
-
+ //         router.push(`/livestock?livestock=${id}`);
     const isPremium = useAppSelector((state) => state.data.isPremium);
     return (
 
-        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px] cursor-pointer shadow-2xl w-full  h-fit' onClick={() => handleProduct(`${id}`)} >
+        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px] cursor-pointer shadow-2xl w-full  h-fit' onClick={()=> router.push('/livestock?livestock='+id+'')}  >
             <div className='flex flex-col h-[160px] w-[160px] sm:h-[250px] sm:w-fit md:h-[300px] md:w-[300px]' >
                 <Image src={productImgUrl} width={200} height={200} alt='' className='object-cover h-full w-full sm:rounded-t-4xl' />
 
@@ -68,9 +68,9 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
 
             </div>
 
-            <div className='flex flex-col sm:flex-row gap-2 justify-between p-2 pb-8 '>
-                <button className='p-2 sm:rounded-xl cursor-pointer px-6 sm:px-10 bg-orange-300'> Add </button>
-                <button className='p-2 sm:rounded-xl cursor-pointer px-6 sm:px-10 bg-orange-300'> Contact </button>
+            <div className='flex flex-col sm:flex-row gap-2 justify-end p-2 pb-8 '>
+                {/* <button className='p-2 sm:rounded-xl cursor-pointer px-6 sm:px-10 bg-orange-300'> Add </button> */}
+                <button className='p-3 sm:rounded-xl cursor-pointer px-6 sm:px-10 bg-orange-300'> Contact </button>
             </div>
 
 
