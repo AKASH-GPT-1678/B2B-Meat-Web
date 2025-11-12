@@ -57,6 +57,15 @@ const ChatBox = () => {
         if (isSeller) router.push('/sellerdashboard/inbox');
     }, []);
 
+    const makeRequest = async () => {
+        try {
+            const { data } = await chatClient.post('/api/makerequest', { recieverId: addChat });
+            setRequests(data.data);
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
+    };
+
     React.useEffect(() => {
         console.log(chatEndpoint);
         const socket = io(chatEndpoint?.toString(), {
@@ -77,47 +86,47 @@ const ChatBox = () => {
         };
     }, [myUserId]);
 
-    React.useEffect(() => {
-        const fetchUserByEmail = async (email: string) => {
-            try {
-                const response = await chatClient.get(`/api/profile`, {
-                    params: { email },
-                });
-                return response.data;
-            } catch (error) {
-                console.error('Error fetching user:', error);
-                return null;
-            }
-        };
+    // React.useEffect(() => {
+    //     const fetchUserByEmail = async (email: string) => {
+    //         try {
+    //             const response = await chatClient.get(`/api/profile`, {
+    //                 params: { email },
+    //             });
+    //             return response.data;
+    //         } catch (error) {
+    //             console.error('Error fetching user:', error);
+    //             return null;
+    //         }
+    //     };
 
-        const checkForRequests = async () => {
-            try {
-                const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
-                setRequests(data.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    //     const checkForRequests = async () => {
+    //         try {
+    //             const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
+    //             setRequests(data.data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
 
-        const getContacts = async () => {
-            if (!myUserId) return;
-            try {
-                const response = await chatClient.get(`/api/mycontacts`, {
-                    params: { userId: myUserId },
-                });
-                setContacts(response.data.contacts);
-            } catch (error) {
-                console.error('Error fetching contacts:', error);
-            }
-        };
+    //     const getContacts = async () => {
+    //         if (!myUserId) return;
+    //         try {
+    //             const response = await chatClient.get(`/api/mycontacts`, {
+    //                 params: { userId: myUserId },
+    //             });
+    //             setContacts(response.data.contacts);
+    //         } catch (error) {
+    //             console.error('Error fetching contacts:', error);
+    //         }
+    //     };
 
-        fetchUserByEmail(userEmail).then((user) => {
-            if (user) setMyUserId(user.response._id);
-        });
+    //     fetchUserByEmail(userEmail).then((user) => {
+    //         if (user) setMyUserId(user.response._id);
+    //     });
 
-        checkForRequests();
-        getContacts();
-    }, [userEmail, myUserId]);
+    //     checkForRequests();
+    //     getContacts();
+    // }, [userEmail, myUserId]);
 
 
 
