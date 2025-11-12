@@ -1,7 +1,8 @@
-import axios from "axios";
 import React from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { registerUser } from "@/lib/registerchat";
+import apiClient from "@/lib/axios";
 export default function ChoosePassword({ email }: { email: string }) {
     const [passWord, setPassword] = React.useState("");
     const [confoirmPassword, setConfirmPassword] = React.useState("");
@@ -11,7 +12,7 @@ export default function ChoosePassword({ email }: { email: string }) {
     const [askUserName, setaskUserName] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
-    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
+   
 
     const handlePasswordStep = () => {
         if (passWord !== confoirmPassword) {
@@ -30,14 +31,21 @@ export default function ChoosePassword({ email }: { email: string }) {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`${endpoint}/auth/register`, {
+            const response = await apiClient.post(`/auth/register`, {
                 username: userName,
                 email: email,
                 password: passWord,
             });
             console.log(response.data);
             if (response.data === "User registered successfully!") {
-                window.location.href = "/login";
+                await registerUser({ username: userName, email: email, password: passWord })
+                .then(() => {
+                    window.location.href = "/login";
+                })
+                
+                
+                ;
+                
             }
         } catch (error) {
             console.error(error);

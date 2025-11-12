@@ -53,7 +53,7 @@ public class AuthController {
 
     @GetMapping("/welcome")
     public ResponseEntity<ApiResponse> welcome() {
-        return ResponseEntity.ok(new ApiResponse(true, "Welcome! This endpoint is accessible to everyone."));
+        return ResponseEntity.ok(new ApiResponse(true,"Welcome! This endpoint is accessible to everyone."));
     }
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@RequestBody LoginRequest loginRequest) {

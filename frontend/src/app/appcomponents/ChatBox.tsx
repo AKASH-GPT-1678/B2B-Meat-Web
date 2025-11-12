@@ -35,7 +35,7 @@ interface Contact {
     _id: string;
 }
 
-const Page = () => {
+const ChatBox = () => {
     const router = useRouter();
     const isSeller = useAppSelector((state) => state.data.isUserSeller);
     const userEmail = useAppSelector((state) => state.data.userEmail);
@@ -253,4 +253,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default ChatBox;
