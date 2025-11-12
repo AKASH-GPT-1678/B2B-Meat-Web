@@ -31,22 +31,22 @@ export default function ChoosePassword({ email }: { email: string }) {
 
     const handleSubmit = async () => {
         try {
-            const response = await apiClient.post(`/auth/register`, {
-                username: userName,
-                email: email,
-                password: passWord,
-            });
-            console.log(response.data);
-            if (response.data === "User registered successfully!") {
+            // const response = await apiClient.post(`/auth/register`, {
+            //     username: userName,
+            //     email: email,
+            //     password: passWord,
+            // });
+            // console.log(response.data);
+            // if (response.data === "User registered successfully!") {
                 await registerUser({ username: userName, email: email, password: passWord })
                 .then(() => {
                     window.location.href = "/login";
                 })
                 
                 
-                ;
+            //     ;
                 
-            }
+            // }
         } catch (error) {
             console.error(error);
             setSomeError(true);
