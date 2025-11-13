@@ -7,7 +7,7 @@ import { ImCross } from 'react-icons/im';
 import { TiTickOutline } from 'react-icons/ti';
 import chatClient from '@/lib/chatclient';
 import { useSearchParams } from 'next/navigation';
-import { REDUX_VALS } from '@/utils/reduxvals';
+import { useReduxVals } from '@/utils/reduxVals';
 export interface MessageData {
     sender?: string;
     text: string;
@@ -50,12 +50,12 @@ const ChatBox = () => {
     const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
     const searchParams = useSearchParams();
     const chatId = searchParams.get('chatId');
-    const myUserId = REDUX_VALS().userId;
+    const { token, userId : myUserId, isPremium } = useReduxVals();
 
 
     const makeRequest = async () => {
         try {
-            const { data } = await chatClient.post('/api/makerequest', { userId: REDUX_VALS().userId, contactId: chatId });
+            const { data } = await chatClient.post('/api/addcontact', { userId: myUserId, contactId: chatId });
             setRequests(data.data);
         } catch (error) {
             console.error('Error fetching user:', error);

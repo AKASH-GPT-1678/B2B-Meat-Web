@@ -9,6 +9,7 @@ import { IoIosHome } from 'react-icons/io';
 import { IoSettingsSharp } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
 import { FaBlog } from "react-icons/fa";
+import ChatBox from '@/app/appcomponents/ChatBox';
 
 const InBoxPage = () => {
 
@@ -71,7 +72,7 @@ const InBoxPage = () => {
     
     return (
         <div className='relative'>
-            <div className='flex flex-row'>
+            <div className='flex flex-row w-full'>
 
 
                 <div className='p-4 w-full max-w-[400px]'>
@@ -103,7 +104,7 @@ const InBoxPage = () => {
                 </div>
 
                 <div>
-                    <h1>i am inbox</h1>
+                    <ChatBox/>
 
 
 

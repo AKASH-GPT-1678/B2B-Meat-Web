@@ -50,6 +50,7 @@ public class SellerServiceImpl implements SellerService {
        }
 
             Seller newSeller = new Seller();
+            newSeller.setId(user.getId());
 
             newSeller.setName(sellerRequestDTO.getName());
             newSeller.setAddress(sellerRequestDTO.getAddress());

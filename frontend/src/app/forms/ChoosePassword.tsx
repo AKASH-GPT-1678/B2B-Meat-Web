@@ -41,6 +41,7 @@ export default function ChoosePassword({ email }: { email: string }) {
                 await registerUser({ username: userName, email: email, id: response.data.id, password: passWord })
                 .then(() => {
                     window.location.href = "/login";
+                  
                 })
                 
                 

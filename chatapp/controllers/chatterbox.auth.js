@@ -9,6 +9,7 @@ async function addToContactChatter(req, res) {
 
 
         const { userId, contactId } = req.body;
+        console.log("Ravindra bhai jadeja")
         console.log(contactId, userId);
 
         const contact = await prisma.user.findFirst({
