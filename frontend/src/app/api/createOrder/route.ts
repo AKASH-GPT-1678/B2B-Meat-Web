@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 
 
-
 const RazorpayKey = process.env.RAZORPAY_KEY_ID as string;
 const RazorpaySecret = process.env.RAZORPAY_SECRET_KEY as string;
 

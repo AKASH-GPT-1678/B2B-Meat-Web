@@ -8,6 +8,8 @@ import { TiTickOutline } from 'react-icons/ti';
 import chatClient from '@/lib/chatclient';
 import { useSearchParams } from 'next/navigation';
 import { useReduxVals } from '@/utils/reduxVals';
+import { makeRequest } from '@/lib/chatrequest';
+import { acceptRequest } from '@/lib/chatrequest';
 export interface MessageData {
     sender?: string;
     text: string;
@@ -16,14 +18,15 @@ export interface MessageData {
 }
 
 interface RequestData {
+    id: string;
     accepted: boolean;
-    createdAt: string;
-    updatedAt: string;
-    recieverId: string;
-    senderId: string;
-    senderName: string;
-    __v: number;
-    _id: string;
+    createdAt: string | Date;
+
+    ownerId: string;
+    ownerName: string;
+
+    contactId: string;
+    contactName: string;
 }
 
 interface Contact {
@@ -50,17 +53,10 @@ const ChatBox = () => {
     const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
     const searchParams = useSearchParams();
     const chatId = searchParams.get('chatId');
-    const { token, userId : myUserId, isPremium } = useReduxVals();
+    const { token, userId: myUserId, isPremium } = useReduxVals();
 
 
-    const makeRequest = async () => {
-        try {
-            const response = await chatClient.post('/api/addcontact', { userId: myUserId, contactId: chatId });
-            console.log(response.data);
-        } catch (error) {
-            console.error('Error fetching user:', error);
-        }
-    };
+
 
     React.useEffect(() => {
         console.log(chatEndpoint);
@@ -87,7 +83,7 @@ const ChatBox = () => {
             try {
                 const response = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
                 console.log(response.data);
-                setRequests(response.data);
+                setRequests(response.data.data);
             } catch (error) {
                 console.log(error);
             }
@@ -105,7 +101,7 @@ const ChatBox = () => {
             }
         };
 
- 
+
 
         checkForRequests();
         getContacts();
@@ -116,7 +112,7 @@ const ChatBox = () => {
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">
-            {exists ? null : <Button onClick={makeRequest}>New Request</Button>}
+            {exists ? null : <Button onClick={() => makeRequest(myUserId, chatId as string)}>New Request</Button>}
             <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-4">
 
                 <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm p-4 space-y-4">
@@ -165,10 +161,10 @@ const ChatBox = () => {
                         <h3 className="font-semibold">Incoming Requests</h3>
                         {requests && requests.length > 0 ? (
                             requests.map((request) => (
-                                <div key={request._id} className="flex items-center justify-between p-2 border rounded">
+                                <div key={request.id} className="flex items-center justify-between p-2 border rounded">
                                     <div>
-                                        <p className="text-sm font-medium">{request.senderName}</p>
-                                        <p className="text-xs text-gray-500">{request.senderId}</p>
+                                        <p className="text-sm font-medium">{request.ownerName}</p>
+                                        <p className="text-xs text-gray-500">{request.contactId}</p>
                                     </div>
                                     <div className="flex gap-2">
                                         <ImCross size={20} fill="red" className="cursor-pointer" />
@@ -176,7 +172,7 @@ const ChatBox = () => {
                                             size={26}
                                             fill="green"
                                             className="cursor-pointer"
-                                        // onClick={() => makeRequest(request._id, myUserId)}
+                                        onClick={() => makeRequest(myUserId, request.id)}
                                         />
                                     </div>
                                 </div>

@@ -111,6 +111,20 @@ async function acceptRequestChatter(req, res) {
 
 }
 ;
+function flattenContact(contact) {
+    return {
+        id: contact.id,
+        accepted: contact.accepted,
+        createdAt: contact.createdAt,
+
+        ownerId: contact.owner.id,
+        ownerName: contact.owner.username,
+
+        contactId: contact.contact.id,
+        contactName: contact.contact.username
+    };
+}
+
 
 async function checkForRequestChatter(req, res) {
 
@@ -137,6 +151,9 @@ async function checkForRequestChatter(req, res) {
                 owner: true
             }
         });
+        const formatted = request.map(flattenContact);
+
+
 
 
 
@@ -144,7 +161,7 @@ async function checkForRequestChatter(req, res) {
             return res.status(200).json({ message: "No Request" })
         } else {
 
-            return res.status(200).json({ message: "Request Recieved", data: request });
+            return res.status(200).json({ success: true, data: formatted });
         };
 
     } catch (error) {
