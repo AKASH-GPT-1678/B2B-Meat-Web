@@ -55,8 +55,8 @@ const ChatBox = () => {
 
     const makeRequest = async () => {
         try {
-            const { data } = await chatClient.post('/api/addcontact', { userId: myUserId, contactId: chatId });
-            setRequests(data.data);
+            const response = await chatClient.post('/api/addcontact', { userId: myUserId, contactId: chatId });
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching user:', error);
         }
@@ -85,8 +85,9 @@ const ChatBox = () => {
     React.useEffect(() => {
         const checkForRequests = async () => {
             try {
-                const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
-                setRequests(data.data);
+                const response = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
+                console.log(response.data);
+                setRequests(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -162,7 +163,7 @@ const ChatBox = () => {
 
                     <div className="pt-4">
                         <h3 className="font-semibold">Incoming Requests</h3>
-                        {requests.length > 0 ? (
+                        {requests && requests.length > 0 ? (
                             requests.map((request) => (
                                 <div key={request._id} className="flex items-center justify-between p-2 border rounded">
                                     <div>

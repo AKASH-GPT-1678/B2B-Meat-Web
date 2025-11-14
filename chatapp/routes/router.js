@@ -18,7 +18,7 @@ router.get("/profile", loadProfileDetails);
 router.get("/myprofile", loadMyProfile);
 router.post("/addcontact", addToContactChatter);
 router.put("/acceptrequestchatter", acceptRequestChatter);
-router.get("/checkrequestchatter", checkForRequestChatter);
+router.get("/checkrequest", checkForRequestChatter);
 router.get("/mycontacts/:userId", getMyContactsChatter);
 router.post("/creategroup", createGroup);
 router.get("/my-groups", getUserGroups);
