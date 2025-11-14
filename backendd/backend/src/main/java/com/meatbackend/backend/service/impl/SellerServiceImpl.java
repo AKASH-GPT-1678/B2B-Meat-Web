@@ -42,42 +42,41 @@ public class SellerServiceImpl implements SellerService {
         String email = authentication.getName();
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new NoSuchElementException("No User with Such EMail found"));
+                .orElseThrow(() -> new NoSuchElementException("No User with Such Email found"));
 
-       if (user.getSeller() != null){
-           throw new SellerAlreadyExistsException("Seller Already Exisst with Such User");
+        if (user.getSeller() != null) {
+            throw new SellerAlreadyExistsException("Seller Already Exists for This User");
+        }
 
-       }
+        Seller newSeller = new Seller();
 
-            Seller newSeller = new Seller();
-            newSeller.setId(user.getId());
+        newSeller.setName(sellerRequestDTO.getName());
+        newSeller.setAddress(sellerRequestDTO.getAddress());
+        newSeller.setPincode(sellerRequestDTO.getPincode());
+        newSeller.setEstYear(sellerRequestDTO.getEstYear());
+        newSeller.setBusinessEmail(sellerRequestDTO.getBusinessEmail());
+        newSeller.setBusinessType(sellerRequestDTO.getBusinessType());
+        newSeller.setContact(sellerRequestDTO.getContact());
+        newSeller.setAlternateContact(sellerRequestDTO.getAlternateContact());
+        newSeller.setKycVerified(false);
+        newSeller.setCreatedOn(new Timestamp(System.currentTimeMillis()));
 
-            newSeller.setName(sellerRequestDTO.getName());
-            newSeller.setAddress(sellerRequestDTO.getAddress());
-            newSeller.setPincode(sellerRequestDTO.getPincode());
-            newSeller.setEstYear(sellerRequestDTO.getEstYear());
-            newSeller.setBusinessEmail(sellerRequestDTO.getBusinessEmail());
-            newSeller.setBusinessType(sellerRequestDTO.getBusinessType());
-            newSeller.setContact(sellerRequestDTO.getContact());
-            newSeller.setAlternateContact(sellerRequestDTO.getAlternateContact());
-            newSeller.setKycVerified(false);
-            newSeller.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+        // ⭐ REQUIRED FOR @MapsId — makes seller.id = user.id
+        newSeller.setUser(user);
 
+        user.setSeller(newSeller);
+        user.setUserSeller(true);
 
-            user.setSeller(newSeller);
-            user.setUserSeller(true);
-            userRepository.save(user);
+        userRepository.save(user);
 
-            SellerResponseDTO response = new SellerResponseDTO();
-            response.setId(newSeller.getId());
-            response.setName(newSeller.getName());
-            response.setCreatedOn(newSeller.getCreatedOn());
-            response.setKycVerified(newSeller.isKycVerified());
-            response.setStatus(true);
+        SellerResponseDTO response = new SellerResponseDTO();
+        response.setId(newSeller.getId());
+        response.setName(newSeller.getName());
+        response.setCreatedOn(newSeller.getCreatedOn());
+        response.setKycVerified(newSeller.isKycVerified());
+        response.setStatus(true);
 
-            return response;
-
-
+        return response;
     }
 
 

@@ -18,7 +18,6 @@ import java.util.UUID;
 public class Seller {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String name;
@@ -26,6 +25,7 @@ public class Seller {
 
     @Column(unique = true)
     private String businessEmail;
+
     private Long pincode;
     private Timestamp EstYear;
     private String BusinessType;
@@ -40,11 +40,12 @@ public class Seller {
     private Timestamp createdOn;
     private Timestamp updatedOn;
 
-    @OneToOne(mappedBy = "seller")
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")  // same column for both PK + FK
     private User user;
 
-
-    // Corrected: mappedBy should match the field name in ProductModel
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductModel> products = new ArrayList<>();
 

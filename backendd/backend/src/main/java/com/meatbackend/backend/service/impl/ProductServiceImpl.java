@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 
          Seller seller = user.getSeller();
 
-         if(user.getSeller() == null) {
+         if(seller == null) {
              throw new NotFoundException("No Such Seller Found");
 
 

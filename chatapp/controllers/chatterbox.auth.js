@@ -68,7 +68,7 @@ async function addToContactChatter(req, res) {
 
 async function acceptRequestChatter(req, res) {
 
- 
+
 
 
 
@@ -114,11 +114,8 @@ async function acceptRequestChatter(req, res) {
 
 async function checkForRequestChatter(req, res) {
 
-    if (!req.user) {
-        return { verified: false, status: 401, message: "Unauthorized request" };
-    };
 
-    const userId = req.user.id
+    const { userId } = req.query;
 
     try {
         const request = await prisma.contacts.findMany({
@@ -161,6 +158,7 @@ async function getMyContactsChatter(req, res) {
 
     const { userId } = req.params;
     try {
+        console.log("Request Recieved")
         const contacts = await prisma.contacts.findMany({
             where: {
                 OR: [
@@ -179,8 +177,10 @@ async function getMyContactsChatter(req, res) {
                 owner: true
             }
         });
+        console.log("Hey i am working");
 
         const updatedOwner = contacts.map(item => [item.owner, item.contact]);
+        console.log(updatedOwner);
 
 
 

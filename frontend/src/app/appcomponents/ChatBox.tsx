@@ -83,18 +83,6 @@ const ChatBox = () => {
     }, [myUserId]);
 
     React.useEffect(() => {
-        const fetchUserByEmail = async (email: string) => {
-            try {
-                const response = await chatClient.get(`/api/profile`, {
-                    params: { email },
-                });
-                return response.data;
-            } catch (error) {
-                console.error('Error fetching user:', error);
-                return null;
-            }
-        };
-
         const checkForRequests = async () => {
             try {
                 const { data } = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
@@ -107,9 +95,9 @@ const ChatBox = () => {
         const getContacts = async () => {
             if (!myUserId) return;
             try {
-                const response = await chatClient.get(`/api/mycontacts`, {
-                    params: { userId: myUserId },
-                });
+                console.log("Fetching contacts for user ID:", myUserId);
+                const response = await chatClient.get(`/api/mycontacts/${myUserId}`);
+                console.log(response.data.contacts);
                 setContacts(response.data.contacts);
             } catch (error) {
                 console.error('Error fetching contacts:', error);
@@ -121,12 +109,13 @@ const ChatBox = () => {
         checkForRequests();
         getContacts();
     }, [userEmail, myUserId]);
+    const exists = contacts.some(contact => contact.contactUserId === chatId);
 
 
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">
-            <Button onClick={makeRequest}>New Request</Button>
+            {exists ? null : <Button onClick={makeRequest}>New Request</Button>}
             <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-4">
 
                 <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm p-4 space-y-4">
