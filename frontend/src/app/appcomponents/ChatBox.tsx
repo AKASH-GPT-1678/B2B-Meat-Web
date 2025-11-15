@@ -2,14 +2,10 @@
 import { useAppSelector } from '@/utils/reduxhook';
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
-import { Button } from '@/components/ui/button';
-import { ImCross } from 'react-icons/im';
-import { TiTickOutline } from 'react-icons/ti';
 import chatClient from '@/lib/chatclient';
 import { useSearchParams } from 'next/navigation';
 import { useReduxVals } from '@/utils/reduxVals';
-import { makeRequest } from '@/lib/chatrequest';
-import { acceptRequest } from '@/lib/chatrequest';
+
 export interface MessageData {
     sender?: string;
     text: string;
@@ -30,13 +26,15 @@ interface RequestData {
 }
 
 interface Contact {
-    accepted: boolean;
-    contactUserId: string;
-    createdAt: string;
-    userId: string;
+
+    app: string;
+    email: string;
+    fullName: string | null;
+    id: string;
+    password: string;
+    profileImage: string | null;
     username: string;
-    __v: number;
-    _id: string;
+
 }
 
 const ChatBox = () => {
@@ -79,22 +77,14 @@ const ChatBox = () => {
     }, [myUserId]);
 
     React.useEffect(() => {
-        const checkForRequests = async () => {
-            try {
-                const response = await chatClient.get(`/api/checkrequest?userId=${myUserId}`);
-                console.log(response.data);
-                setRequests(response.data.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+       
 
         const getContacts = async () => {
             if (!myUserId) return;
             try {
                 console.log("Fetching contacts for user ID:", myUserId);
                 const response = await chatClient.get(`/api/mycontacts/${myUserId}`);
-                console.log(response.data.contacts);
+                console.log("Contacts fetched:", response.data.contacts);
                 setContacts(response.data.contacts);
             } catch (error) {
                 console.error('Error fetching contacts:', error);
@@ -103,16 +93,15 @@ const ChatBox = () => {
 
 
 
-        checkForRequests();
         getContacts();
     }, [userEmail, myUserId]);
-    const exists = contacts.some(contact => contact.contactUserId === chatId);
+
 
 
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">
-            {exists ? null : <Button onClick={() => makeRequest(myUserId, chatId as string)}>New Request</Button>}
+        
             <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-4">
 
                 <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm p-4 space-y-4">
@@ -146,9 +135,9 @@ const ChatBox = () => {
                     <div className="space-y-2">
                         {contacts.map((contact) => (
                             <div
-                                key={contact._id}
-                                onClick={() => setActiveChatId(contact.contactUserId)}
-                                className={`p-2 border rounded-lg cursor-pointer ${activeChatId === contact.contactUserId ? 'bg-blue-100' : 'bg-white'
+                                key={contact.id}
+                                onClick={() => setActiveChatId(contact.id)}
+                                className={`p-2 border rounded-lg cursor-pointer ${activeChatId === contact.id ? 'bg-blue-100' : 'bg-white'
                                     }`}
                             >
 
@@ -157,30 +146,7 @@ const ChatBox = () => {
                         ))}
                     </div>
 
-                    <div className="pt-4">
-                        <h3 className="font-semibold">Incoming Requests</h3>
-                        {requests && requests.length > 0 ? (
-                            requests.map((request) => (
-                                <div key={request.id} className="flex items-center justify-between p-2 border rounded">
-                                    <div>
-                                        <p className="text-sm font-medium">{request.ownerName}</p>
-                                        <p className="text-xs text-gray-500">{request.contactId}</p>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <ImCross size={20} fill="red" className="cursor-pointer" />
-                                        <TiTickOutline
-                                            size={26}
-                                            fill="green"
-                                            className="cursor-pointer"
-                                        onClick={() => makeRequest(myUserId, request.id)}
-                                        />
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-sm text-gray-400">No Requests</p>
-                        )}
-                    </div>
+  
                 </div>
 
                 {/* Chat Section */}

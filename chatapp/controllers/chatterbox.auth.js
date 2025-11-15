@@ -66,51 +66,40 @@ async function addToContactChatter(req, res) {
 };
 //accept request
 
-async function acceptRequestChatter(req, res) {
-
-
-
-
-
-    const { requestId } = req.body;
-
+async function createNewContact(sellerId, userId) {
     try {
-        const request = await prisma.contacts.findUniqueOrThrow({
-            where: { id: requestId }
+        console.log("Finall Recived something")
+
+        const findSeller = await prisma.user.findUniqueOrThrow({
+            where: { id: sellerId }
+        });
+        const findUser = await prisma.user.findUniqueOrThrow({
+            where: { id: userId }
         });
 
 
 
-        if (!request) {
-            return res.status(404).json({ message: "Request Not Found" });
-        };
-
-        const updateContact = await prisma.contacts.update({
-            where: {
-                id: requestId
-
-            },
+        const createContact = await prisma.contacts.create({
             data: {
+                ownerId: userId,
+                contactId: sellerId,
                 accepted: true
             }
-
-        })
-
-        // if (!contact) {
-        //     return res.status(404).json({ message: "Contact Not Found", contact: updateContact });
-        // };
+        });
+        console.log("Contact Added", createContact);
 
 
-        return res.status(200).json({ message: "Request Accepted" });
+        return true;
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: "Something went wrong", error: error });
+        return false;
 
     }
 
 }
-;
+
+
 function flattenContact(contact) {
     return {
         id: contact.id,
@@ -126,50 +115,7 @@ function flattenContact(contact) {
 }
 
 
-async function checkForRequestChatter(req, res) {
 
-
-    const { userId } = req.query;
-
-    try {
-        const request = await prisma.contacts.findMany({
-            where: {
-                OR: [
-                    {
-                        ownerId: userId,
-                        accepted: false
-                    },
-                    {
-                        contactId: userId,
-                        accepted: false
-                    }
-                ]
-
-            },
-            include: {
-                contact: true,
-                owner: true
-            }
-        });
-        const formatted = request.map(flattenContact);
-
-
-
-
-
-        if (!request) {
-            return res.status(200).json({ message: "No Request" })
-        } else {
-
-            return res.status(200).json({ success: true, data: formatted });
-        };
-
-    } catch (error) {
-        return res.status(500).json({ message: "Something Went Wrong", error: error });
-
-    }
-
-};
 async function getMyContactsChatter(req, res) {
 
 
@@ -302,4 +248,4 @@ async function checkUserStatus(req, res) {
 
 
 
-export { addToContactChatter, acceptRequestChatter, checkForRequestChatter, getMyContactsChatter, checkandVerifyToken, loadMyProfile, checkUserStatus };
+export { addToContactChatter, createNewContact, getMyContactsChatter, checkandVerifyToken, loadMyProfile, checkUserStatus };

@@ -10,7 +10,7 @@ import router from './routes/router.js';
 import "./configs/mongClient.js";
 import { checkPendingMessagesPG, saveMessagePG, updateStatusPG } from './controllers/message.controller.js';
 import { getMembersIds } from './controllers/chatter.group.controller.js';
-
+import { createNewContact } from './controllers/chatterbox.auth.js';
 dotenv.config();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cors({
     origin: "http://localhost:3000", // must be specific, not "*"
     credentials: true, // allow cookies / tokens
-  }));
+}));
 app.use(decodeToken);
 app.use("/api", router);
 io.on('connection', (socket) => {
@@ -46,6 +46,11 @@ io.on('connection', (socket) => {
         }
     };
     checkAndSendPending();
+    socket.on('new-chat', async (data) => {
+        const [userId, sellerId] = data.split('&');
+        const result = await createNewContact(userId, sellerId);
+        socket.emit('new-chat', result);
+    });
 
     socket.on('chat-message', async (msg) => {
         try {

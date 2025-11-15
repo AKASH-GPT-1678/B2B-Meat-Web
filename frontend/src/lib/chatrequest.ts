@@ -1,17 +1,56 @@
 import chatClient from "./chatclient";
-export const makeRequest = async (userId: string, contactId: string) => {
-    try {
-        const response = await chatClient.post('/api/addcontact', { userId: userId, contactId: contactId });
-        console.log(response.data);
-    } catch (error) {
-        console.error('Error fetching user:', error);
-    }
+import { io, Socket } from "socket.io-client";
+
+type SendMessageOptions = {
+    endpoint: string;
+    userId: string;
+    sellerId: string;
+
 };
-export const acceptRequest = async (userId: string, requestId: string) => {
-    try {
-        const response = await chatClient.post('/api/acceptrequest', { userId: userId, requestId: requestId });
-        console.log(response.data);
-    } catch (error) {
-        console.error('Error fetching user:', error);
-    }
-};
+
+
+export async function sendMessageOnce({
+    endpoint,
+    userId,
+    sellerId,
+
+}: SendMessageOptions) {
+    return new Promise((resolve, reject) => {
+        const socket: Socket = io(endpoint, {
+            autoConnect: false,      // manual connect
+            reconnection: false,     // optional
+            query: {
+                userId : userId,
+            }
+
+        });
+        if (!userId || !sellerId) {
+            reject(new Error('Missing parameters'));
+        };
+
+        // Connect manually
+        socket.connect();
+
+        // On connection
+        socket.on("connect", () => {
+            console.log("Socket connected:", socket.id);
+
+            // Send your message
+            socket.emit("new-chat", userId + '&' + sellerId, (ack: any) => {
+                console.log("Server acknowledged:", ack);
+
+                // Clean disconnect
+                socket.disconnect();
+
+                resolve(ack);
+            });
+        });
+
+
+        socket.on("connect_error", (err) => {
+            console.error("Connection error:", err.message);
+            socket.disconnect();
+            reject(err);
+        });
+    });
+}

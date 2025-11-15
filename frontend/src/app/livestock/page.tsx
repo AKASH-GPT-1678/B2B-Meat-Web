@@ -1,38 +1,42 @@
 "use client";
 import React from 'react'
 import Image from 'next/image'
-import Chicken from "../../../assets/broiler.png"
 
 import { TiTick } from 'react-icons/ti';
 import { ImCross } from 'react-icons/im';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
-import { fa } from 'zod/v4/locales';
-import { set } from 'zod/v4-mini';
+import { sendMessageOnce } from '@/lib/chatrequest';
+import { useAppSelector } from '@/utils/reduxhook';
+
 export interface ProductResponseDTO {
-  id: string; // UUID
+  id: string;
   name: string;
   description: string;
-  sellerId : string;
-  minimumOrderQuantity: string;
-  price: number;
+  category: string;           // normalized from "category" / "category : "BUFFALO""
+  price: number;              // numeric price
   productImgUrl: string;
+  sellerId: string;
+  sellerName?: string | null;
+  minimumOrderQuantity: number; // numeric MOQ
   exportable: boolean;
-  category: string;
-  createdOn: string; // ISO timestamp
-  updatedOn: string | null;
+  createdOn: Date;
+  updatedOn: Date | null;
+  exportableRaw?: boolean;    // raw boolean (keeps raw if needed)
+  raw?: unknown;              // keep original if needed for debugging
 }
-
 const page = () => {
   const searchParams = useSearchParams();
   const [product, setProduct] = React.useState<ProductResponseDTO>();
   const [error, setError] = React.useState(false);
   const [minimumOrderQuantity, setMinimumOrderQuantity] = React.useState<number>(0);
   const [quantity, setQuantity] = React.useState<number>(0);
+  const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
 
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const myUserId = useAppSelector((state) => state.data.userId);
   const router = useRouter();
 
   const livestockId = searchParams.get('livestock');
@@ -139,7 +143,7 @@ const page = () => {
             <div className='flex flex-row gap-4 mt-10 items-center'>
               <p>Exportable</p>
 
-         
+
 
               {
                 product?.exportable ? (
@@ -171,7 +175,20 @@ const page = () => {
               </div>
 
               <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <span className='font-bold text-lg cursor-pointer' onClick={() => router.push(`/chat?chatId=${product.sellerId}`)} >Contact Seller</span>
+                <span
+                  className='font-bold text-lg cursor-pointer'
+                  onClick={() =>
+                    sendMessageOnce({
+                      endpoint: chatEndpoint ?? "",
+                      userId: myUserId ?? "",
+                      sellerId: product.sellerId
+                      
+        
+                    })
+                  }
+                >
+                  Contact Seller
+                </span>
 
 
               </div>

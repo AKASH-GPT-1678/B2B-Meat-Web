@@ -3,26 +3,28 @@ import React from 'react'
 import Image from 'next/image'
 import { useAppSelector } from '@/utils/reduxhook';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+
 export interface Product {
-    id: string;
-    name: string;
-    description: string;
-    category: string;
-    price: number;
-    productImgUrl: string;
-    minimumOrderQuantity: string;
-    exportable: boolean;
-    createdOn: string;     // ISO 8601 date-time format
-    updatedOn: string | null;
-};
+  id: string;
+  name: string;
+  description: string;
+  category: string;           // normalized from "category" / "category : "BUFFALO""
+  price: number;              // numeric price
+  productImgUrl: string;
+  sellerId?: string | null;
+  sellerName?: string | null;
+  minimumOrderQuantity: number; // numeric MOQ
+  exportable: boolean;
+  createdOn: Date;
+  updatedOn: Date | null;
+  exportableRaw?: boolean;    // raw boolean (keeps raw if needed)
+  raw?: unknown;              // keep original if needed for debugging
+}
 
 
 
 
-
-
-export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimumOrderQuantity, name, description, exportable }) => {
+export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimumOrderQuantity, name, description, exportable , sellerId  , sellerName}) => {
     const router = useRouter();
     const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -31,25 +33,11 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
         router.push('/livestock')
 
     };
-    // const handleProduct = async(id : string) => {
-    //     if(!id) return;
-    //     try {
-
-    //         const response = await axios.put(`${endpoint}/product/viewcount?productId=${id}`);
-    //         console.log(response.data);
-   
-            
-    //     } catch (error) {
-            
-    //     }
-
-    // }
-
- //         router.push(`/livestock?livestock=${id}`);
+ 
     const isPremium = useAppSelector((state) => state.data.isPremium);
     return (
 
-        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px] cursor-pointer shadow-2xl w-full  h-fit' onClick={()=> router.push('/livestock?livestock='+id+'')}  >
+        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px] cursor-pointer shadow-2xl w-full  h-fit' onClick={()=> router.push(`/livestock?livestock=${id}`)}  >
             <div className='flex flex-col h-[160px] w-[160px] sm:h-[250px] sm:w-fit md:h-[300px] md:w-[300px]' >
                 <Image src={productImgUrl} width={200} height={200} alt='' className='object-cover h-full w-full sm:rounded-t-4xl' />
 
