@@ -7,9 +7,10 @@ import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
 import { setisLoggedIn, setUserSeller } from "./appcomponents/redux-persit";
 import React from "react";
-
+import ToogleCheck from "./appcomponents/checked";
 import { DisplayProd, Product } from "./appcomponents/DisplayProd";
 import Footer from "./appcomponents/Footer";
+import { fa } from "zod/v4/locales";
 export default function Home() {
   const data = useSession();
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -113,6 +114,7 @@ export default function Home() {
           <Categories />
         </div>
       </div>
+  
 
 
 

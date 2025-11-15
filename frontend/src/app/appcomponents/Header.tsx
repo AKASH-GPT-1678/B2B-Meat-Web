@@ -12,6 +12,7 @@ import CheckoutButton from './CheckourButton';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { getLocationName } from '@/lib/getlocation';
+import ToogleCheck from './checked';
 import axios from 'axios';
 import { FaLocationCrosshairs } from "react-icons/fa6";
 export const Header = () => {
@@ -145,6 +146,7 @@ export const Header = () => {
                         alt="Biryani"
                         className="w-full h-full object-cover "
                     />
+         
 
                     {
 

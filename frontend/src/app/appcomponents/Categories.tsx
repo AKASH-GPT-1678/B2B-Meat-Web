@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { Foods } from "../../../assets/categories/asset";
 import { useRouter } from 'next/navigation';
+import ToogleCheck from './checked';
 import { motion } from "framer-motion"
 export const Categories = () => {
   const router = useRouter();
@@ -38,6 +39,7 @@ export const Categories = () => {
               className="size-24 md:size-30 rounded-full"
             />
             <strong>{item.name}</strong>
+                
           </motion.div>
 
         ))}

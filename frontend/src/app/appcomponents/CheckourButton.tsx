@@ -6,9 +6,11 @@ import axios from "axios";
 import Script from "next/script";
 import toast from 'react-hot-toast'
 import { useAppSelector } from "@/utils/reduxhook";
+import ToogleCheck from "./checked";
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const [price, setprice] = React.useState(10);
+  const [show, setShow] = React.useState(false);
   const token = useAppSelector((state) => state.data.token);
   const isVerified = useAppSelector((state) => state.data.isLoggedIn);
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -103,6 +105,8 @@ export default function CheckoutButton() {
       >
         {loading ? "Processing..." : "Premium"}
       </button>
+
+      
       <Script
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
