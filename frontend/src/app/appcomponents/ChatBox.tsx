@@ -3,7 +3,7 @@ import { useAppSelector } from '@/utils/reduxhook';
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
 import chatClient from '@/lib/chatclient';
-import { useSearchParams } from 'next/navigation';
+
 import { useReduxVals } from '@/utils/reduxVals';
 
 export interface MessageData {
@@ -11,18 +11,6 @@ export interface MessageData {
     text: string;
     date?: string;
     name?: string;
-}
-
-interface RequestData {
-    id: string;
-    accepted: boolean;
-    createdAt: string | Date;
-
-    ownerId: string;
-    ownerName: string;
-
-    contactId: string;
-    contactName: string;
 }
 
 interface Contact {
@@ -42,15 +30,12 @@ const ChatBox = () => {
     const userEmail = useAppSelector((state) => state.data.userEmail);
     const [messages, setMessages] = React.useState<MessageData[]>([]);
     const [inputMessage, setInputMessage] = React.useState('');
-    const [requests, setRequests] = React.useState<RequestData[]>([]);
     const [contacts, setContacts] = React.useState<Contact[]>([]);
-    const [addChat, setAddChat] = React.useState('');
     const [activeChatId, setActiveChatId] = React.useState<string | null>(null);
     const [showNewChat, setShowNewChat] = React.useState(false);
     const socketRef = React.useRef<Socket | null>(null);
     const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
-    const searchParams = useSearchParams();
-    const chatId = searchParams.get('chatId');
+
     const { token, userId: myUserId, isPremium } = useReduxVals();
 
 
@@ -68,7 +53,7 @@ const ChatBox = () => {
             setMessages((prev) => [...prev, data]);
         };
 
-        socket.on('receive-message', handleReceiveMessage);
+        socket.on(myUserId.trim(), handleReceiveMessage);
 
         return () => {
             socket.off('receive-message', handleReceiveMessage);
@@ -96,6 +81,13 @@ const ChatBox = () => {
         getContacts();
     }, [userEmail, myUserId]);
 
+    const sendMessage = () => {
+        if (activeChatId && inputMessage) {
+            socketRef.current?.emit(activeChatId, { text: inputMessage });
+            setInputMessage('');
+        }
+    };
+
 
 
 
@@ -115,23 +107,7 @@ const ChatBox = () => {
                         </button>
                     </div>
 
-                    {showNewChat && (
-                        <div className="space-y-2">
-                            <input
-                                type="text"
-                                className="w-full border p-2 rounded"
-                                placeholder="Enter username"
-                                onChange={(e) => setAddChat(e.target.value)}
-                            />
-                            {/* <button
-                                onClick={addNewChat}
-                                className="w-full bg-blue-600 text-white py-2 rounded"
-                            >
-                                Add
-                            </button> */}
-                        </div>
-                    )}
-
+                   
                     <div className="space-y-2">
                         {contacts.map((contact) => (
                             <div
@@ -198,6 +174,7 @@ const ChatBox = () => {
 
                                 disabled={!inputMessage.trim()}
                                 className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
+                                onClick={sendMessage}
                             >
                                 Send
                             </button>
