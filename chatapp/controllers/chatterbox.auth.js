@@ -140,10 +140,10 @@ async function getMyContactsChatter(req, res) {
                 owner: true
             }
         });
-        console.log("Hey i am working");
+  
 
         const updatedOwner = contacts.map(item => [item.owner, item.contact]);
-        console.log(updatedOwner);
+     
 
 
 

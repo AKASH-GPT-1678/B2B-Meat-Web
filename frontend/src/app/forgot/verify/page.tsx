@@ -3,13 +3,8 @@ import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import LiveStock from "../../../assets/livestock.png";
-
 import OtpImage from "../../../../assets/otp.png";
-import { tr } from 'framer-motion/client';
 import UpdatePasswordSetup from '@/app/forms/UpdatePasswordSetup';
-import { set } from 'zod/v4-mini';
-
 export interface ApiResponse {
     success: boolean;
     message: string;

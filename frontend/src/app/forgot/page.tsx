@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 
 const ForgitPassword = () => {
     const [email, setEmail] = React.useState('');
-    const [message, setMessage] = React.useState('');
     const [responseMessage, setResponseMessage] = React.useState('');
     const router = useRouter();
+    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
     const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -15,7 +15,7 @@ const ForgitPassword = () => {
 
         try {
             const encodedEmail = encodeURIComponent(email);
-            const url = `http://localhost:8080/auth/forgotPassword?email=${encodedEmail}`;
+            const url = `${endpoint}/auth/forgotPassword?email=${encodedEmail}`;
 
             const response = await axios.post<string>(url);
             console.log(response.data);

@@ -9,7 +9,6 @@ import redisClient from './configs/rediClient.js';
 import router from './routes/router.js';
 import "./configs/mongClient.js";
 import { checkPendingMessagesPG, saveMessagePG, updateStatusPG } from './controllers/message.controller.js';
-import { getMembersIds } from './controllers/chatter.group.controller.js';
 import { createNewContact } from './controllers/chatterbox.auth.js';
 dotenv.config();
 const server = http.createServer(app);
@@ -57,6 +56,7 @@ io.on('connection', (socket) => {
             const getStatus = await redisClient.get(msg.receiverId);
 
             if (getStatus) {
+                console.log(msg);
 
                 const newMessage = {
                     senderId: msg.senderId,
@@ -72,6 +72,7 @@ io.on('connection', (socket) => {
 
                 socket.emit('message-sent', { success: true, message: newMessage });
             } else {
+                console.log(msg);
 
                 await saveMessagePG(msg.senderId, msg.receiverId, msg.content, "na", "PENDING", msg.app);
                 socket.emit('message-sent', { success: true, pending: true });
@@ -82,66 +83,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('group-message', async (msg) => {
-        if (!msg.groupId) {
-            return;
-
-        }
-        const allIds = await getMembersIds(msg.groupId);
-        const filteredMembers = allIds.filter(id => id !== msg.senderId);
-        console.log(filteredMembers);
-
-        async function checkandUpdate(memberIds) {
-            if (!memberIds) return;
-
-            try {
-                for (let i = 0; i < memberIds.length; i++) {
-                    const status = await redisClient.get(memberIds[i]);
-                    if (status) {
-                        const newMessage = {
-                            senderId: msg.senderId,
-                            groupId: msg.groupId,
-                            receiverId: memberIds[i],
-                            content: msg.content,
-                            timestamp: new Date()
-                        };
-                        let reciever = memberIds[i];
-
-                        io.to(reciever).emit(reciever, newMessage);
-
-                        await saveMessagePG(msg.senderId, reciever, msg.content, msg.groupId, "SUCCESS", msg.app);
-
-
-                        socket.emit('message-sent', { success: true, message: newMessage });
-
-                    }
-                    else {
-                        let receiver = memberIds[i];
-                        console.log(" ia m pending", receiver)
-
-                        await saveMessagePG(msg.senderId, receiver, msg.content, msg.groupId, "PENDING", msg.app);
-                        socket.emit('message-sent', { success: true, pending: true });
-
-                    }
-
-                }
-
-
-            } catch (error) {
-                console.error('Error handling chat message:', error);
-                socket.emit('message-error', { error: 'Failed to send message' });
-
-            }
-
-
-
-
-        }
-
-        checkandUpdate(filteredMembers);
-
-
-    })
+    
 
     socket.on('typing', (data) => {
         // Emit typing indicator to receiver

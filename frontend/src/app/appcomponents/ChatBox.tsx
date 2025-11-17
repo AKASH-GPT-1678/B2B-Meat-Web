@@ -3,18 +3,16 @@ import { useAppSelector } from '@/utils/reduxhook';
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
 import chatClient from '@/lib/chatclient';
-
 import { useReduxVals } from '@/utils/reduxVals';
 
 export interface MessageData {
-    sender?: string;
-    text: string;
-    date?: string;
-    name?: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+  groupId: string;      // 'na' is allowed, but it must be a non-null string
+  timestamp: string;    // use ISO string at runtime; typed as string here
 }
-
 interface Contact {
-
     app: string;
     email: string;
     fullName: string | null;
@@ -82,10 +80,17 @@ const ChatBox = () => {
     }, [userEmail, myUserId]);
 
     const sendMessage = () => {
-        if (activeChatId && inputMessage) {
-            socketRef.current?.emit(activeChatId, { text: inputMessage });
-            setInputMessage('');
-        }
+      const msg = {
+        senderId : myUserId,
+        receiverId : activeChatId,
+        content : inputMessage,
+        app : "B2BMEATWEB",
+
+      };
+      if (socketRef.current && activeChatId && inputMessage) {
+        socketRef.current.emit('chat-message', msg);
+      }
+      setInputMessage('');
     };
 
 
@@ -125,7 +130,7 @@ const ChatBox = () => {
   
                 </div>
 
-                {/* Chat Section */}
+       
                 <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-sm flex flex-col h-[80vh]">
                     <div className="border-b p-4 font-semibold">Chat</div>
 
@@ -138,20 +143,20 @@ const ChatBox = () => {
                             </div>
                         ) : (
                             messages.map((message, index) => (
-                                <div key={index} className={`flex ${message.sender === myUserId ? 'justify-end' : 'justify-start'}`}>
+                                <div key={index} className={`flex ${message.senderId === myUserId ? 'justify-end' : 'justify-start'}`}>
                                     <div
-                                        className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.sender === myUserId
+                                        className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === myUserId
                                             ? 'bg-blue-500 text-white'
                                             : 'bg-gray-200 text-gray-800'
                                             }`}
                                     >
-                                        <p className="text-sm">{message.text}</p>
-                                        {message.date && (
+                                        <p className="text-sm">{message.content}</p>
+                                        {message.timestamp && (
                                             <p
-                                                className={`text-xs mt-1 ${message.sender === myUserId ? 'text-blue-100' : 'text-gray-500'
+                                                className={`text-xs mt-1 ${message.senderId === myUserId ? 'text-blue-100' : 'text-gray-500'
                                                     }`}
                                             >
-                                                {message.date}
+                                                {message.timestamp}
                                             </p>
                                         )}
                                     </div>
