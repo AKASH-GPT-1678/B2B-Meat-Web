@@ -6,7 +6,7 @@ import axios from "axios";
 import Script from "next/script";
 import toast from 'react-hot-toast'
 import { useAppSelector } from "@/utils/reduxhook";
-import ToogleCheck from "./checked";
+
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const [price, setprice] = React.useState(10);

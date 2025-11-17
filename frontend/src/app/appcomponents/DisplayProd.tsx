@@ -26,7 +26,7 @@ export interface Product {
 
 export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimumOrderQuantity, name, description, exportable , sellerId  , sellerName}) => {
     const router = useRouter();
-    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 
 
     const handlePush = (name: string) => {

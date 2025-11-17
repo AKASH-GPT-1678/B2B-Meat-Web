@@ -38,6 +38,24 @@ export default function PasswordVerify({ email }: { email: string }) {
         }
     };
 
+    React.useEffect(() => {
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Enter') {
+                handleSubmit();
+            }
+        }
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+
+
+
+
+
+    }, [password]);
+
     return (
         <div style={{ maxWidth: 400, margin: "auto", padding: "1rem" }} className="flex flex-col gap-2">
             <h2>Password Verification</h2>

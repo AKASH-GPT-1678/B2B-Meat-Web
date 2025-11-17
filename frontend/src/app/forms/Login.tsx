@@ -22,6 +22,8 @@ export const Login = () => {
             const response = await apiClient.post(`/auth/user-verify?email=${email}`);
             console.log(endpoint);
             console.log(response.data);
+            console.log(response.data.method);
+            console.log("I am email" , email);
 
             if (response.data.method == 'Otp') {
                 router.push("/verify?email=" + email + "&mode=otp");
@@ -34,6 +36,19 @@ export const Login = () => {
         }
 
     };
+
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSubmit();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [email]);
 
 
 
