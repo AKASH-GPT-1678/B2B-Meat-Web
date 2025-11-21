@@ -23,8 +23,8 @@ const Footer = () => {
                     <ul className="space-y-2 cursor-pointer">
                         <li className="font-semibold text-xl">Community</li>
                         <li>About</li>
-                        <li>Submit an Issue</li>
-                        <li>GitHub Repo</li>
+                        <li onClick={()=>window.open('https://github.com/AKASH-GPT-1678/B2B-Meat-Web/issues')}>Submit an Issue</li>
+                        <li  onClick={()=>window.open('https://github.com/AKASH-GPT-1678/B2B-Meat-Web/')}>GitHub Repo</li>
                         <li>Slack</li>
                     </ul>
 
@@ -58,7 +58,7 @@ const Footer = () => {
 
           
                 <div>
-                    <p className="text-gray-500 text-sm">@ 2023 All rights reserved</p>
+                    <p className="text-gray-500 text-sm">@ 2025 All rights reserved</p>
                 </div>
 
            

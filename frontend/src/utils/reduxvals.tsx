@@ -9,15 +9,6 @@ export type InitialsD = {
     userEmail : string
 }
 
-const initialState: InitialsD = {
-    token: null,
-    googleVerified: null,
-    isPremium: false,
-    isLoggedIn: false,
-    isUserSeller: false,
-    userId : "",
-    userEmail : ""
-}
 export const REDUX_VALS = () => {
     const token = useAppSelector((state) => state.data.token);
     const isPremium = useAppSelector((state) => state.data.isPremium);

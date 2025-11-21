@@ -9,8 +9,8 @@ export interface MessageData {
   senderId: string;
   receiverId: string;
   content: string;
-  groupId: string;      // 'na' is allowed, but it must be a non-null string
-  timestamp: string;    // use ISO string at runtime; typed as string here
+  groupId: string;      
+  timestamp: string;    
 }
 interface Contact {
     app: string;

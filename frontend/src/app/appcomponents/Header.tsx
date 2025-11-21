@@ -12,13 +12,14 @@ import CheckoutButton from './CheckourButton';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { getLocationName } from '@/lib/getlocation';
-import ToogleCheck from './checked';
+
 import axios from 'axios';
 import { FaLocationCrosshairs } from "react-icons/fa6";
 export const Header = () => {
-    const dispatch = useAppDispatch();
+
     const isVerified = useAppSelector((state) => state.data.isLoggedIn);
     const [showPopBar, setShowPopBar] = React.useState(false);
+    const [location, setLocation] = React.useState("New Delhi");
     const [search, setSearch] = React.useState("");
     const router = useRouter();
 
@@ -58,8 +59,9 @@ export const Header = () => {
         console.log(latitude, longitude);
 
 
-        // const data = await getLocationName(latitude, longitude);
-        // return data;
+        const data = await getLocationName(latitude, longitude);
+        setLocation(data.split(",")[5]);
+        return data;
     }
 
 
@@ -82,7 +84,7 @@ export const Header = () => {
 
                         <SlLocationPin className='mt-2' size={24} />
                         <p className='text-sm'>Deliver to:</p>
-                        <p className='font-bold hidden md:inline'>  New Delhi</p>
+                        <p className='font-bold hidden md:inline'>{location}</p>
 
 
 
@@ -90,15 +92,15 @@ export const Header = () => {
 
 
                     </div>
-                    <div className=' p-2 absolute bg-white z-40 flex flex-row gap-2 items-center rounded-xl cursor-pointer hover:bg-gray-200  md:flex'
-                    
-                    onClick={getCurrentLoaction}
-                    
+                    <div className=' p-2 absolute w-64 shadow-2xl bg-gray-100 z-40 flex flex-row gap-2 items-center rounded-xl cursor-pointer hover:bg-gray-200  md:flex mt-1'
+
+                        onClick={getCurrentLoaction}
+
                     >
-                        <FaLocationCrosshairs className=' cursor-pointer' fill='red' size={24} />
+                        <FaLocationCrosshairs className=' cursor-pointer' fill='red' size={18} />
                         <div>
-                            <p className='text-red-500 text-lg'>Detect Current Location</p>
-                            <p>Using GPS</p>
+                            <p className='text-red-500 text-sm font-bold'>Detect Current Location</p>
+                            <p className='text-sm'>Using GPS</p>
                         </div>
 
                     </div>
@@ -146,7 +148,7 @@ export const Header = () => {
                         alt="Biryani"
                         className="w-full h-full object-cover "
                     />
-         
+
 
                     {
 
