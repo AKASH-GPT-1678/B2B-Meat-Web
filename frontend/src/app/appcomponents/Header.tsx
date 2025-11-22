@@ -21,6 +21,7 @@ export const Header = () => {
     const [showPopBar, setShowPopBar] = React.useState(false);
     const [location, setLocation] = React.useState("New Delhi");
     const [search, setSearch] = React.useState("");
+    const [detect, setDetect] = React.useState(false);
     const router = useRouter();
 
     const popbarRef = React.useRef<HTMLDivElement>(null);
@@ -80,7 +81,10 @@ export const Header = () => {
 
 
 
-                    <div className=" flex-row gap-2 bg-gray-100 hover:bg-gray-200 px-4 relative rounded-xl h-fit p-2  cursor-pointer justify-center items-center hidden md:flex">
+                    <div className=" flex-row gap-2 bg-gray-100 hover:bg-gray-200 px-4 relative rounded-xl h-fit p-2  cursor-pointer justify-center items-center hidden md:flex"
+                    onClick={()=>setDetect(!detect)}
+                    
+                    >
 
                         <SlLocationPin className='mt-2' size={24} />
                         <p className='text-sm'>Deliver to:</p>
@@ -92,7 +96,7 @@ export const Header = () => {
 
 
                     </div>
-                    <div className=' p-2 absolute w-64 shadow-2xl bg-gray-100 z-40 flex flex-row gap-2 items-center rounded-xl cursor-pointer hover:bg-gray-200  md:flex mt-1'
+                    {detect && <div className=' p-2 absolute w-64 shadow-2xl bg-gray-100 z-40 flex flex-row gap-2 items-center rounded-xl cursor-pointer hover:bg-gray-200  md:flex mt-1'
 
                         onClick={getCurrentLoaction}
 
@@ -103,7 +107,7 @@ export const Header = () => {
                             <p className='text-sm'>Using GPS</p>
                         </div>
 
-                    </div>
+                    </div>}
                 </div>
 
 
