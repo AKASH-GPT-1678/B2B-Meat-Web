@@ -18,6 +18,7 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 export const Header = () => {
 
     const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+    const isPremium = useAppSelector((state) => state.data.isPremium);
     const [showPopBar, setShowPopBar] = React.useState(false);
     const [location, setLocation] = React.useState("New Delhi");
     const [search, setSearch] = React.useState("");
@@ -129,7 +130,7 @@ export const Header = () => {
 
 
 
-                    <CheckoutButton />
+                    {isPremium && <CheckoutButton />}
 
 
 
