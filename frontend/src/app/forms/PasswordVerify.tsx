@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { setToken } from "../appcomponents/redux-persit";
-import { useDispatch } from "react-redux";
-import { useAppDispatch, useAppSelector } from "@/utils/reduxhook";
+
+import { useAppDispatch} from "@/utils/reduxhook";
 import { FaEye } from "react-icons/fa";
 export default function PasswordVerify({ email }: { email: string }) {
     const [password, setPassword] = useState("");
@@ -13,7 +13,6 @@ export default function PasswordVerify({ email }: { email: string }) {
 
 
     const dispatch = useAppDispatch();
-    const token = useAppSelector((state) => state.data.token);
 
 
     const handleSubmit = async () => {

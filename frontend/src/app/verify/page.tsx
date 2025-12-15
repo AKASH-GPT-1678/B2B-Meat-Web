@@ -5,7 +5,6 @@ import Image from 'next/image';
 import LiveStock from "../../../assets/livestock.png";
 import PasswordVerify from '../forms/PasswordVerify';
 import OtpImage from "../../../assets/otp.png";
-import { tr } from 'framer-motion/client';
 import ChoosePassword from '../forms/ChoosePassword';
 
 

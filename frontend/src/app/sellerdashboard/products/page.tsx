@@ -11,23 +11,16 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa";
 import { Button } from '@/components/ui/button';
 import ProductsGrid from '@/app/appcomponents/ProductCard';
-import { useAppSelector , useAppDispatch } from '@/utils/reduxhook';
+import { useAppSelector  } from '@/utils/reduxhook';
 import ProductForm from '@/app/forms/Proudctform';
 import axios from 'axios';
 import { Product } from '@/app/appcomponents/DisplayProd';
-const exampleBlog = {
-    title: "How to Build a Responsive Blog Card in React",
-    thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",
-    summary: "A step-by-step guide to building a mobile-first blog card layout using Tailwind CSS.",
-    author: "John Doe",
-    date: "2025-07-29"
-};
+
 const ProductsPage = () => {
 
     const [active, setActive] = React.useState("products");
     const [showForm, setShowForm] = React.useState(false);
     const [allProducts, setAllProducts] = React.useState<Product[]>([]);
-    const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.data.token);
     const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -44,7 +37,7 @@ const ProductsPage = () => {
 
 
         try {
-            const response = await axios.get(`${endpoint}/product/myLivestock`, {
+            const response = await axios.get(`${endpoint}/product/mylivestock`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

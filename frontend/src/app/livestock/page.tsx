@@ -26,7 +26,7 @@ export interface ProductResponseDTO {
   exportableRaw?: boolean;    // raw boolean (keeps raw if needed)
   raw?: unknown;              // keep original if needed for debugging
 }
-const page = () => {
+const LiveStockPage = () => {
   const searchParams = useSearchParams();
   const [product, setProduct] = React.useState<ProductResponseDTO>();
   const [error, setError] = React.useState(false);
@@ -37,7 +37,7 @@ const page = () => {
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
   const myUserId = useAppSelector((state) => state.data.userId);
-  const router = useRouter();
+
 
   const livestockId = searchParams.get('livestock');
   React.useEffect(() => {
@@ -208,4 +208,5 @@ const page = () => {
   )
 }
 
-export default page
+export default LiveStockPage;
+

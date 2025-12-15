@@ -103,7 +103,7 @@ const InBoxPage = () => {
 
                 </div>
 
-                <div>
+                <div className='w-full'>
                     <ChatBox/>
 
 

@@ -20,9 +20,10 @@ public class ProductModel {
     private UUID id;
 
     private String name;
-    @Lob
-    @Column(length = 50000) //
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private String minimumOrderQuantity;
     private Long Price;
     private String ProductImgUrl;

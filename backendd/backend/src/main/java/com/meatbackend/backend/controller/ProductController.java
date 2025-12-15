@@ -72,7 +72,7 @@ public class ProductController {
          return ResponseEntity.ok().body(countStatus);
      }
 
-     @GetMapping("/myLivestock")
+     @GetMapping("/mylivestock")
      public ResponseEntity<List<ProductResponseDTO>> getMyProducts(){
 
          List<ProductResponseDTO> productResponseDTOS = productService.getMyProducts();
