@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { setToken } from "../appcomponents/redux-persit";
-
 import { useAppDispatch} from "@/utils/reduxhook";
 import { FaEye } from "react-icons/fa";
 export default function PasswordVerify({ email }: { email: string }) {

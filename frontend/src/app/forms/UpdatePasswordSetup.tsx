@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { i } from 'framer-motion/client';
+
 interface UpdatePasswordSetupProps {
   email: string;
 }

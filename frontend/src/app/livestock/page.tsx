@@ -57,7 +57,8 @@ const LiveStockPage = () => {
 
         return undefined;
 
-      } catch (err) {
+      } catch (err:unknown) {
+        console.error(err);
         setError(true);
       } finally {
 
