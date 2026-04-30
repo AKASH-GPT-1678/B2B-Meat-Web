@@ -4,6 +4,7 @@ package com.meatbackend.backend.controller;
 import com.meatbackend.backend.io.request.ProductRequest;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
+import com.meatbackend.backend.model.elasticsearch.ProductDocument;
 import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.service.AuthService;
 import com.meatbackend.backend.service.FileUploadService;
@@ -25,6 +26,7 @@ public class ProductController {
      private final FileUploadService fileUploadService;
      private final ProductService productService;
      private final AuthService authService;
+
 
      public ProductController(FileUploadService fileUploadService , ProductService productService, AuthService authService){
          this.fileUploadService = fileUploadService;
@@ -77,6 +79,11 @@ public class ProductController {
          List<ProductResponseDTO> productResponseDTOS = productService.getMyProducts();
          return ResponseEntity.ok().body(productResponseDTOS);
      }
+
+    @GetMapping("/search")
+    public List<ProductDocument> search(@RequestParam String q) {
+        return productService.search(q);
+    }
 
 
 

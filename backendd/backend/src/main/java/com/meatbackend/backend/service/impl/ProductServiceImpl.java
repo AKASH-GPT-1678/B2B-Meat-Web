@@ -5,11 +5,13 @@ import com.meatbackend.backend.exception.NotFoundException;
 import com.meatbackend.backend.io.request.ProductRequest;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
+import com.meatbackend.backend.model.elasticsearch.ProductDocument;
 import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.model.ProductModel;
 import com.meatbackend.backend.model.Seller;
 import com.meatbackend.backend.model.User;
 import com.meatbackend.backend.repository.ProductRepository;
+import com.meatbackend.backend.repository.ProductSearchRepository;
 import com.meatbackend.backend.repository.SellerRepository;
 import com.meatbackend.backend.repository.UserRepository;
 import com.meatbackend.backend.service.ProductService;
@@ -29,11 +31,13 @@ public class ProductServiceImpl implements ProductService {
     private final SellerRepository sellerRepository;
     private final  ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final ProductSearchRepository searchRepo;
 
-    public ProductServiceImpl(SellerRepository sellerRepository, ProductRepository productRepository, UserRepository userRepository){
+    public ProductServiceImpl(SellerRepository sellerRepository, ProductRepository productRepository, UserRepository userRepository , ProductSearchRepository searchRepo){
         this.sellerRepository = sellerRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.searchRepo = searchRepo;
     }
 
 
@@ -242,6 +246,11 @@ public class ProductServiceImpl implements ProductService {
                 product.getCreatedOn(),
                 product.getUpdatedOn()
         );
+    }
+
+    @Override
+    public List<ProductDocument> search(String keyword) {
+        return searchRepo.searchByPrefix(keyword);
     }
 
 }

@@ -10,7 +10,6 @@ import { useAppSelector } from "@/utils/reduxhook";
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const [price, setprice] = React.useState(10);
-  const [show, setShow] = React.useState(false);
   const token = useAppSelector((state) => state.data.token);
   const isVerified = useAppSelector((state) => state.data.isLoggedIn);
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
