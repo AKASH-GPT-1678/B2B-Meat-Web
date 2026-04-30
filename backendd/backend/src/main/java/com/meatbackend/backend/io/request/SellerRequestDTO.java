@@ -1,4 +1,4 @@
-package com.meatbackend.backend.io;
+package com.meatbackend.backend.io.request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

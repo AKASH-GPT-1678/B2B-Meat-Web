@@ -1,7 +1,7 @@
-package com.meatbackend.backend.io;
+package com.meatbackend.backend.io.request;
 
 
-import com.meatbackend.backend.model.ProductCategory;
+import com.meatbackend.backend.model.enums.ProductCategory;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

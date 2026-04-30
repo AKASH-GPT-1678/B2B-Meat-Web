@@ -1,7 +1,7 @@
 package com.meatbackend.backend.service;
 
-import com.meatbackend.backend.io.NewSubscriptionDTO;
-import com.meatbackend.backend.io.SubscriptionRequest;
+import com.meatbackend.backend.io.response.NewSubscriptionDTO;
+import com.meatbackend.backend.io.request.SubscriptionRequest;
 
 public interface SubscriptionService {
 

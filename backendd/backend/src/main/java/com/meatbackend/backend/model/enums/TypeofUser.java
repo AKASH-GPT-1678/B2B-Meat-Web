@@ -1,4 +1,4 @@
-package com.meatbackend.backend.model;
+package com.meatbackend.backend.model.enums;
 
 public enum TypeofUser {
     GOOGLE,

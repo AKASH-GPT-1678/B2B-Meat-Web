@@ -1,10 +1,11 @@
 package com.meatbackend.backend.service.impl;
 
-import com.amazonaws.services.mq.model.NotFoundException;
-import com.meatbackend.backend.io.ProductRequest;
-import com.meatbackend.backend.io.ProductResponse;
-import com.meatbackend.backend.io.ProductResponseDTO;
-import com.meatbackend.backend.model.ProductCategory;
+
+import com.meatbackend.backend.exception.NotFoundException;
+import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.response.ProductResponse;
+import com.meatbackend.backend.io.response.ProductResponseDTO;
+import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.model.ProductModel;
 import com.meatbackend.backend.model.Seller;
 import com.meatbackend.backend.model.User;
@@ -53,11 +54,11 @@ public class ProductServiceImpl implements ProductService {
 
          Seller seller = user.getSeller();
 
-         if(seller == null) {
-             throw new NotFoundException("No Such Seller Found");
-
-
-         }
+//         if(seller == null) {
+//             throw new NotFoundException("No Such Seller Found");
+//
+//
+//         }
         ProductModel productModel = new ProductModel();
         productModel.setName(productRequest.getName());
         productModel.setDescription(productRequest.getDescription());

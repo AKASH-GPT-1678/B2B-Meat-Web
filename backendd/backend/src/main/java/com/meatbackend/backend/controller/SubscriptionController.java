@@ -1,8 +1,8 @@
 package com.meatbackend.backend.controller;
 
 
-import com.meatbackend.backend.io.NewSubscriptionDTO;
-import com.meatbackend.backend.io.SubscriptionRequest;
+import com.meatbackend.backend.io.response.NewSubscriptionDTO;
+import com.meatbackend.backend.io.request.SubscriptionRequest;
 import com.meatbackend.backend.service.impl.SubscriptionServiceImpl;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package com.meatbackend.backend.repository;
 
-import com.meatbackend.backend.model.ProductCategory;
+import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.model.ProductModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 

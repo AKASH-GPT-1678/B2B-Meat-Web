@@ -1,11 +1,10 @@
 package com.meatbackend.backend.controller;
 
 
-import com.meatbackend.backend.io.ProductRequest;
-import com.meatbackend.backend.io.ProductResponse;
-import com.meatbackend.backend.io.ProductResponseDTO;
-import com.meatbackend.backend.io.VerifyEmailDto;
-import com.meatbackend.backend.model.ProductCategory;
+import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.response.ProductResponse;
+import com.meatbackend.backend.io.response.ProductResponseDTO;
+import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.service.AuthService;
 import com.meatbackend.backend.service.FileUploadService;
 import com.meatbackend.backend.service.ProductService;

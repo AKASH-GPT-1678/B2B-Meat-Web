@@ -103,7 +103,7 @@ export default function CheckoutButton() {
         onClick={handlePayment}
         disabled={loading}
       >
-        {loading ? "Processing..." : "Premium"}
+        {loading ? "Processing..." : "Get Premium"}
       </button>
 
       

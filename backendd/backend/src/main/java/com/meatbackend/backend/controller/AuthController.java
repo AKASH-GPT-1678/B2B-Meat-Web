@@ -2,6 +2,10 @@ package com.meatbackend.backend.controller;
 
 import com.meatbackend.backend.dto.*;
 import com.meatbackend.backend.io.*;
+import com.meatbackend.backend.io.request.OtpRequestDto;
+import com.meatbackend.backend.io.response.ProfileResponseDTO;
+import com.meatbackend.backend.io.response.UpdatePasswordResponse;
+import com.meatbackend.backend.io.response.VerifyOtpResponse;
 import com.meatbackend.backend.model.User;
 import com.meatbackend.backend.repository.UserRepository;
 import com.meatbackend.backend.service.AuthService;

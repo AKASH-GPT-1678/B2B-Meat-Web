@@ -2,6 +2,9 @@ package com.meatbackend.backend.service.impl;
 
 import com.meatbackend.backend.exception.SellerAlreadyExistsException;
 import com.meatbackend.backend.io.*;
+import com.meatbackend.backend.io.request.SellerDocumentsFileUploadRequestDTO;
+import com.meatbackend.backend.io.request.SellerRequestDTO;
+import com.meatbackend.backend.io.response.SellerResponseDTO;
 import com.meatbackend.backend.model.Seller;
 import com.meatbackend.backend.model.User;
 import com.meatbackend.backend.repository.SellerRepository;

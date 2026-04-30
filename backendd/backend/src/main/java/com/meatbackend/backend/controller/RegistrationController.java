@@ -1,7 +1,7 @@
 package com.meatbackend.backend.controller;
 
 import com.meatbackend.backend.dto.RegistrationRequest;
-import com.meatbackend.backend.io.RegisterResponse;
+import com.meatbackend.backend.io.response.RegisterResponse;
 import com.meatbackend.backend.service.impl.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

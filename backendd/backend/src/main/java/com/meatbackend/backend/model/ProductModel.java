@@ -1,5 +1,6 @@
 package com.meatbackend.backend.model;
 
+import com.meatbackend.backend.model.enums.ProductCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

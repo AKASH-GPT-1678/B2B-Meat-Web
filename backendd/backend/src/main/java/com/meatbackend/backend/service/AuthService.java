@@ -4,6 +4,9 @@ import com.meatbackend.backend.dto.LoginRequest;
 import com.meatbackend.backend.dto.LoginResponse;
 import com.meatbackend.backend.dto.RegistrationRequest;
 import com.meatbackend.backend.io.*;
+import com.meatbackend.backend.io.request.RegisterRequestDTO;
+import com.meatbackend.backend.io.response.ProfileResponseDTO;
+import com.meatbackend.backend.io.response.UpdatePasswordResponse;
 import com.meatbackend.backend.model.User;
 
 public interface AuthService {

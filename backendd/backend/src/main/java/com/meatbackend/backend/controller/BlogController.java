@@ -1,7 +1,7 @@
 package com.meatbackend.backend.controller;
 
 
-import com.meatbackend.backend.io.BlogRequestDTO;
+import com.meatbackend.backend.io.request.BlogRequestDTO;
 import com.meatbackend.backend.service.BlogService;
 import com.meatbackend.backend.service.FileUploadService;
 import lombok.RequiredArgsConstructor;

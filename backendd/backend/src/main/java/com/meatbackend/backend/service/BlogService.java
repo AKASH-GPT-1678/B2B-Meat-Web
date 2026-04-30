@@ -1,6 +1,6 @@
 package com.meatbackend.backend.service;
 
-import com.meatbackend.backend.io.BlogRequestDTO;
+import com.meatbackend.backend.io.request.BlogRequestDTO;
 
 public interface BlogService {
 

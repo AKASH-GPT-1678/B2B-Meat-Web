@@ -1,6 +1,6 @@
-package com.meatbackend.backend.io;
+package com.meatbackend.backend.io.response;
 
-import com.meatbackend.backend.model.ProductCategory;
+import com.meatbackend.backend.model.enums.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.sql.Timestamp;

@@ -1,4 +1,4 @@
-package com.meatbackend.backend.io;
+package com.meatbackend.backend.io.response;
 
 
 import lombok.AllArgsConstructor;

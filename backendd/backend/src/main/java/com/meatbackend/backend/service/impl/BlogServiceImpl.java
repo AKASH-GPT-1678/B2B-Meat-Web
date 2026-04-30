@@ -1,7 +1,7 @@
 package com.meatbackend.backend.service.impl;
 
 
-import com.meatbackend.backend.io.BlogRequestDTO;
+import com.meatbackend.backend.io.request.BlogRequestDTO;
 import com.meatbackend.backend.model.Blog;
 import com.meatbackend.backend.model.Seller;
 import com.meatbackend.backend.repository.SellerRepository;

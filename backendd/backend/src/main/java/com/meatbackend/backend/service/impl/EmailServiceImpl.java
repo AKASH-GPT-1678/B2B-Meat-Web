@@ -1,6 +1,6 @@
 package com.meatbackend.backend.service.impl;
 
-import com.meatbackend.backend.io.OtpRequestDto;
+import com.meatbackend.backend.io.request.OtpRequestDto;
 import com.meatbackend.backend.model.EmailEntity;
 import com.meatbackend.backend.model.OtpModel;
 import com.meatbackend.backend.model.User;
