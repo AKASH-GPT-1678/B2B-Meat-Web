@@ -12,7 +12,7 @@ import CheckoutButton from './CheckourButton';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { getLocationName } from '@/lib/getlocation';
-
+import { TbXboxXFilled } from "react-icons/tb";
 import axios from 'axios';
 import { FaLocationCrosshairs } from "react-icons/fa6";
 export const Header = () => {
@@ -97,15 +97,23 @@ export const Header = () => {
 
 
                     </div>
-                    {detect && <div className=' p-2 absolute w-64 shadow-2xl bg-gray-100 z-40 flex flex-row gap-2 items-center rounded-xl cursor-pointer hover:bg-gray-200  md:flex mt-1'
+                    {detect && <div className=' p-2 absolute  w-64 shadow-2xl bg-gray-100 z-40 flex flex-row gap-2 items-center rounded-xl cursor-pointer hover:bg-gray-200  md:flex mt-1'
 
-                        onClick={getCurrentLoaction}
+                    
 
                     >
+                        <div className='relative w-64 flex flex-row items-center gap-2'>
                         <FaLocationCrosshairs className=' cursor-pointer' fill='red' size={18} />
-                        <div>
+                        <div
+                         onClick={getCurrentLoaction}
+                        >
                             <p className='text-red-500 text-sm font-bold'>Detect Current Location</p>
                             <p className='text-sm'>Using GPS</p>
+                        </div>
+                        <TbXboxXFilled className=' absolute top-[-10px] right-[-10px] cursor-pointer' fill='red' size={30} 
+                         
+                         onClick={()=>setDetect(false)}
+                        />
                         </div>
 
                     </div>}

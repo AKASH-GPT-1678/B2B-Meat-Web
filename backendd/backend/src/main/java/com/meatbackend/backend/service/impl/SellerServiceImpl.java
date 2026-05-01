@@ -1,9 +1,11 @@
 package com.meatbackend.backend.service.impl;
 
+import com.meatbackend.backend.exception.NotFoundException;
 import com.meatbackend.backend.exception.SellerAlreadyExistsException;
 import com.meatbackend.backend.io.*;
 import com.meatbackend.backend.io.request.SellerDocumentsFileUploadRequestDTO;
 import com.meatbackend.backend.io.request.SellerRequestDTO;
+import com.meatbackend.backend.io.response.SellerDetailsResponse;
 import com.meatbackend.backend.io.response.SellerResponseDTO;
 import com.meatbackend.backend.model.Seller;
 import com.meatbackend.backend.model.User;
@@ -11,12 +13,14 @@ import com.meatbackend.backend.repository.SellerRepository;
 import com.meatbackend.backend.repository.UserRepository;
 import com.meatbackend.backend.service.FileUploadService;
 import com.meatbackend.backend.service.SellerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 
 @Service
@@ -27,11 +31,13 @@ public class SellerServiceImpl implements SellerService {
     private final FileUploadService fileUploadService;
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    public SellerServiceImpl(SellerRepository sellerRepository, FileUploadService fileUploadService, UserRepository userRepository){
+    public SellerServiceImpl(SellerRepository sellerRepository, FileUploadService fileUploadService, UserRepository userRepository , ModelMapper modelMapper){
         this.sellerRepository = sellerRepository;
         this.fileUploadService = fileUploadService;
         this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
 
     }
 
@@ -146,6 +152,21 @@ public class SellerServiceImpl implements SellerService {
         documentUrls.setAadharcardUrl(adharCardUrl);
 
         return documentUrls;
+    }
+
+    @Override
+    public SellerDetailsResponse getSellerDetails(UUID sellerId) {
+
+        Seller seller = sellerRepository.findById(sellerId)
+                .orElseThrow(()-> new NotFoundException("No Such Seller Found"));
+
+        SellerDetailsResponse sellerDetailsResponse = new SellerDetailsResponse();
+        sellerDetailsResponse = modelMapper.map(seller, SellerDetailsResponse.class);
+
+
+
+
+        return sellerDetailsResponse;
     }
 
 

@@ -2,11 +2,13 @@ package com.meatbackend.backend.controller;
 
 
 import com.meatbackend.backend.io.request.SellerRequestDTO;
+import com.meatbackend.backend.io.response.SellerDetailsResponse;
 import com.meatbackend.backend.io.response.SellerResponseDTO;
 import com.meatbackend.backend.service.SellerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
 
 
 @RestController
@@ -44,4 +46,16 @@ public class SellerController {
 //
 //        return "Seller Deleted Successfully";
 //    }
+
+    @GetMapping("/details/{sellerId}")
+    public ResponseEntity<SellerDetailsResponse> getSellerDetails(
+            @PathVariable("sellerId") UUID sellerId
+
+    ){
+
+        SellerDetailsResponse response = sellerService.getSellerDetails(sellerId);
+        return ResponseEntity.ok(response);
+
+
+    }
 }

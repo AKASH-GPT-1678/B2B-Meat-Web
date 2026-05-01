@@ -37,6 +37,7 @@ const LiveStockPage = () => {
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
   const myUserId = useAppSelector((state) => state.data.userId);
+  const router = useRouter();
 
 
   const livestockId = searchParams.get('livestock');
@@ -131,7 +132,14 @@ const LiveStockPage = () => {
             <h2>{product.name}</h2>
             <h1 className='font-bold text-4xl'>{product.name}</h1>
 
-            <span className='mt-10'>
+            <div className='mt-2'>
+              <p className='text-blue-500 font-bold cursor-pointer'
+              onClick={()=>router.push(`/sellerprofile/${product.sellerId}`)}
+              
+              >{product.sellerName}</p>
+            </div>
+
+            <span className='mt-4'>
               {
                 product.description
               }
