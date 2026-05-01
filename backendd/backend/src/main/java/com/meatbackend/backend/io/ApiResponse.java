@@ -1,4 +1,4 @@
-package com.meatbackend.backend.dto;
+package com.meatbackend.backend.io;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

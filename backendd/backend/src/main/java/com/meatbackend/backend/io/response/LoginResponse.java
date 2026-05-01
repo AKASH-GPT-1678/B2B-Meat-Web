@@ -1,14 +1,17 @@
-package com.meatbackend.backend.dto;
+package com.meatbackend.backend.io.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Login Request DTO
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class LoginResponse {
+    private String token;
+    private String message;
     private String email;
-    private String password;
+    private String username;
 }

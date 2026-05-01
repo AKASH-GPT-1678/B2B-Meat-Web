@@ -1,4 +1,4 @@
-package com.meatbackend.backend.dto;
+package com.meatbackend.backend.io.response;
 
 
 import java.util.UUID;

@@ -1,8 +1,8 @@
 package com.meatbackend.backend.service.impl;
 
-import com.meatbackend.backend.dto.LoginRequest;
-import com.meatbackend.backend.dto.LoginResponse;
-import com.meatbackend.backend.dto.RegistrationRequest;
+import com.meatbackend.backend.io.request.LoginRequest;
+import com.meatbackend.backend.io.response.LoginResponse;
+import com.meatbackend.backend.io.request.RegistrationRequest;
 import com.meatbackend.backend.exception.EmailNotFoundException;
 import com.meatbackend.backend.io.*;
 import com.meatbackend.backend.io.request.RegisterRequestDTO;
