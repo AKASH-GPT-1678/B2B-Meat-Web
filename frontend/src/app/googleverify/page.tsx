@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
-import { p } from 'framer-motion/client';
 import { useSearchParams } from 'next/navigation';
 const GoogleVerification = () => {
 

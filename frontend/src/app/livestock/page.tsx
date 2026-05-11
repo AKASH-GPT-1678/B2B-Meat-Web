@@ -1,7 +1,6 @@
 "use client";
-import React from 'react'
-import Image from 'next/image'
-
+import React from 'react';
+import Image from 'next/image';
 import { TiTick } from 'react-icons/ti';
 import { ImCross } from 'react-icons/im';
 import { useRouter } from 'next/navigation';

@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import ChatBox from '../appcomponents/ChatBox';
 export interface MessageData {
     sender?: string;

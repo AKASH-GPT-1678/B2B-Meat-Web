@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import { Login } from '../forms/Login';
 import { SignUp } from '../appcomponents/SignUp';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
