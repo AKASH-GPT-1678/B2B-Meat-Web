@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Outfit:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Outfit:wght@700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -6,13 +6,14 @@
 
 @layer components {
   .font-handwriting {
-    font-family: 'Edu NSW ACT Hand Pre', cursive;
+    font-family: "Edu NSW ACT Hand Pre", cursive;
   }
 }
 @theme {
   --breakpoint-xs: 0;
-  --breakpoint-er:400px;
-
+  --breakpoint-er: 400px;
+  --animate-moveshow: moveshow 1s ease-in-out forwards;
+  --animate-scalebutton: scalebutton 1s ease-in  forwards;
 }
 
 @theme inline {
@@ -129,4 +130,36 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+@keyframes moveshow {
+  0% {
+    width: 200px;
+  }
+
+  25% {
+    width: 150px;
+  }
+
+  50% {
+    width: 100px;
+  }
+
+  75% {
+    width: 50px;
+  }
+
+  100% {
+    width: 0px;
+  }
+}
+
+@keyframes scalebutton {
+  0% {
+    transform: scale(1);
+
+  }
+  100% {
+    transform: scale(1.30);
+  }
+  
 }

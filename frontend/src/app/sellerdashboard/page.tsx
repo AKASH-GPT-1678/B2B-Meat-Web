@@ -11,6 +11,7 @@ import { FaBlog } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from '@/utils/reduxhook';
 import SellerBlogs from '../appcomponents/SellerBlogs';
 import  { BlogCard } from '../forms/BlogForm';
+import TickModal from '../appcomponents/TickModal';
 const exampleBlog = {
   title: "How to Build a Responsive Blog Card in React",
   thumbnail: "https://res.cloudinary.com/dffepahvl/image/upload/v1753692201/bl0l2nbqq3m4ydwjcrxu.jpg",
@@ -128,6 +129,7 @@ const SellerDashboard = () => {
         </div>
 
       </div>
+
     </div>
   )
 }

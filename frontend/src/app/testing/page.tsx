@@ -2,12 +2,13 @@
 import React from 'react'
 import { Sellerform } from '../forms/Sellerform'
 import Footer from '../appcomponents/Footer';
+import TickModal from '../appcomponents/TickModal';
 
 
 const page = () => {
   return (
     <div className=''>
-     <Footer/>
+     <TickModal text='Namaste'/>
        
    
       
