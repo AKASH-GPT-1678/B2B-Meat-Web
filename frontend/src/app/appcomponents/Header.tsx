@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { getLocationName } from '@/lib/getlocation';
 import { TbXboxXFilled } from "react-icons/tb";
-import axios from 'axios';
 import { FaLocationCrosshairs } from "react-icons/fa6";
 export const Header = () => {
 
@@ -38,13 +37,13 @@ export const Header = () => {
     }, []);
     const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-    const handleSearch = async () => {
-        if (search !== "") {
-            const response = await axios.get(`${endpoint}/product/search?search=${search}`);
+    // const handleSearch = async () => {
+    //     if (search !== "") {
+    //         const response = await axios.get(`${endpoint}/product/search?search=${search}`);
 
 
-        }
-    };
+    //     }
+    // };
     async function getCurrentLoaction() {
         if (!navigator.geolocation) {
             alert("Geolocation is not supported by this browser.");

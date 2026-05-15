@@ -36,5 +36,5 @@ public class SellerDetailsResponse {
 
 
     private List<ProductResponse> products;
-    private List<Blog> blogs;
+
 }

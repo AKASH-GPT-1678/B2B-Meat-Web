@@ -13,7 +13,7 @@ export interface Product {
   status: boolean;
   message: string | null;
   productName: string;
-  productImage: string | null;
+  productImgUrl: string;
 }
 
 interface Blog {
@@ -67,8 +67,8 @@ export default function SellerProfile() {
   }, []);
 
   return (
-    <div>
-      {JSON.stringify(seller)}
+    <div className="p-4">
+
       <div className="p-4 border-2 border-black">
         <div className="flex flex-col md:flex-row w-full">
           <div>
@@ -97,15 +97,79 @@ export default function SellerProfile() {
           </div>
           <div className="ml-auto flex flex-col gap-1">
             <div className="bg-black w-48 ">
-
               <p className="p-4 text-center font-bold text-white">Follow</p>
             </div>
             <div className="bg-gray-200">
               <p className="p-4 text-center font-bold">{"14,766 Seller"} </p>
             </div>
             <div className="bg-gray-200">
-                  <p className="p-4 text-center font-bold">{"14,766 Seller"} </p>
+              <p className="p-4 text-center font-bold">{"14,766 Seller"} </p>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-2 w-full  h-10 flex ">
+        <div className="w-[20%]">
+          <p className="font-bold text-3xl italic">Blogs</p>
+          <div>
+
+          </div>
+        </div>
+        <div className="w-[80%] border-2 border-amber-300 h-10">
+          <p className="font-bold text-3xl1` italic text-3xl">Products (246)</p>
+          <div className=" mt-6">
+            <select name="" id="" className="py-2 px-10 bg-gray-100">
+              <option value="ALl">Show All</option>
+              <option value="">Less</option>
+              <option value="">More</option>
+            </select>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+            {seller?.products.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden
+                 hover:shadow-2xl transition-all duration-300
+                 hover:-translate-y-2 cursor-pointer border"
+              >
+                {/* Image */}
+                <div className="w-full h-56 overflow-hidden bg-gray-100">
+                  {item.productImgUrl && (
+                    <Image
+                      src={item.productImgUrl}
+                      alt="image"
+                      width={300}
+                      height={300}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4 space-y-2">
+                  <p className="text-xl font-semibold text-gray-800">
+                    {item.productName}
+                  </p>
+
+                  <p className="text-sm text-gray-500 line-clamp-2">
+                    Premium quality product with modern styling and clean
+                    design.
+                  </p>
+
+                  {/* Bottom Section */}
+                  <div className="flex items-center justify-between pt-3">
+                    <p className="text-2xl font-bold text-green-600">₹499</p>
+
+                    <button
+                      className="px-4 py-2 rounded-xl bg-black text-white
+                       hover:bg-gray-800 transition-colors duration-300"
+                    >
+                      Buy Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   }
 
 };
-
+//"https://meatbuckett.s3.eu-north-1.amazonaws.com/andhra prawns.jpg"
 
 
 export default nextConfig;

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/blogs")
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class BlogController {
 
