@@ -49,6 +49,7 @@ public class SecurityConfig {
 
                                 "/product/getProducts",
                                 "product/viewcount",
+
                                 "/blogs/create",
                                 "/auth/**",
                                 "activity/**",

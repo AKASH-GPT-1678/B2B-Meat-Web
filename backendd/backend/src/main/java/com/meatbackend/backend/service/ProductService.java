@@ -29,7 +29,7 @@ public interface ProductService {
 
     List<ProductResponse> getProductsByName(String name);
 
-    List<ProductDocument> search(String query);
+
 
 
 }

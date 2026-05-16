@@ -248,9 +248,6 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
-    @Override
-    public List<ProductDocument> search(String keyword) {
-        return searchRepo.searchByPrefix(keyword);
-    }
+
 
 }

@@ -4,11 +4,16 @@ package com.meatbackend.backend.controller;
 import com.meatbackend.backend.io.request.ProductRequest;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
+import com.meatbackend.backend.model.ProductModel;
 import com.meatbackend.backend.model.elasticsearch.ProductDocument;
 import com.meatbackend.backend.model.enums.ProductCategory;
+import com.meatbackend.backend.repository.ProductRepository;
 import com.meatbackend.backend.service.AuthService;
 import com.meatbackend.backend.service.FileUploadService;
 import com.meatbackend.backend.service.ProductService;
+import com.meatbackend.backend.service.impl.ProductSearchService;
+import com.meatbackend.backend.service.impl.ProductSyncService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,20 +25,19 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
 
 
      private final FileUploadService fileUploadService;
      private final ProductService productService;
      private final AuthService authService;
+     private final ProductSearchService searchService;
+     private final ProductRepository productRepository;
+     private final ProductSyncService productSyncService;
 
 
-     public ProductController(FileUploadService fileUploadService , ProductService productService, AuthService authService){
-         this.fileUploadService = fileUploadService;
-         this.productService = productService;
-         this.authService = authService;
 
-     }
 
 
     @PostMapping("/create" )
@@ -81,8 +85,15 @@ public class ProductController {
      }
 
     @GetMapping("/search")
-    public List<ProductDocument> search(@RequestParam String q) {
-        return productService.search(q);
+    public ResponseEntity<List<ProductDocument>> search(
+            @RequestParam String q) {
+        return ResponseEntity.ok(searchService.searchByName(q));
+    }
+    @GetMapping("/reindex")
+    public ResponseEntity<String> reindex() {
+        List<ProductModel> allProducts = productRepository.findAll();
+        allProducts.forEach(productSyncService::indexProduct);
+        return ResponseEntity.ok("Indexed " + allProducts.size() + " products");
     }
 
 

@@ -8,18 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
-@Repository
-public interface ProductSearchRepository extends ElasticsearchRepository<ProductDocument, UUID> {
 
-    List<ProductDocument> findByNameContaining(String name);
-    @Query("""
-{
-  "match_phrase_prefix": {
-    "name": {
-      "query": "?0"
-    }
-  }
-}
-""")
-    List<ProductDocument> searchByPrefix(String keyword);
+public interface ProductSearchRepository
+        extends ElasticsearchRepository<ProductDocument, String> {
+
+    // Spring Data will auto-generate this query
+    List<ProductDocument> findByName(String name);
 }
