@@ -44,8 +44,6 @@ public class SecurityConfig {
                                 "/auth/checkToken",
                                 "/product/userverify",
                                 "/product/**",
-                                "/activity/profile/remove",
-                                "activity/addProfileImage",
 
                                 "/product/getProducts",
                                 "product/viewcount",

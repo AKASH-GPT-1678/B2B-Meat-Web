@@ -25,9 +25,9 @@ export const Login = () => {
             console.log(response.data.method);
             console.log("I am email" , email);
 
-            if (response.data.method == 'Otp') {
+            if (response.data.method.toLowerCase() == 'otp') {
                 router.push("/verify?email=" + email + "&mode=otp");
-            } else if (response.data.method == "password") {
+            } else if (response.data.method.toLowerCase() == "password") {
                 router.push("/verify?email=" + email + "&mode=password");
             }
         } catch (error) {

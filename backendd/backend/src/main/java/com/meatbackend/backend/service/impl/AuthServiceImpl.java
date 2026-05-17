@@ -103,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
 
                 verifyEmailDto.setMessage("OTP Sent");
                 verifyEmailDto.setStatus("OTP Verification");
-                verifyEmailDto.setMethod("Otp");
+                verifyEmailDto.setMethod("otp");
             } else {
                 verifyEmailDto.setMessage("User Found");
                 verifyEmailDto.setStatus("Password Verification");
