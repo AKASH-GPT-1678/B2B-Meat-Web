@@ -97,7 +97,11 @@ export const Header = () => {
     setLocation(data.split(",")[5]);
     return data;
   }
+ 
+    const handlePush = (id: string) => {
+       router.push(`/livestock?livestock=${id}`)
 
+    };
   return (
     <div className="flex flex-col w-full relative">
       <div className="px-4 flex flex-row justify-between items-center py-6 xl:px-36 ">
@@ -150,11 +154,12 @@ export const Header = () => {
           <IoSearch className="size-8  lg:size-10  cursor-pointer " />
 
           <div className="absolute top-14 left-0 w-full bg-white shadow-lg rounded-xl z-20 border max-h-80 overflow-y-auto">
-            {products.length > 0 ? (
+            {products.length > 0 &&
               products.map((item: Animal) => (
                 <div
                   key={item.id}
                   className="flex items-center justify-between gap-4 p-3 hover:bg-gray-100 cursor-pointer border-b last:border-b-0 transition"
+                  onClick={()=>handlePush(item.id)}
                 >
                   {/* Left Section */}
                   <div className="flex items-center gap-3">
@@ -194,12 +199,7 @@ export const Header = () => {
                     </span>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="p-4 text-center text-gray-500">
-                No products found
-              </div>
-            )}
+              ))}
           </div>
         </div>
         <div className="flex flex-row gap-5 relative">

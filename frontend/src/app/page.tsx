@@ -1,5 +1,5 @@
 "use client";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { Header } from "./appcomponents/Header";
 import { Categories } from "./appcomponents/Categories";
 import { setGoogleVerified, setToken, setPremium, setUserEmail, setUserId } from "./appcomponents/redux-persit";
@@ -7,10 +7,9 @@ import { useAppSelector, useAppDispatch } from "@/utils/reduxhook";
 import { useSession } from "next-auth/react";
 import { setisLoggedIn, setUserSeller } from "./appcomponents/redux-persit";
 import React from "react";
-import ToogleCheck from "./appcomponents/checked";
 import { DisplayProd, Product } from "./appcomponents/DisplayProd";
 import Footer from "./appcomponents/Footer";
-import { fa } from "zod/v4/locales";
+
 export default function Home() {
   const data = useSession();
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -19,8 +18,8 @@ export default function Home() {
 
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.data.token);
-  const isPremium = useAppSelector((state) => state.data.isPremium);
-  const isVerified = useAppSelector((state) => state.data.isLoggedIn);
+  // const isPremium = useAppSelector((state) => state.data.isPremium);
+  // const isVerified = useAppSelector((state) => state.data.isLoggedIn);
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 

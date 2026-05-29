@@ -1,4 +1,3 @@
-import React from 'react'
 import ShippingCancellationRefundsPage from '../appcomponents/Refund-Policy'
 
 const page = () => {

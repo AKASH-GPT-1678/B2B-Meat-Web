@@ -16,12 +16,6 @@ public class FileUploadService {
 
     private final S3Client s3Client;
 
-    @Value("${aws.access.key}")
-    private String accessKey;
-
-    @Value("${aws.secret.key}")
-    private String secretkey;
-
     @Value("${aws.region}")
     private String region;
 

@@ -29,15 +29,15 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
 
 
 
-    const handlePush = (name: string) => {
-        router.push('/livestock')
+    const handlePush = (id: string) => {
+       router.push(`/livestock?livestock=${id}`)
 
     };
  
     const isPremium = useAppSelector((state) => state.data.isPremium);
     return (
 
-        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px] cursor-pointer shadow-2xl w-full  h-fit' onClick={()=> router.push(`/livestock?livestock=${id}`)}  >
+        <div className='flex flex-row sm:flex-col rounded-b-2xl  sm:w-[300px] cursor-pointer shadow-2xl w-full  h-fit' onClick={()=>handlePush(id)}  >
             <div className='flex flex-col h-[160px] w-[160px] sm:h-[250px] sm:w-fit md:h-[300px] md:w-[300px]' >
                 <Image src={productImgUrl} width={200} height={200} alt='' className='object-cover h-full w-full sm:rounded-t-4xl' />
 
