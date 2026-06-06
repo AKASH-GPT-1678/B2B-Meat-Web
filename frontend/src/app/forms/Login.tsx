@@ -6,57 +6,47 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import apiClient from '@/lib/axios';
+import { useAppDispatch } from '@/utils/reduxhook';
+import { setisLoggedIn, setToken } from '../appcomponents/redux-persit';
+
 export const Login = () => {
+    const router = useRouter();
 
     const [email, setEmail] = React.useState('');
-    const router = useRouter();
-    const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-
-
+    const [password, setPassword] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+const dispatch = useAppDispatch();
+    
 
     const handleSubmit = async () => {
         try {
+            setLoading(true);
 
+            const response = await apiClient.post('/auth/login', {
+                email,
+                password,
+            });
 
-            const response = await apiClient.post(`/auth/user-verify?email=${email}`);
-            console.log(endpoint);
             console.log(response.data);
-            console.log(response.data.method);
-            console.log("I am email" , email);
+            dispatch(setisLoggedIn(true));
+            dispatch(setToken(response.data.token))
+            console.log(response.data.token)
 
-            if (response.data.method.toLowerCase() == 'otp') {
-                router.push("/verify?email=" + email + "&mode=otp");
-            } else if (response.data.method.toLowerCase() == "password") {
-                router.push("/verify?email=" + email + "&mode=password");
-            }
+            // Store token if backend returns one
+            // localStorage.setItem('token', response.data.token);
+
+            router.push('/');
         } catch (error) {
             console.error(error);
-
+            alert('Invalid email or password');
+        } finally {
+            setLoading(false);
         }
-
     };
 
-    React.useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                handleSubmit();
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [email]);
-
-
-
-
     return (
-        <div className="flex justify-center items-center max-h-fit ">
+        <div className="flex justify-center items-center max-h-fit">
             <div className="w-full lg:w-[350px] h-auto bg-white shadow-md rounded-xl p-2 lg:p-6 flex flex-col gap-6">
-
 
                 <div className="flex items-center gap-3">
                     <IoIosArrowBack
@@ -64,50 +54,84 @@ export const Login = () => {
                         size={24}
                         onClick={() => router.back()}
                     />
-                    <h2 className="font-bold text-2xl flex-1 text-center">Continue with Email</h2>
+                    <h2 className="font-bold text-2xl flex-1 text-center">
+                        Login
+                    </h2>
                 </div>
 
-                {/* Description */}
                 <p className="text-sm text-gray-600">
-                    We'll check if you have an account and help create one if you don’t.
+                    Enter your email and password to continue.
                 </p>
 
-                {/* Email Input and Button */}
-                <div className="flex flex-col gap-4">
-                    <label className="font-semibold text-sm">Email</label>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault(); // prevent page reload
-                            handleSubmit();     // call your submit handler
-                        }}
-                        className="space-y-4"
-                    >
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
+                    className="space-y-4"
+                >
+                    <div>
+                        <label className="font-semibold text-sm block mb-1">
+                            Email
+                        </label>
                         <input
                             type="email"
                             placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="border border-gray-300 p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            onChange={(event) => setEmail(event.target.value)}
                             required
                         />
+                    </div>
 
-                        <button
-                            type="submit"
-                            className="bg-blue-600 text-white p-2 py-3 cursor-pointer rounded-xl w-full hover:bg-blue-700 transition"
-                        >
-                            Continue
-                        </button>
-                    </form>
-                    <button className="bg-blue-600 text-white p-2 py-3 cursor-pointer rounded-xl w-full hover:bg-blue-700 transition" onClick={() => signIn("google")}>
-                        Sign With Google
+                    <div>
+                        <label className="font-semibold text-sm block mb-1">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="border border-gray-300 p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="bg-blue-600 text-white p-3 rounded-xl w-full hover:bg-blue-700 transition disabled:opacity-50"
+                    >
+                        {loading ? 'Logging in...' : 'Login'}
                     </button>
-                </div>
+                </form>
 
-                <p className='text-sm text-blue-600 cursor-pointer flex justify-end' onClick={() => router.push('/forgot')}>Forgot Password ?</p>
+                <button
+                    className="bg-red-600 text-white p-3 rounded-xl w-full hover:bg-red-700 transition"
+                    onClick={() => signIn('google')}
+                >
+                    Sign in with Google
+                </button>
 
+                <p
+                    className="text-sm text-blue-600 cursor-pointer flex justify-end"
+                    onClick={() => router.push('/forgot')}
+                >
+                    Forgot Password?
+                </p>
 
+                <p className="text-sm text-center">
+                    Don't have an account?{' '}
+                    <span
+                        className="text-blue-600 cursor-pointer"
+                        onClick={() => router.push('/register')}
+                    >
+                        Register
+                    </span>
+                </p>
 
             </div>
         </div>
-
-    )
-}
+    );
+};
