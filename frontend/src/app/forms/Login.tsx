@@ -29,7 +29,7 @@ const dispatch = useAppDispatch();
 
             console.log(response.data);
             dispatch(setisLoggedIn(true));
-            dispatch(setToken(response.data.token))
+            dispatch(setToken(response.data.data.token))
             console.log(response.data.token)
 
             // Store token if backend returns one
