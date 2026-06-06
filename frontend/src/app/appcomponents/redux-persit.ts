@@ -3,7 +3,7 @@ import { combineReducers, configureStore, createSlice, PayloadAction } from "@re
 import { persistReducer, persistStore } from "redux-persist";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
-import { set } from "zod/v4-mini";
+
 
 export type InitialsD = {
     token: string | null;

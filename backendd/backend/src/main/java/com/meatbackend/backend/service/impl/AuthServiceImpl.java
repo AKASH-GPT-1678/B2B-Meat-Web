@@ -78,40 +78,49 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public VerifyEmailDto verifyUser(String email) {
+
         VerifyEmailDto verifyEmailDto = new VerifyEmailDto();
 
         try {
-            Optional<User> existingUser = userRepository.findByEmail(email);
-            if (existingUser.isEmpty()) {
-                // Generate OTP once here
-                String otp = generateOtp();
 
-                // Save OTP to DB here
-                OtpModel newOtp = new OtpModel();
-                newOtp.setOtp(otp);
-                newOtp.setUserEmail(email);
-                newOtp.setCreatedOn(new Timestamp(System.currentTimeMillis()));
-                otpRepository.save(newOtp);
+            boolean userExists = userRepository.existsByEmail(email);
 
-                // Send email
-                EmailEntity emailEntity = new EmailEntity();
-                emailEntity.setRecipient(email);
-                emailEntity.setSubject("Email Verification");
-                emailEntity.setMsgBody("Your OTP is: " + otp);
-
-                emailService.sendSimpleMail(emailEntity);
-
-                verifyEmailDto.setMessage("OTP Sent");
-                verifyEmailDto.setStatus("OTP Verification");
-                verifyEmailDto.setMethod("otp");
-            } else {
+            if (userExists) {
                 verifyEmailDto.setMessage("User Found");
                 verifyEmailDto.setStatus("Password Verification");
                 verifyEmailDto.setMethod("password");
+
+                return verifyEmailDto;
             }
+
+            // Generate OTP
+            String otp = generateOtp();
+
+            // Save OTP
+            OtpModel otpModel = new OtpModel();
+            otpModel.setOtp(otp);
+            otpModel.setUserEmail(email);
+            otpModel.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+
+            otpRepository.save(otpModel);
+
+            // Send Email
+            EmailEntity emailEntity = new EmailEntity();
+            emailEntity.setRecipient(email);
+            emailEntity.setSubject("Email Verification");
+            emailEntity.setMsgBody("Your OTP is: " + otp);
+
+            emailService.sendSimpleMail(emailEntity);
+
+            verifyEmailDto.setMessage("OTP Sent");
+            verifyEmailDto.setStatus("OTP Verification");
+            verifyEmailDto.setMethod("otp");
+
         } catch (Exception e) {
+
             verifyEmailDto.setMessage("Error occurred: " + e.getMessage());
             verifyEmailDto.setStatus("Failed");
+
             e.printStackTrace();
         }
 

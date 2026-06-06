@@ -77,6 +77,30 @@ export const Header = () => {
       console.error("Search failed:", error);
     }
   };
+  const searchProducts = async () => {
+    try {
+      const trimmedSearch = search.trim();
+
+      if (trimmedSearch.length < 3) {
+        return;
+      }
+
+      const response = await apiClient.get("/product/search", {
+        params: {
+          q: trimmedSearch,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response.data);
+
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Search failed:", error);
+    }
+  };
   async function getCurrentLoaction() {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by this browser.");
@@ -93,15 +117,20 @@ export const Header = () => {
     const { latitude, longitude } = position.coords;
     console.log(latitude, longitude);
 
-    const data = await getLocationName(latitude, longitude);
-    setLocation(data.split(",")[5]);
+const res = await fetch(
+    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+  );
+
+  const data = await res.json();
+
+  console.log(data.display_name);
+setLocation(data.display_name.split(",")[0]);
     return data;
   }
- 
-    const handlePush = (id: string) => {
-       router.push(`/livestock?livestock=${id}`)
 
-    };
+  const handlePush = (id: string) => {
+    router.push(`/livestock?livestock=${id}`);
+  };
   return (
     <div className="flex flex-col w-full relative">
       <div className="px-4 flex flex-row justify-between items-center py-6 xl:px-36 ">
@@ -144,14 +173,26 @@ export const Header = () => {
           )}
         </div>
 
-        <div className="hidden  lg:flex flex-row gap-5 items-center relative    ">
-          <input
-            type="text"
-            placeholder="Search for 1000+ products"
-            className="bg-gray-100  h-fit p-3 px-16 justify-center items-center"
-            onChange={handleSearch}
-          ></input>
-          <IoSearch className="size-8  lg:size-10  cursor-pointer " />
+        <div className="hidden  md:flex flex-row gap-5 items-center relative    ">
+          <div className="flex ">
+            <div className="flex gap-1 items-center shadow-2xl md:p-2 rounded-tl-2xl rounded-bl-2xl border ">
+              <div className="">
+                <IoSearch size={30} className="" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search"
+                className="md:p-2 outline-none"
+                onChange={handleSearch}
+              />
+            </div>
+            <div
+              className="bg-black text-white rounded-tr-2xl rounded-br-2xl flex items-center cursor-pointer"
+              onClick={searchProducts}
+            >
+              <p className="px-4 text-sm font-semibold">Search</p>
+            </div>
+          </div>
 
           <div className="absolute top-14 left-0 w-full bg-white shadow-lg rounded-xl z-20 border max-h-80 overflow-y-auto">
             {products.length > 0 &&
@@ -159,7 +200,7 @@ export const Header = () => {
                 <div
                   key={item.id}
                   className="flex items-center justify-between gap-4 p-3 hover:bg-gray-100 cursor-pointer border-b last:border-b-0 transition"
-                  onClick={()=>handlePush(item.id)}
+                  onClick={() => handlePush(item.id)}
                 >
                   {/* Left Section */}
                   <div className="flex items-center gap-3">
@@ -203,7 +244,7 @@ export const Header = () => {
           </div>
         </div>
         <div className="flex flex-row gap-5 relative">
-          <IoSearch className="size-8  lg:size-10 lg:hidden cursor-pointer" />
+          {/* <IoSearch className="size-8  lg:size-10 lg:hidden cursor-pointer" /> */}
           <FaShoppingCart
             className="size-8  lg:size-10 cursor-pointer"
             onClick={() => router.push("/cart")}
@@ -226,6 +267,72 @@ export const Header = () => {
           {isPremium && <CheckoutButton />}
         </div>
       </div>
+
+      <div className="md:hidden 
+        px-2 pb-1 w-full relative">
+      
+        <div className=" flex items-center gap-0 ">
+            <input
+          type="text"
+          placeholder="Search"
+          className="w-[90%] p-2 outline-1 rounded-tl-xl rounded-bl-xl"
+          onChange={handleSearch}
+        />
+        <div className="bg-black p-1.5 rounded-tr-xl rounded-br-xl">
+          <IoSearch size={30} fill="white" className="bg-black " />
+        </div>
+
+        </div>
+          <div className="absolute top-10 left-0 w-full bg-white shadow-lg rounded-xl z-50 border max-h-80 overflow-y-auto px-2">
+            {products.length > 0 &&
+              products.slice(0 , 5).map((item: Animal) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between gap-4 p-2 hover:bg-gray-100 cursor-pointer border-b last:border-b-0 transition"
+                  onClick={() => handlePush(item.id)}
+                >
+                  {/* Left Section */}
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src="https://meatbuckett.s3.eu-north-1.amazonaws.com/jaffarabadi.jpeg"
+                      alt={item.name}
+                      width={60}
+                      height={60}
+                      className="rounded-lg object-cover h-[60px] w-[60px]"
+                    />
+
+                    <div>
+                      <p className="font-semibold text-gray-800">{item.name}</p>
+
+                      <p className="text-sm text-gray-500">{item.category}</p>
+
+                      <p className="text-xs text-gray-400 line-clamp-1">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Section */}
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-green-600">
+                      ₹{item.price.toLocaleString()}
+                    </p>
+
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        item.exportable
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {item.exportable ? "Exportable" : "Local"}
+                    </span>
+                  </div>
+                </div>
+              ))}
+          </div>
+      </div>
+
       <div className="w-full h-[500px] bg-cover bg-center relative">
         <div className="w-full h-full ">
           <Image

@@ -9,7 +9,9 @@ import { setisLoggedIn, setUserSeller } from "./appcomponents/redux-persit";
 import React from "react";
 import { DisplayProd, Product } from "./appcomponents/DisplayProd";
 import Footer from "./appcomponents/Footer";
-
+import Image from "next/image";
+import WhatsAppIcon from "../../public/whatsapp.svg"
+import Link from "next/link";
 export default function Home() {
   const data = useSession();
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -92,6 +94,13 @@ export default function Home() {
 
   return (
     <div className="relative">
+      <div className="fixed bottom-20 right-4">
+         <Link href={"https://wa.me/917208563916"}>
+        <Image src={WhatsAppIcon} alt="images" height={50} width={50} className="bg-white shadow-4xl"/>
+        </Link>
+       
+
+      </div>
 
 
 

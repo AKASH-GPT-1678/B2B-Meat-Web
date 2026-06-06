@@ -29,7 +29,7 @@ export const DisplayProd: React.FC<Product> = ({ productImgUrl, id,price, minimu
 
 
 
-    const handlePush = (id: string) => {
+    const handlePush = (id: string) : void => {
        router.push(`/livestock?livestock=${id}`)
 
     };
