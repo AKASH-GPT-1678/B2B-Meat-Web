@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { sendMessageOnce } from "@/lib/chatrequest";
 import { useAppSelector } from "@/utils/reduxhook";
-
+import { AddToCartResponse } from "../types/CartType";
 export interface ProductResponseDTO {
   id: string;
   name: string;
@@ -36,6 +36,7 @@ const LiveStockPage = () => {
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
   const myUserId = useAppSelector((state) => state.data.userId);
+  const token = useAppSelector((state) => state.data.token);
   const router = useRouter();
 
   const livestockId = searchParams.get("livestock");
@@ -67,6 +68,23 @@ const LiveStockPage = () => {
     if (quantity < minimumOrderQuantity) {
       setMinimumOrderQuantity(minimumOrderQuantity - 1);
     }
+  };
+  const addToCart = async (
+     productId : string , quantity : number
+  ): Promise<AddToCartResponse> => {
+
+
+    const response = await axios.post<AddToCartResponse>(
+      "http://localhost:8080/product/cart/add",
+       {productId , quantity},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
   };
 
   return (
@@ -140,69 +158,64 @@ const LiveStockPage = () => {
 
             <span className="mt-4">{product.description}</span>
             <p className="font-bold text-4xl mt-5">{product.price}</p>
- 
 
-<div className="flex flex-col items-center sm:items-start justify-center">
+            <div className="flex flex-col items-center sm:items-start justify-center">
+              {/* Exportable */}
+              <div className="flex items-center gap-4 mt-10">
+                <p className="font-bold">Exportable</p>
 
-  {/* Exportable */}
-  <div className="flex items-center gap-4 mt-10">
-    <p className="font-bold">Exportable</p>
+                {product?.exportable ? (
+                  <TiTick size={30} fill="green" />
+                ) : (
+                  <ImCross size={18} fill="red" />
+                )}
+              </div>
 
-    {product?.exportable ? (
-      <TiTick size={30} fill="green" />
-    ) : (
-      <ImCross size={18} fill="red" />
-    )}
-  </div>
+              {/* Quantity */}
+              <div className="flex items-center justify-center bg-gray-200 w-[200px] py-3 rounded-2xl mt-10">
+                <button
+                  className="flex-1 text-3xl font-bold cursor-pointer"
+                  onClick={() => handleMinimumOrderQuantity()}
+                >
+                  -
+                </button>
 
-  {/* Quantity */}
-  <div className="flex items-center justify-center bg-gray-200 w-[200px] py-3 rounded-2xl mt-10">
-    <button
-      className="flex-1 text-3xl font-bold cursor-pointer"
-      onClick={() => handleMinimumOrderQuantity()}
-    >
-      -
-    </button>
+                <button className="flex-1 text-xl font-bold">
+                  {minimumOrderQuantity}
+                </button>
 
-    <button className="flex-1 text-xl font-bold">
-      {minimumOrderQuantity}
-    </button>
+                <button
+                  className="flex-1 text-3xl font-bold cursor-pointer"
+                  onClick={() =>
+                    setMinimumOrderQuantity(minimumOrderQuantity + 1)
+                  }
+                >
+                  +
+                </button>
+              </div>
 
-    <button
-      className="flex-1 text-3xl font-bold cursor-pointer"
-      onClick={() =>
-        setMinimumOrderQuantity(minimumOrderQuantity + 1)
-      }
-    >
-      +
-    </button>
-  </div>
+              {/* Buttons */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 w-full max-w-md place-items-center">
+                <div className="flex items-center justify-center bg-orange-400 w-[200px] py-3 rounded-2xl cursor-pointer" onClick={()=>addToCart(product.id ,minimumOrderQuantity)}>
+                  <span className="font-bold text-lg">Add Cart</span>
+                </div>
 
-  {/* Buttons */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 w-full max-w-md place-items-center">
-    <div className="flex items-center justify-center bg-orange-400 w-[200px] py-3 rounded-2xl cursor-pointer">
-      <span className="font-bold text-lg">
-        Add Cart
-      </span>
-    </div>
-
-    <div className="flex items-center justify-center bg-orange-400 w-[200px] py-3 rounded-2xl cursor-pointer">
-      <span
-        className="font-bold text-lg"
-        onClick={() =>
-          sendMessageOnce({
-            endpoint: chatEndpoint ?? "",
-            userId: myUserId ?? "",
-            sellerId: product.sellerId,
-          })
-        }
-      >
-        Contact Seller
-      </span>
-    </div>
-  </div>
-
-</div>
+                <div className="flex items-center justify-center bg-orange-400 w-[200px] py-3 rounded-2xl cursor-pointer">
+                  <span
+                    className="font-bold text-lg"
+                    onClick={() =>
+                      sendMessageOnce({
+                        endpoint: chatEndpoint ?? "",
+                        userId: myUserId ?? "",
+                        sellerId: product.sellerId,
+                      })
+                    }
+                  >
+                    Contact Seller
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

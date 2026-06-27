@@ -2,6 +2,7 @@ package com.meatbackend.backend.service;
 
 
 import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.response.AddToCartResponse;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
 import com.meatbackend.backend.model.elasticsearch.ProductDocument;
@@ -28,6 +29,10 @@ public interface ProductService {
     ProductResponseDTO getProductById(UUID id);
 
     List<ProductResponse> getProductsByName(String name);
+
+    AddToCartResponse addToCart(UUID productId , Integer quantity);
+
+    List<ProductResponseDTO> getMyCart();
 
 
 

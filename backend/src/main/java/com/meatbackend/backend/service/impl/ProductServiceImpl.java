@@ -3,19 +3,20 @@ package com.meatbackend.backend.service.impl;
 
 import com.meatbackend.backend.exception.NotFoundException;
 import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.response.AddToCartResponse;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
+import com.meatbackend.backend.model.Cart;
 import com.meatbackend.backend.model.elasticsearch.ProductDocument;
 import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.model.ProductModel;
 import com.meatbackend.backend.model.Seller;
 import com.meatbackend.backend.model.User;
-import com.meatbackend.backend.repository.ProductRepository;
-import com.meatbackend.backend.repository.ProductSearchRepository;
-import com.meatbackend.backend.repository.SellerRepository;
-import com.meatbackend.backend.repository.UserRepository;
+import com.meatbackend.backend.repository.*;
 import com.meatbackend.backend.service.ProductService;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,20 +26,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-
     private final SellerRepository sellerRepository;
-    private final  ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final ProductSearchRepository searchRepo;
+    private final CartRepository cartRepository;
 
-    public ProductServiceImpl(SellerRepository sellerRepository, ProductRepository productRepository, UserRepository userRepository , ProductSearchRepository searchRepo){
-        this.sellerRepository = sellerRepository;
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
-        this.searchRepo = searchRepo;
-    }
+
 
 
 
@@ -229,6 +226,91 @@ public class ProductServiceImpl implements ProductService {
 
 
         return foundProducts;
+    }
+
+
+
+    @Override
+    @Transactional
+    public AddToCartResponse addToCart(UUID productId , Integer quantity) {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Product
+        ProductModel product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Check if already exists
+        Optional<Cart> existingCart =
+                cartRepository.findByUserAndProduct(user, product);
+
+        if (existingCart.isPresent()) {
+
+            Cart cart = existingCart.get();
+            cart.setQuantity(cart.getQuantity() + quantity);
+
+            cartRepository.save(cart);
+
+        } else {
+
+            Cart cart = new Cart();
+            cart.setUser(user);
+            cart.setProduct(product);
+            cart.setQuantity(quantity);
+
+            cartRepository.save(cart);
+        }
+
+        return AddToCartResponse.builder()
+                .success(true)
+                .message("Product added to cart successfully.")
+                .build();
+
+
+    }
+
+    @Override
+    public List<ProductResponseDTO> getMyCart() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+
+        List<Cart> cartItems = cartRepository.findByUser(user);
+
+        return cartItems.stream()
+                .map(cart -> {
+                    ProductModel product = cart.getProduct();
+
+                    return new ProductResponseDTO(
+                            product.getId(),
+                            product.getName(),
+                            product.getSeller().getName(), // or getName()
+                            product.getSeller().getId(),
+                            product.getDescription(),
+                            product.getMinimumOrderQuantity(),
+                            product.getPrice(),
+                            product.getProductImgUrl(),
+                            product.isExportable(),
+                            product.getCategory(),
+                            product.getCreatedOn(),
+                            product.getUpdatedOn()
+                    );
+                })
+                .toList();
+
+
     }
 
     private ProductResponseDTO mapToDTO(ProductModel product) {

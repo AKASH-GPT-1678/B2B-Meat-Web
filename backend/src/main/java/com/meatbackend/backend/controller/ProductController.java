@@ -1,7 +1,9 @@
 package com.meatbackend.backend.controller;
 
 
+import com.meatbackend.backend.io.request.AddCartRequest;
 import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.response.AddToCartResponse;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
 import com.meatbackend.backend.model.ProductModel;
@@ -18,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -94,6 +97,26 @@ public class ProductController {
         List<ProductModel> allProducts = productRepository.findAll();
         allProducts.forEach(productSyncService::indexProduct);
         return ResponseEntity.ok("Indexed " + allProducts.size() + " products");
+    }
+
+    @PostMapping("cart/add")
+    public ResponseEntity<AddToCartResponse> addToCart(
+            @RequestBody AddCartRequest request) {
+
+        AddToCartResponse response = productService.addToCart(
+                request.getProductId(),
+                request.getQuantity()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/my_cart")
+    public ResponseEntity<List<ProductResponseDTO>> getMyCart() {
+
+        List<ProductResponseDTO> cartProducts = productService.getMyCart();
+
+        return ResponseEntity.ok(cartProducts);
     }
 
 
