@@ -1,20 +1,20 @@
 "use client";
-import React from 'react';
-import Image from 'next/image';
-import { TiTick } from 'react-icons/ti';
-import { ImCross } from 'react-icons/im';
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import { sendMessageOnce } from '@/lib/chatrequest';
-import { useAppSelector } from '@/utils/reduxhook';
+import React from "react";
+import Image from "next/image";
+import { TiTick } from "react-icons/ti";
+import { ImCross } from "react-icons/im";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import { sendMessageOnce } from "@/lib/chatrequest";
+import { useAppSelector } from "@/utils/reduxhook";
 
 export interface ProductResponseDTO {
   id: string;
   name: string;
   description: string;
-  category: string;           // normalized from "category" / "category : "BUFFALO""
-  price: number;              // numeric price
+  category: string; // normalized from "category" / "category : "BUFFALO""
+  price: number; // numeric price
   productImgUrl: string;
   sellerId: string;
   sellerName?: string | null;
@@ -22,32 +22,30 @@ export interface ProductResponseDTO {
   exportable: boolean;
   createdOn: Date;
   updatedOn: Date | null;
-  exportableRaw?: boolean;    // raw boolean (keeps raw if needed)
-  raw?: unknown;              // keep original if needed for debugging
+  exportableRaw?: boolean; // raw boolean (keeps raw if needed)
+  raw?: unknown; // keep original if needed for debugging
 }
 const LiveStockPage = () => {
   const searchParams = useSearchParams();
   const [product, setProduct] = React.useState<ProductResponseDTO>();
   const [error, setError] = React.useState(false);
-  const [minimumOrderQuantity, setMinimumOrderQuantity] = React.useState<number>(0);
+  const [minimumOrderQuantity, setMinimumOrderQuantity] =
+    React.useState<number>(0);
   const [quantity, setQuantity] = React.useState<number>(0);
   const chatEndpoint = process.env.NEXT_PUBLIC_CHAT_URL;
-
 
   const endpoint = process.env.NEXT_PUBLIC_BACKEND_URL;
   const myUserId = useAppSelector((state) => state.data.userId);
   const router = useRouter();
 
-
-  const livestockId = searchParams.get('livestock');
+  const livestockId = searchParams.get("livestock");
   React.useEffect(() => {
     if (!livestockId) return;
 
     const fetchProduct = async (): Promise<ProductResponseDTO | undefined> => {
       try {
-
         const response = await axios.get(`${endpoint}/product/livestock`, {
-          params: { id: livestockId }
+          params: { id: livestockId },
         });
         setProduct(response.data);
         console.log(response.data);
@@ -56,12 +54,10 @@ const LiveStockPage = () => {
         setQuantity(Number(response.data.minimumOrderQuantity));
 
         return undefined;
-
-      } catch (err:unknown) {
+      } catch (err: unknown) {
         console.error(err);
         setError(true);
       } finally {
-
       }
     };
 
@@ -71,28 +67,29 @@ const LiveStockPage = () => {
     if (quantity < minimumOrderQuantity) {
       setMinimumOrderQuantity(minimumOrderQuantity - 1);
     }
-  }
-
+  };
 
   return (
-    <div className=''>
-
-      {
-
-        !error && product &&
-        <div className=' p-10 xl:p-40 grid md:grid-cols-2 bg-gray-100 '>
-
-          <div className='flex flex-col gap-8
+    <div className="">
+      {!error && product && (
+        <div className=" p-10 xl:p-40 grid md:grid-cols-2 bg-gray-100 ">
+          <div
+            className="flex flex-col gap-8
 
                 
-                '>
-
+                "
+          >
             <div>
-              <Image src={product.productImgUrl} width={400} height={400} alt='product' className='rounded-2xl w-full sm:w-[400px] p-6 min-h-[300px] xl:w-[500px] xl:h-[500px]' />
-
+              <Image
+                src={product.productImgUrl}
+                width={400}
+                height={400}
+                alt="product"
+                className="rounded-2xl w-full shadow-2xl sm:w-[400px]  min-h-[300px] xl:w-[500px] xl:h-[500px]"
+              />
             </div>
-            <div className='flex flex-row gap-4 w-full sm:w-[400px] xl:w-[500px]  p-6'>
-              <div className='flex-1 min-h-[100px] relative rounded-lg overflow-hidden'>
+            <div className="flex flex-row gap-4 w-full sm:w-[400px] xl:w-[500px]  p-6">
+              <div className="flex-1 min-h-[100px] relative rounded-lg overflow-hidden">
                 <Image
                   src={product.productImgUrl}
                   alt="Chicken 1"
@@ -100,7 +97,7 @@ const LiveStockPage = () => {
                   className="object-cover"
                 />
               </div>
-              <div className='flex-1 min-h-[100px] relative rounded-lg overflow-hidden'>
+              <div className="flex-1 min-h-[100px] relative rounded-lg overflow-hidden">
                 <Image
                   src={product.productImgUrl}
                   alt="Chicken 2"
@@ -108,7 +105,7 @@ const LiveStockPage = () => {
                   className="object-cover"
                 />
               </div>
-              <div className='flex-1 min-h-[100px] relative rounded-lg overflow-hidden'>
+              <div className="flex-1 min-h-[100px] relative rounded-lg overflow-hidden">
                 <Image
                   src={product.productImgUrl}
                   alt="Chicken 3"
@@ -116,7 +113,7 @@ const LiveStockPage = () => {
                   className="object-cover"
                 />
               </div>
-              <div className='flex-1 min-h-[100px] relative rounded-lg overflow-hidden'>
+              <div className="flex-1 min-h-[100px] relative rounded-lg overflow-hidden">
                 <Image
                   src={product.productImgUrl}
                   alt="Chicken 4"
@@ -125,96 +122,92 @@ const LiveStockPage = () => {
                 />
               </div>
             </div>
-
           </div>
-          <div className='flex flex-col justify-center max-w-[600px] '>
+          <div className="flex flex-col justify-center max-w-[600px] ">
             <h2>{product.name}</h2>
-            <h1 className='font-bold text-4xl'>{product.name}</h1>
+            <h1 className="font-bold text-4xl">{product.name}</h1>
 
-            <div className='mt-2'>
-              <p className='text-blue-500 font-bold cursor-pointer'
-              onClick={()=>router.push(`/sellerprofile/${product.sellerId}`)}
-              
-              >{product.sellerName}</p>
+            <div className="mt-2">
+              <p
+                className="text-blue-500 font-bold cursor-pointer"
+                onClick={() =>
+                  router.push(`/sellerprofile/${product.sellerId}`)
+                }
+              >
+                {product.sellerName}
+              </p>
             </div>
 
-            <span className='mt-4'>
-              {
-                product.description
-              }
-            </span>
-            <p className='font-bold text-4xl mt-5'>
-              {product.price}
+            <span className="mt-4">{product.description}</span>
+            <p className="font-bold text-4xl mt-5">{product.price}</p>
+ 
 
-            </p>
+<div className="flex flex-col items-center sm:items-start justify-center">
 
-            <div className='flex flex-row gap-4 mt-10 items-center'>
-              <p>Exportable</p>
+  {/* Exportable */}
+  <div className="flex items-center gap-4 mt-10">
+    <p className="font-bold">Exportable</p>
 
+    {product?.exportable ? (
+      <TiTick size={30} fill="green" />
+    ) : (
+      <ImCross size={18} fill="red" />
+    )}
+  </div>
 
+  {/* Quantity */}
+  <div className="flex items-center justify-center bg-gray-200 w-[200px] py-3 rounded-2xl mt-10">
+    <button
+      className="flex-1 text-3xl font-bold cursor-pointer"
+      onClick={() => handleMinimumOrderQuantity()}
+    >
+      -
+    </button>
 
-              {
-                product?.exportable ? (
-                  <TiTick size={30
-                  } fill='green' />
-                ) : (
-                  <ImCross size={18
-                  } fill='red' />
+    <button className="flex-1 text-xl font-bold">
+      {minimumOrderQuantity}
+    </button>
 
-                )
-
-              }
-
-
-
-            </div>
-            <div className='grid grid-cols-2'>
-
-
-              <div className='flex flex-row items-center justify-center   bg-gray-200 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <button className='flex-1/4 font-bold text-3xl cursor-pointer' onClick={() => handleMinimumOrderQuantity()}>
-                  -
-                </button>
-                <button className='flex-2/4 font-bold cursor-pointer text-xl'>{minimumOrderQuantity}</button>
-                <button className='flex-1/4 font-bold cursor-pointer' onClick={() => setMinimumOrderQuantity(minimumOrderQuantity + 1)}>
-                  +
-                </button>
-
-              </div>
-
-              <div className='flex flex-row items-center justify-center   bg-orange-400 max-w-[200px]  py-3 rounded-2xl mt-10 '>
-                <span
-                  className='font-bold text-lg cursor-pointer'
-                  onClick={() =>
-                    sendMessageOnce({
-                      endpoint: chatEndpoint ?? "",
-                      userId: myUserId ?? "",
-                      sellerId: product.sellerId
-                      
-        
-                    })
-                  }
-                >
-                  Contact Seller
-                </span>
-
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-
-        </div>
+    <button
+      className="flex-1 text-3xl font-bold cursor-pointer"
+      onClick={() =>
+        setMinimumOrderQuantity(minimumOrderQuantity + 1)
       }
+    >
+      +
+    </button>
+  </div>
 
-
+  {/* Buttons */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 w-full max-w-md place-items-center">
+    <div className="flex items-center justify-center bg-orange-400 w-[200px] py-3 rounded-2xl cursor-pointer">
+      <span className="font-bold text-lg">
+        Add Cart
+      </span>
     </div>
-  )
-}
+
+    <div className="flex items-center justify-center bg-orange-400 w-[200px] py-3 rounded-2xl cursor-pointer">
+      <span
+        className="font-bold text-lg"
+        onClick={() =>
+          sendMessageOnce({
+            endpoint: chatEndpoint ?? "",
+            userId: myUserId ?? "",
+            sellerId: product.sellerId,
+          })
+        }
+      >
+        Contact Seller
+      </span>
+    </div>
+  </div>
+
+</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default LiveStockPage;
-
