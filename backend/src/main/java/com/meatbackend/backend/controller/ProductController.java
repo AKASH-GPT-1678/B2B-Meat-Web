@@ -13,8 +13,7 @@ import com.meatbackend.backend.repository.ProductRepository;
 import com.meatbackend.backend.service.AuthService;
 import com.meatbackend.backend.service.FileUploadService;
 import com.meatbackend.backend.service.ProductService;
-import com.meatbackend.backend.service.impl.ProductSearchService;
-import com.meatbackend.backend.service.impl.ProductSyncService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +34,8 @@ public class ProductController {
      private final FileUploadService fileUploadService;
      private final ProductService productService;
      private final AuthService authService;
-     private final ProductSearchService searchService;
      private final ProductRepository productRepository;
-     private final ProductSyncService productSyncService;
+
 
 
 
@@ -87,17 +85,17 @@ public class ProductController {
          return ResponseEntity.ok().body(productResponseDTOS);
      }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<ProductDocument>> search(
-            @RequestParam String q) {
-        return ResponseEntity.ok(searchService.searchByName(q));
-    }
-    @GetMapping("/reindex")
-    public ResponseEntity<String> reindex() {
-        List<ProductModel> allProducts = productRepository.findAll();
-        allProducts.forEach(productSyncService::indexProduct);
-        return ResponseEntity.ok("Indexed " + allProducts.size() + " products");
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<List<ProductDocument>> search(
+//            @RequestParam String q) {
+//        return ResponseEntity.ok(searchService.searchByName(q));
+//    }
+//    @GetMapping("/reindex")
+//    public ResponseEntity<String> reindex() {
+//        List<ProductModel> allProducts = productRepository.findAll();
+//        allProducts.forEach(productSyncService::indexProduct);
+//        return ResponseEntity.ok("Indexed " + allProducts.size() + " products");
+//    }
 
     @PostMapping("cart/add")
     public ResponseEntity<AddToCartResponse> addToCart(

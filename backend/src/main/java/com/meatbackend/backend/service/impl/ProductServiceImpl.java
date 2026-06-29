@@ -32,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
     private final SellerRepository sellerRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final ProductSearchRepository searchRepo;
     private final CartRepository cartRepository;
 
 

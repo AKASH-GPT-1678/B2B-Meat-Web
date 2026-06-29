@@ -26,7 +26,7 @@ const Settings = () => {
   const [isFileSelected, setIsFileSelected] = React.useState(false);
   const [chnageName, setChangeName] = React.useState(false);
   const [thingtoChange, setThingtoChange] = React.useState("");
-  const [contact, setContact] = React.useState("");
+
   const [chatStatus, setChatstatus] = React.useState(true);
   const [profile, setProfile] = React.useState<ProfileResponseDTO | null>(null);
   const [showModal, setshowMoadal] = React.useState<boolean>(false);
@@ -326,26 +326,7 @@ const Settings = () => {
           <div>{!profile.premium && <CheckoutButton />}</div>
         </div>
 
-        <div className="flex flex-row justify-between p-4 mb-4">
-          <div>
-            <p className="text-sm">
-              Once you disabled chat your all previous chats will be lost
-            </p>
-            <p className="font-bold">Chat Staus</p>
-            <div
-              onClick={() => toggleChatStatus(chatStatus)}
-              className={`${
-                chatStatus ? "bg-emerald-400" : "bg-gray-200"
-              } h-[40px] w-[80px] rounded-2xl cursor-pointer mt-2`}
-            >
-              <div
-                className={`rounded-full h-[40px] bg-emerald-400 w-[40px] border-4 ${
-                  chatStatus ? "ml-auto border-amber-50" : "border-gray-400"
-                }`}
-              ></div>
-            </div>
-          </div>
-        </div>
+
         <hr />
       </div>
       {showModal && (
