@@ -1,13 +1,12 @@
 package com.meatbackend.backend.controller;
 
 
-import com.meatbackend.backend.io.request.AddCartRequest;
-import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.AddCartRequest;
+import com.meatbackend.backend.io.ProductRequest;
 import com.meatbackend.backend.io.response.AddToCartResponse;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
-import com.meatbackend.backend.model.ProductModel;
-import com.meatbackend.backend.model.elasticsearch.ProductDocument;
+//import com.meatbackend.backend.model.elasticsearch.ProductDocument;
 import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.repository.ProductRepository;
 import com.meatbackend.backend.service.AuthService;

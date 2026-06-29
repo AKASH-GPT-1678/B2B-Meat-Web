@@ -1,5 +1,4 @@
-package com.meatbackend.backend.io.request;
-
+package com.meatbackend.backend.io;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddCartRequest {
-
     private UUID productId;
     private Integer quantity;
 }

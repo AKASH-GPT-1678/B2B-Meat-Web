@@ -1,4 +1,4 @@
-package com.meatbackend.backend.io.request;
+package com.meatbackend.backend.io;
 
 
 import com.meatbackend.backend.model.enums.ProductCategory;

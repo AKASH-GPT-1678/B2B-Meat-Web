@@ -2,12 +2,12 @@ package com.meatbackend.backend.service.impl;
 
 
 import com.meatbackend.backend.exception.NotFoundException;
-import com.meatbackend.backend.io.request.ProductRequest;
+import com.meatbackend.backend.io.ProductRequest;
 import com.meatbackend.backend.io.response.AddToCartResponse;
 import com.meatbackend.backend.io.response.ProductResponse;
 import com.meatbackend.backend.io.response.ProductResponseDTO;
 import com.meatbackend.backend.model.Cart;
-import com.meatbackend.backend.model.elasticsearch.ProductDocument;
+
 import com.meatbackend.backend.model.enums.ProductCategory;
 import com.meatbackend.backend.model.ProductModel;
 import com.meatbackend.backend.model.Seller;
